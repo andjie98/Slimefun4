@@ -1,35 +1,45 @@
-# Slimefun 4
+# Slimefun 4 (远古工艺)
 
-Hello and welcome to Slimefun 4's GitHub Page.
+[![Build and Release](https://github.com/andjie98/Slimefun4/actions/workflows/release.yml/badge.svg)](https://github.com/andjie98/Slimefun4/actions/workflows/release.yml)
+[![GitHub release](https://img.shields.io/github/v/release/andjie98/Slimefun4?include_prereleases)](https://github.com/andjie98/Slimefun4/releases)
+[![License](https://img.shields.io/github/license/andjie98/Slimefun4)](LICENSE)
 
-Slimefun 4 is the 4th of the big Updates to the revolutionary and game-changing Plugin [Slimefun](http://dev.bukkit.org/bukkit-plugins/slimefun/)
+这是 Slimefun 4 的中文定制版本，针对 Minecraft 1.12.2 进行优化和修复。
 
-Slimefun 4 is licensed under 
-[GNU GPLv3](https://github.com/TheBusyBiscuit/Slimefun4/blob/master/LICENSE)
+## 下载
 
-## Development Builds
-Click on the badge below to go to our "development" build page, where you can download the latest Slimefun versions before they are released to the public. But keep in mind: These builds are still in development and not guaranteed to work or to be stable.
+最新版本可在 [Releases](https://github.com/andjie98/Slimefun4/releases) 页面下载。
 
-<p align="center">
-  <a href="https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/">
-    <img src="https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/badge.svg" alt="Build Server"/>
-  </a>
-</p>
+## 修复内容
 
-## Contributions
+- 修复世界卸载时 `NullPointerException` 刷屏问题
+- 修复 `BlockStorage.getTickingLocations` 返回 null 的问题
 
-You are allowed, even encouraged, to contribute to Slimefun 4 by making Pull Requests.
-These Pull Requests can be Fixes, Changes or even Additions, but please keep in mind that
-if you add too much content to Slimefun 4, you should rather make an Addon for it instead.
+## 原版说明
 
-Check the license for more Info on redistributing and modifying Slimefun 4.
+Slimefun 4 是对革命性插件 [Slimefun](http://dev.bukkit.org/bukkit-plugins/slimefun/) 的第四次重大更新。
 
-### Contributors
+本项目基于 [GNU GPLv3](LICENSE) 许可证开源。
 
-[Here is a list of all people who contributed to Slimefun 4 by submitting Code.](https://github.com/TheBusyBiscuit/Slimefun4/graphs/contributors)
+### 开发构建
 
-## Wiki
+原版开发构建可在以下地址获取：
+https://thebusybiscuit.github.io/builds/TheBusyBiscuit/Slimefun4/master/
 
-Slimefun has a (detailed and well-maintained) Wiki for new Users, maybe also consider
-applying as Wiki Staff to help grow our Community and help out new Users of this Project.
+### Wiki
+
+详细使用说明请参考原版 Wiki：
 https://github.com/TheBusyBiscuit/Slimefun4/wiki
+
+## 依赖
+
+- CS-CoreLib
+- Spigot/Paper 1.12.2
+
+## 构建
+
+```bash
+mvn clean package
+```
+
+构建产物位于 `target/` 目录。
