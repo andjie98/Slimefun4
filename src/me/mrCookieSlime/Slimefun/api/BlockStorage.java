@@ -584,7 +584,8 @@ public class BlockStorage {
 	}
 
 	public static Set<Location> getTickingLocations(String chunk) {
-		return new HashSet<Location>(ticking_chunks.get(chunk));
+		Set<Location> locations = ticking_chunks.get(chunk);
+		return locations == null ? new HashSet<Location>() : new HashSet<Location>(locations);
 	}
 	
 	public BlockMenu loadInventory(Location l, BlockMenuPreset preset) {

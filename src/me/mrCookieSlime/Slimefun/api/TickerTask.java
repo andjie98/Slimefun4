@@ -73,7 +73,7 @@ public class TickerTask implements Runnable {
 				
 				blocks:
 				for (final Location l: BlockStorage.getTickingLocations(c)) {
-					if (l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) {
+					if (l.getWorld() != null && l.getWorld().isChunkLoaded(l.getBlockX() >> 4, l.getBlockZ() >> 4)) {
 						final Block b = l.getBlock();
 						final SlimefunItem item = BlockStorage.check(l);
 						if (item != null) {
