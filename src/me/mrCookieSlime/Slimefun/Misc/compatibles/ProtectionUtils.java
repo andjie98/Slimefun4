@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 public class ProtectionUtils {
     public static boolean canAccessItem(Player p, Block b){
         if (p.isOp()){
-            p.sendMessage("§8[§e远古工艺§8] §c越权打开了他人的机器");
+            p.sendMessage("§8[§e粘液科技§8] §c越权打开了他人的机器");
             return true;
         }
         if (SlimefunStartup.instance.isPlotSquaredInstalled()){
@@ -22,7 +22,7 @@ public class ProtectionUtils {
             Plot plot = Plot.getPlot(plotLoc);
             if (plot != null) {
                 if (!plot.isAdded(p.getUniqueId())){
-                    p.sendMessage("§8[§e远古工艺§8] §c抱歉，你不可以在无权使用的地皮上使用机器. 请联系地皮主人给你权限吧！");
+                    p.sendMessage("§8[§e粘液科技§8] §c抱歉，你不可以在无权使用的地皮上使用机器. 请联系地皮主人给你权限吧！");
                     return false;
                 }
             }
@@ -32,7 +32,7 @@ public class ProtectionUtils {
             if (res != null) {
                 if (!p.hasPermission("residence.bypass.use")) {
                     if ((!res.getPermissions().playerHas(p.getName(), p.getWorld().getName(), "sf-machines", true) && !res.getPermissions().has("sf-machines", true))) {
-                        p.sendMessage("§8[§b远古工艺§8] §c你需要这个领地的§esf-machines§c标识§8(flag)§c才能这么做");
+                        p.sendMessage("§8[§b粘液科技§8] §c你需要这个领地的§esf-machines§c标识§8(flag)§c才能这么做");
                         return false;
                     }
                 }
@@ -48,7 +48,7 @@ public class ProtectionUtils {
     public static boolean canBuild(Player player, Block block, boolean notify) {
         if (player.isOp()){
             if (notify) {
-                player.sendMessage("§8[§e远古工艺§8] §c越权打开了他人的机器");
+                player.sendMessage("§8[§e粘液科技§8] §c越权打开了他人的机器");
             }
             return true;
         }
@@ -58,7 +58,7 @@ public class ProtectionUtils {
             if (plot != null) {
                 if (!plot.isAdded(player.getUniqueId())){
                     if (notify) {
-                        player.sendMessage("§8[§e远古工艺§8] §c抱歉，你不可以在这里建造或破坏. 请联系地皮主人给你权限吧！");
+                        player.sendMessage("§8[§e粘液科技§8] §c抱歉，你不可以在这里建造或破坏. 请联系地皮主人给你权限吧！");
                     }
                     return false;
                 }
@@ -70,7 +70,7 @@ public class ProtectionUtils {
                 if (!player.hasPermission("residence.bypass.use")) {
                     if ((!res.getPermissions().playerHas(player.getName(), player.getWorld().getName(), "destroy", true))) {
                         if (notify) {
-                            player.sendMessage("§8[§b远古工艺§8] §c你不可以在这里建造或破坏");
+                            player.sendMessage("§8[§b粘液科技§8] §c你不可以在这里建造或破坏");
                         }
                         return false;
                     }

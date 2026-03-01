@@ -1,4 +1,4 @@
-# Slimefun 4 (远古工艺)
+# Slimefun 4 (粘液科技)
 
 [![Build and Release](https://github.com/andjie98/Slimefun4/actions/workflows/release.yml/badge.svg)](https://github.com/andjie98/Slimefun4/actions/workflows/release.yml)
 [![GitHub release](https://img.shields.io/github/v/release/andjie98/Slimefun4?include_prereleases)](https://github.com/andjie98/Slimefun4/releases)

@@ -117,7 +117,7 @@ public class SlimefunStartup extends JavaPlugin {
 				
 				// Looks like you are using an unsupported Minecraft Version
 				if (!compatibleVersion) {
-					System.err.println("### 远古工艺加载失败!");
+					System.err.println("### 粘液科技加载失败!");
 					System.err.println("###");
 					System.err.println("### 你当前使用的Minecraft版本Slimefun不支持!!!");
 					System.err.println("###");
@@ -133,10 +133,10 @@ public class SlimefunStartup extends JavaPlugin {
 			}
 
 			instance = this;
-			System.out.println("[远古工艺] 加载文件中...");
+			System.out.println("[粘液科技] 加载文件中...");
 			Files.cleanup();
 
-			System.out.println("[远古工艺] 加载配置中...");
+			System.out.println("[粘液科技] 加载配置中...");
 
 			utils = new PluginUtils(this);
 			utils.setupConfig();
@@ -170,7 +170,7 @@ public class SlimefunStartup extends JavaPlugin {
 
 			SlimefunManager.plugin = this;
 
-			System.out.println("[远古工艺] 加载物品中...");
+			System.out.println("[粘液科技] 加载物品中...");
 			MiscSetup.setupItemSettings();
 			try {
 				SlimefunSetup.setupItems();
@@ -181,7 +181,7 @@ public class SlimefunStartup extends JavaPlugin {
 			}
 			MiscSetup.loadDescriptions();
 
-			System.out.println("[远古工艺] 加载研究中...");
+			System.out.println("[粘液科技] 加载研究中...");
 			Research.enabled = getResearchCfg().getBoolean("enable-researching");
 			ResearchSetup.setupResearches();
 
@@ -189,7 +189,7 @@ public class SlimefunStartup extends JavaPlugin {
 
 			BlockStorage.info_delay = config.getInt("URID.info-delay");
 
-			System.out.println("[远古工艺] 加载世界生成器中...");
+			System.out.println("[粘液科技] 加载世界生成器中...");
 
 			// Generating Oil as an OreGenResource (its a cool API)
 			OreGenSystem.registerResource(new OilResource());
@@ -257,7 +257,7 @@ public class SlimefunStartup extends JavaPlugin {
 				public void onWorldUnload(WorldUnloadEvent e) {
 					BlockStorage storage = BlockStorage.getStorage(e.getWorld());
 					if (storage != null) storage.save(true);
-					else System.err.println("[远古工艺] Could not save Slimefun Blocks for World \"" + e.getWorld().getName() + "\"");
+					else System.err.println("[粘液科技] Could not save Slimefun Blocks for World \"" + e.getWorld().getName() + "\"");
 				}
 
 			}, this);
@@ -291,10 +291,10 @@ public class SlimefunStartup extends JavaPlugin {
 				try {
 					Class.forName("com.sk89q.worldedit.extent.Extent");
 					new WESlimefunManager();
-					System.out.println("[远古工艺] Successfully hooked into WorldEdit!");
+					System.out.println("[粘液科技] Successfully hooked into WorldEdit!");
 				} catch (Exception x) {
-					System.err.println("[远古工艺] Failed to hook into WorldEdit!");
-					System.err.println("[远古工艺] Maybe consider updating WorldEdit or Slimefun?");
+					System.err.println("[粘液科技] Failed to hook into WorldEdit!");
+					System.err.println("[粘液科技] Maybe consider updating WorldEdit or Slimefun?");
 				}
 			}
 
@@ -370,7 +370,7 @@ public class SlimefunStartup extends JavaPlugin {
 			}, 80L, 60 * 60 * 20L);
 			
 			// Hooray!
-			System.out.println("[远古工艺] 已完成!");
+			System.out.println("[粘液科技] 已完成!");
 
 			clearlag = getServer().getPluginManager().isPluginEnabled("ClearLag");
 
@@ -414,7 +414,7 @@ public class SlimefunStartup extends JavaPlugin {
 					storage.save(true);
 				}
 				else {
-					System.err.println("[远古工艺] Could not save Slimefun Blocks for World \"" + world.getName() + "\"");
+					System.err.println("[粘液科技] Could not save Slimefun Blocks for World \"" + world.getName() + "\"");
 				}
 			}
 

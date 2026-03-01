@@ -50,11 +50,11 @@ public class MiscSetup {
 		while (iterator.hasNext()) {
 			SlimefunItem item = iterator.next();
 			if (item == null) {
-				System.err.println("[远古工艺] Removed bugged Item ('NULL?')");
+				System.err.println("[粘液科技] Removed bugged Item ('NULL?')");
 				iterator.remove();
 			}
 			else if (item.getItem() == null) {
-				System.err.println("[远古工艺] Removed bugged Item ('" + item.getID() + "')");
+				System.err.println("[粘液科技] Removed bugged Item ('" + item.getID() + "')");
 				iterator.remove();
 			}
 		}
@@ -191,9 +191,9 @@ public class MiscSetup {
 			handler.run(pre, init, post);
 		}
 
-		sender.sendMessage(color + "###################### - 远古工艺 - ######################");
+		sender.sendMessage(color + "###################### - 粘液科技 - ######################");
 		sender.sendMessage(color + "        成功加载了 " + SlimefunItem.list().size() + " 个物品 (" + Research.list().size() + " 项研究)");
-		sender.sendMessage(color + "    ( " + SlimefunItem.vanilla + " 个物品来自原生远古工艺, " + (SlimefunItem.list().size() - SlimefunItem.vanilla) + " 个物品来自扩展 )");
+		sender.sendMessage(color + "    ( " + SlimefunItem.vanilla + " 个物品来自原生粘液科技, " + (SlimefunItem.list().size() - SlimefunItem.vanilla) + " 个物品来自扩展 )");
 		sender.sendMessage(color + "##########################################################");
 		SlimefunStartup.getItemCfg().save();
 		SlimefunStartup.getResearchCfg().save();

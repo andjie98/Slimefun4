@@ -83,13 +83,13 @@ public class SlimefunGuide {
 	public static ItemStack getItem(BookDesign design) {
 		switch (design) {
 			case BOOK: {
-				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e远古工艺之书 &7(书本界面)", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
+				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e粘液科技之书 &7(书本界面)", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
 			}
 			case CHEAT_SHEET: {
-				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&c远古工艺之书 &4(作弊面板)", "", "&4&l仅供管理员使用", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
+				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&c粘液科技之书 &4(作弊面板)", "", "&4&l仅供管理员使用", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
 			}
 			case CHEST: {
-				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e远古工艺之书 &7(箱子界面)", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
+				return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e粘液科技之书 &7(箱子界面)", "", "&e右键点击 &8\u21E8 &7浏览物品", "&eShift + 右键点击 &8\u21E8 &7打开界面设置菜单");
 			}
 		default:
 			return null;
@@ -102,7 +102,7 @@ public class SlimefunGuide {
 	}
 	
 	public static ItemStack getDeprecatedItem(boolean book) {
-		return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e远古工艺之书 &8(右键点击打开)", (book ? "": "&2"), "&7这是远古工艺的使用向导书", "&7书本虽已泛黄, 知识却历久弥新", "&7你可以在书中解锁物品", "&7查看机器搭建方法以及物品制作、合成方法");
+		return new CustomItem(new MaterialData(Material.ENCHANTED_BOOK), "&e粘液科技之书 &8(右键点击打开)", (book ? "": "&2"), "&7这是粘液科技的使用向导书", "&7书本虽已泛黄, 知识却历久弥新", "&7你可以在书中解锁物品", "&7查看机器搭建方法以及物品制作、合成方法");
 	}
 	
 	private static final int[] slots = new int[] {0, 2, 3, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35};
@@ -468,7 +468,7 @@ public class SlimefunGuide {
 			
 			for (int i = 0; i < texts.size(); i = i + 10) {
 				TellRawMessage page = new TellRawMessage();
-				page.addText(ChatColor.translateAlternateColorCodes('&', "&b&l- 远古工艺向导 -\n\n"));
+				page.addText(ChatColor.translateAlternateColorCodes('&', "&b&l- 粘液科技向导 -\n\n"));
 				for (int j = i; j < texts.size() && j < i + 10; j++) {
 					page.addText(texts.get(j) + "\n");
 					if (tooltips.get(j) != null) page.addHoverEvent(HoverAction.SHOW_TEXT, tooltips.get(j));
@@ -490,10 +490,10 @@ public class SlimefunGuide {
 				pages.add(page);
 			}
 			
-			new CustomBookOverlay("远古工艺向导", "mrCookieSlime", pages.toArray(new TellRawMessage[pages.size()])).open(p);
+			new CustomBookOverlay("粘液科技向导", "mrCookieSlime", pages.toArray(new TellRawMessage[pages.size()])).open(p);
 		}
 		else {
-			final ChestMenu menu = new ChestMenu("远古工艺向导");
+			final ChestMenu menu = new ChestMenu("粘液科技向导");
 			
 			menu.setEmptySlotsClickable(false);
 			menu.addMenuOpeningHandler(new MenuOpeningHandler() {
@@ -749,7 +749,7 @@ public class SlimefunGuide {
 			
 			for (int i = 0; i < texts.size(); i = i + 10) {
 				TellRawMessage page = new TellRawMessage();
-				page.addText(ChatColor.translateAlternateColorCodes('&', "&b&l- 远古工艺向导 -\n\n"));
+				page.addText(ChatColor.translateAlternateColorCodes('&', "&b&l- 粘液科技向导 -\n\n"));
 				for (int j = i; j < texts.size() && j < i + 10; j++) {
 					page.addText(texts.get(j) + "\n");
 					if (tooltips.get(j) != null) page.addHoverEvent(HoverAction.SHOW_TEXT, tooltips.get(j));
@@ -774,10 +774,10 @@ public class SlimefunGuide {
 				pages.add(page);
 			}
 			
-			new CustomBookOverlay("远古工艺向导", "mrCookieSlime", pages.toArray(new TellRawMessage[pages.size()])).open(p);
+			new CustomBookOverlay("粘液科技向导", "mrCookieSlime", pages.toArray(new TellRawMessage[pages.size()])).open(p);
 		}
 		else {
-			final ChestMenu menu = new ChestMenu("远古工艺向导");
+			final ChestMenu menu = new ChestMenu("粘液科技向导");
 			
 			menu.setEmptySlotsClickable(false);
 			menu.addMenuOpeningHandler(new MenuOpeningHandler() {
@@ -970,7 +970,7 @@ public class SlimefunGuide {
 		ItemStack recipeType = null;
 		ItemStack recipeOutput = item;
 		
-		ChestMenu menu = new ChestMenu("远古工艺向导");
+		ChestMenu menu = new ChestMenu("粘液科技向导");
 		
 		menu.setEmptySlotsClickable(false);
 		menu.addMenuOpeningHandler(new MenuOpeningHandler() {

@@ -1261,7 +1261,7 @@ public abstract class ProgrammableAndroid extends SlimefunItem {
 
 	@SuppressWarnings("deprecation")
 	private void openScriptDownloader(final Player p, final Block b, final int page) throws Exception {
-		final ChestMenu menu = new ChestMenu("远古工艺向导");
+		final ChestMenu menu = new ChestMenu("粘液科技向导");
 
 		menu.addMenuOpeningHandler(new MenuOpeningHandler() {
 

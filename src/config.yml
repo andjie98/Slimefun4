@@ -5,7 +5,7 @@ options:
   print-out-loading: false
   print-out-github-data-retrieving: false
   enable-armor-effects: true
-  prefix: '&a&l远古工艺 &7>'
+  prefix: '&a&l粘液科技 &7>'
   auto-save-delay-in-minutes: 10
   show-vanilla-recipes-in-guide: true
   allow-free-creative-research: true

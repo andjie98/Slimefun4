@@ -83,8 +83,8 @@ public class BlockStorage {
 	public BlockStorage(final World w) {
 		if (worlds.containsKey(w.getName())) return;
 		this.world = w;
-		System.out.println("[远古工艺] 正在加载世界中的方块 \"" + w.getName() + "\"");
-		System.out.println("[远古工艺] 可能需要花费一些时间...");
+		System.out.println("[粘液科技] 正在加载世界中的方块 \"" + w.getName() + "\"");
+		System.out.println("[粘液科技] 可能需要花费一些时间...");
 		
 		File f = new File(path_blocks + w.getName());
 		if (f.exists()) {
@@ -95,30 +95,44 @@ public class BlockStorage {
 				for (File file: f.listFiles()) {
 					if (file.getName().endsWith(".sfb")) {
 						if (timestamp + info_delay < System.currentTimeMillis()) {
-							System.out.println("[远古工艺] 加载方块中... " + Math.round((((done * 100.0f) / total) * 100.0f) / 100.0f) + "% 完成 (\"" + w.getName() + "\")");
+							System.out.println("[粘液科技] 加载方块中... " + Math.round((((done * 100.0f) / total) * 100.0f) / 100.0f) + "% 完成 (\"" + w.getName() + "\")");
 							timestamp = System.currentTimeMillis();
 						}
 						
-						FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
-						for (String key: cfg.getKeys(false)) {
-							Location l = deserializeLocation(key);
-							String chunk_string = locationToChunkString(l);
-							try {
-								totalBlocks++;
-								String json = cfg.getString(key);
-								Config blockInfo = parseBlockInfo(l, json);
-								if (blockInfo == null) continue;
-								storage.put(l, blockInfo);
-								
-								if (SlimefunItem.isTicking(file.getName().replace(".sfb", ""))) {
-									Set<Location> locations = ticking_chunks.containsKey(chunk_string) ? ticking_chunks.get(chunk_string): new HashSet<Location>();
-									locations.add(l);
-									ticking_chunks.put(chunk_string, locations);
-									if (!loaded_tickers.contains(chunk_string)) loaded_tickers.add(chunk_string);
+						try {
+							FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+							for (String key: cfg.getKeys(false)) {
+								Location l = deserializeLocation(key);
+								String chunk_string = locationToChunkString(l);
+								try {
+									totalBlocks++;
+									String json = cfg.getString(key);
+									Config blockInfo = parseBlockInfo(l, json);
+									if (blockInfo == null) continue;
+									storage.put(l, blockInfo);
+									
+									if (SlimefunItem.isTicking(file.getName().replace(".sfb", ""))) {
+										Set<Location> locations = ticking_chunks.containsKey(chunk_string) ? ticking_chunks.get(chunk_string): new HashSet<Location>();
+										locations.add(l);
+										ticking_chunks.put(chunk_string, locations);
+										if (!loaded_tickers.contains(chunk_string)) loaded_tickers.add(chunk_string);
+									}
+								} catch (Exception x) {
+									System.err.println("[粘液科技] 加载失败 " + file.getName() + "(ERR: " + key + ")");
+									x.printStackTrace();
 								}
-							} catch (Exception x) {
-								System.err.println("[远古工艺] 加载失败 " + file.getName() + "(ERR: " + key + ")");
-								x.printStackTrace();
+							}
+						} catch (Exception e) {
+							System.err.println("[粘液科技] 无法加载文件 " + file.getName() + "，可能存在编码问题");
+							System.err.println("[粘液科技] 错误信息: " + e.getMessage());
+							e.printStackTrace();
+							// 尝试重命名损坏的文件，以便服务器能够继续启动
+							File backupFile = new File(file.getParent(), file.getName() + ".corrupted");
+							try {
+								Files.move(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+								System.err.println("[粘液科技] 已将损坏的文件重命名为: " + backupFile.getName());
+							} catch (IOException ex) {
+								System.err.println("[粘液科技] 无法重命名损坏的文件: " + ex.getMessage());
 							}
 						}
 						done++;
@@ -126,9 +140,9 @@ public class BlockStorage {
 				}
 			} finally {
 				long time = (System.currentTimeMillis() - start);
-				System.out.println("[远古工艺] 加载方块中... 100% (已完成 - " + time + "ms)");
-				System.out.println("[远古工艺] 共计加载 " + totalBlocks + " 个方块，位于世界 \"" + world.getName() + "\"");
-				if (totalBlocks > 0) System.out.println("[远古工艺] Avg: " + DoubleHandler.fixDouble((double) time / (double) totalBlocks, 3) + "ms/方块");
+				System.out.println("[粘液科技] 加载方块中... 100% (已完成 - " + time + "ms)");
+				System.out.println("[粘液科技] 共计加载 " + totalBlocks + " 个方块，位于世界 \"" + world.getName() + "\"");
+				if (totalBlocks > 0) System.out.println("[粘液科技] Avg: " + DoubleHandler.fixDouble((double) time / (double) totalBlocks, 3) + "ms/方块");
 			}
 		}
 		else f.mkdirs();
@@ -140,7 +154,7 @@ public class BlockStorage {
 				try {
 					if (world.getName().equals(key.split(";")[0])) map_chunks.put(key, cfg.getString(key));
 				} catch (Exception x) {
-					System.err.println("[远古工艺] 加载失败 " + chunks.getName() + " 位于世界 \"" + world.getName() + "\" (ERR: " + key + ")");
+					System.err.println("[粘液科技] 加载失败 " + chunks.getName() + " 位于世界 \"" + world.getName() + "\" (ERR: " + key + ")");
 					x.printStackTrace();
 				}
 			}
@@ -206,7 +220,7 @@ public class BlockStorage {
 		
 		if (changes == 0) return;
 		
-		System.out.println("[远古工艺] 正在为世界 \"" + world.getName() + "\" 保存方块信息 (" + changes + " 个改变位于队列中)");
+		System.out.println("[粘液科技] 正在为世界 \"" + world.getName() + "\" 保存方块信息 (" + changes + " 个改变位于队列中)");
 		
 		Map<String, Config> cache = new HashMap<String, Config>(cache_blocks);
 		
@@ -326,11 +340,11 @@ public class BlockStorage {
 			return new BlockInfoConfig(parseJSON(json));
 		} catch(Exception x) {
 			System.err.println(x.getClass().getName());
-			System.err.println("[远古工艺] Failed to parse BlockInfo for Block @ " + l.getBlockX() + ", " + l.getBlockY() + ", " + l.getBlockZ());
+			System.err.println("[粘液科技] Failed to parse BlockInfo for Block @ " + l.getBlockX() + ", " + l.getBlockY() + ", " + l.getBlockZ());
 			System.err.println(json);
-			System.err.println("[远古工艺] ");
-			System.err.println("[远古工艺] IGNORE THIS ERROR UNLESS IT IS SPAMMING");
-			System.err.println("[远古工艺] ");
+			System.err.println("[粘液科技] ");
+			System.err.println("[粘液科技] IGNORE THIS ERROR UNLESS IT IS SPAMMING");
+			System.err.println("[粘液科技] ");
 			x.printStackTrace();
 			return null;
 		}
@@ -657,7 +671,7 @@ public class BlockStorage {
 			return cfg;
 		} catch (Exception x) {
 			System.err.println(x.getClass().getName());
-			System.err.println("[远古工艺] Failed to parse ChunkInfo for Chunk @ " + chunk.getX() + ", " + chunk.getZ());
+			System.err.println("[粘液科技] Failed to parse ChunkInfo for Chunk @ " + chunk.getX() + ", " + chunk.getZ());
 			try {
 				System.err.println(getJSONData(chunk));
 			} catch (Exception x2) {
