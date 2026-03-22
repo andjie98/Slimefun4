@@ -75,7 +75,7 @@
 
 ### 开发文档
 - [💻 项目结构](../README.md) - 代码架构
-- [🔧 构建指南](building.md) - 编译项目
+- [📖 完整文档](https://github.com/andjie98/Slimefun4/wiki) - GitHub Wiki
 
 ## 🔗 相关链接
 
