@@ -170,7 +170,9 @@ public class SlimefunItem {
 	public URID getURID() 				{		return urid;			}
 	public String getHash()				{		return hash;			}
 	public State getState()				{		return state;			}
-	public ItemStack getItem()			{		return item;			}
+	public ItemStack getItem()			{
+		return item != null ? item.clone() : null;
+	}
 	public Category getCategory()			{		return category;		}
 	public ItemStack[] getRecipe()			{		return recipe;			}
 	public RecipeType getRecipeType()		{		return recipeType;		}
