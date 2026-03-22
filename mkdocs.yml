@@ -1,0 +1,77 @@
+site_name: Slimefun4 中文 Wiki
+site_description: Slimefun4 中文定制版官方文档
+site_author: Slimefun4 中文社区
+site_url: https://andjie98.github.io/Slimefun4
+
+repo_name: andjie98/Slimefun4
+repo_url: https://github.com/andjie98/Slimefun4
+
+theme:
+  name: material
+  language: zh
+  palette:
+    primary: green
+    accent: green
+  icon:
+    logo: material/book
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.mark
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - admonition
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+
+nav:
+  - 首页:
+    - 简介: index.md
+    - 安装与配置: installation.md
+    - 快速入门: getting-started.md
+  - 游戏内容:
+    - 机器大全: machines.md
+    - 物品指南: items.md
+    - 研究系统: research.md
+  - 管理员工具:
+    - 命令参考: commands.md
+    - 权限配置: permissions.md
+  - 开发:
+    - 项目结构: development.md
+    - API 文档: api.md
+    - 构建指南: building.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/andjie98/Slimefun4
+    - icon: fontawesome/brands/discord
+      link: '#'
+  version:
+    provider: mike
+
+copyright: |
+  &copy; 2026 Slimefun4 中文社区<br>
+  基于 GNU GPLv3 许可证开源
