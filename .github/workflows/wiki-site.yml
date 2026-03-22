@@ -35,5 +35,11 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           
-          # 部署到 gh-pages 分支，强制推送以覆盖冲突
-          mike deploy --push --force --update-aliases main latest
+          # 先拉取远程分支避免冲突
+          git fetch origin gh-pages || true
+          git checkout gh-pages 2>/dev/null || git checkout --orphan gh-pages
+          git pull origin gh-pages --rebase || true
+          git checkout master
+          
+          # 部署到 gh-pages 分支
+          mike deploy --push --update-aliases main latest
