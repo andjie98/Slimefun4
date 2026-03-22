@@ -49,19 +49,12 @@ markdown_extensions:
 nav:
   - 首页:
     - 简介: index.md
-    - 安装与配置: installation.md
-    - 快速入门: getting-started.md
   - 游戏内容:
     - 机器大全: machines.md
     - 物品指南: items.md
     - 研究系统: research.md
   - 管理员工具:
     - 命令参考: commands.md
-    - 权限配置: permissions.md
-  - 开发:
-    - 项目结构: development.md
-    - API 文档: api.md
-    - 构建指南: building.md
 
 extra:
   social:
