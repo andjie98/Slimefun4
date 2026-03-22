@@ -24,14 +24,28 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       
-      - name: Clone Wiki Repository
+      - name: Clone or Initialize Wiki Repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git wiki-dist
-          cd wiki-dist
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          if git clone https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git wiki-dist 2>/dev/null; then
+            echo "Wiki repository exists, using existing wiki"
+            cd wiki-dist
+            git config user.name "${{ github.actor }}"
+            git config user.email "${{ github.actor }}@users.noreply.github.com"
+          else
+            echo "Wiki repository does not exist, initializing new wiki"
+            mkdir -p wiki-dist
+            cd wiki-dist
+            git init
+            git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git
+            git config user.name "${{ github.actor }}"
+            git config user.email "${{ github.actor }}@users.noreply.github.com"
+            # Create initial commit for new wiki
+            echo "# Slimefun4 Wiki" > Home.md
+            git add Home.md
+            git commit -m "Initialize wiki repository"
+          fi
       
       - name: Copy Wiki Files
         run: |
@@ -45,8 +59,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add .
-          git diff --cached --quiet || git commit -m "docs: Auto-deploy Wiki from commit ${{ github.sha }}"
-          git push origin master || git push origin master --force
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: Auto-deploy Wiki from commit ${{ github.sha }}"
+            git push origin master || git push origin master --force
+          else
+            echo "No changes to commit"
+          fi
       
       - name: Cleanup
         if: always()
