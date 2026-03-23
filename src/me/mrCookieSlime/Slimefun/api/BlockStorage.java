@@ -231,7 +231,13 @@ public class BlockStorage {
 				cfg.getFile().delete();
 			} else {
 				File tmpFile = new File(cfg.getFile().getParentFile(), cfg.getFile().getName() + ".tmp");
-				cfg.save(tmpFile);
+				try {
+					// 使用 UTF-8 编码保存，防止中文损坏
+					String yamlContent = cfg.getConfiguration().saveToString();
+					java.nio.file.Files.write(tmpFile.toPath(), yamlContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+				} catch (IOException e) {
+					cfg.save(tmpFile);
+				}
 				try {
 					Files.move(tmpFile.toPath(), cfg.getFile().toPath(), StandardCopyOption.ATOMIC_MOVE);
 				} catch (IOException e) {
@@ -260,7 +266,13 @@ public class BlockStorage {
 				cfg.setValue(entry.getKey(), entry.getValue());
 			}
 			
-			cfg.save(chunks);
+			try {
+				// 使用 UTF-8 编码保存，防止中文损坏
+				String yamlContent = cfg.getConfiguration().saveToString();
+				java.nio.file.Files.write(chunks.toPath(), yamlContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+			} catch (IOException e) {
+				cfg.save(chunks);
+			}
 			
 			if (remove) {
 				worlds.remove(world.getName());

@@ -1,6 +1,7 @@
 package me.mrCookieSlime.Slimefun.api.inventory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.bukkit.Location;
@@ -72,7 +73,13 @@ public class BlockMenu extends ChestMenu {
 		for (int slot: preset.getInventorySlots()) {
 			cfg.setValue(String.valueOf(slot), getItemInSlot(slot));
 		}
-		cfg.save();
+		try {
+			// 使用 UTF-8 编码保存，防止中文损坏
+			String yamlContent = cfg.getConfiguration().saveToString();
+			java.nio.file.Files.write(file.toPath(), yamlContent.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+		} catch (IOException e) {
+			cfg.save();
+		}
 		
 		changes = 0;
 	}
