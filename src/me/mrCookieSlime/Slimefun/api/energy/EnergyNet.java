@@ -144,21 +144,23 @@ public class EnergyNet extends Network {
 			for (final Location source: input) {
 				long timestamp = System.currentTimeMillis();
 				SlimefunItem item = BlockStorage.check(source);
-				double energy = item.getEnergyTicker().generateEnergy(source, item, BlockStorage.getLocationInfo(source));
+				if (item != null && item.getEnergyTicker() != null) {
+					double energy = item.getEnergyTicker().generateEnergy(source, item, BlockStorage.getLocationInfo(source));
 
-				if (item.getEnergyTicker().explode(source)) {
-					BlockStorage.clearBlockInfo(source);
-					Bukkit.getScheduler().scheduleSyncDelayedTask(SlimefunStartup.instance, new Runnable() {
+					if (item.getEnergyTicker().explode(source)) {
+						BlockStorage.clearBlockInfo(source);
+						Bukkit.getScheduler().scheduleSyncDelayedTask(SlimefunStartup.instance, new Runnable() {
 
-						@Override
-						public void run() {
-							source.getBlock().setType(Material.LAVA);
-							source.getWorld().createExplosion(source, 0F, false);
-						}
-					});
-				}
-				else {
-					supply = supply + energy;
+							@Override
+							public void run() {
+								source.getBlock().setType(Material.LAVA);
+								source.getWorld().createExplosion(source, 0F, false);
+							}
+						});
+					}
+					else {
+						supply = supply + energy;
+					}
 				}
 				TickerTask.block_timings.put(source, System.currentTimeMillis() - timestamp);
 			}
