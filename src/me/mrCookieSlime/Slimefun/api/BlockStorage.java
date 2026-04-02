@@ -2,6 +2,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -239,7 +240,31 @@ public class BlockStorage {
 					cfg.save(tmpFile);
 				}
 				try {
-					Files.move(tmpFile.toPath(), cfg.getFile().toPath(), StandardCopyOption.ATOMIC_MOVE);
+					// 首先尝试原子移动（更安全），如果被拒绝则使用普通移动
+					try {
+						Files.move(tmpFile.toPath(), cfg.getFile().toPath(), StandardCopyOption.ATOMIC_MOVE);
+					} catch (AccessDeniedException atomicFailed) {
+						// ATOMIC_MOVE 被拒绝，尝试普通移动
+						int attempts = 0;
+						while (attempts < 3) {
+							try {
+								Files.move(tmpFile.toPath(), cfg.getFile().toPath(), StandardCopyOption.REPLACE_EXISTING);
+								break;
+							} catch (AccessDeniedException e) {
+								attempts++;
+								if (attempts >= 3) {
+									// 3 次后仍然失败，记录警告但继续运行
+									System.err.println("[粘液科技] 无法替换文件 " + cfg.getFile().getName() + "，可能是被杀毒软件锁定。数据可能未及时保存。");
+									break;
+								}
+								try {
+									Thread.sleep(100 * attempts); // 等待 100ms, 200ms, 300ms
+								} catch (InterruptedException ie) {
+									Thread.currentThread().interrupt();
+								}
+							}
+						}
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
