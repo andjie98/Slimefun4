@@ -76,7 +76,7 @@ public class ElevatorPlate extends SimpleSlimefunItem<BlockUseHandler> {
 
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
-                var blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
                 blockData.setData(DATA_KEY, ChatColor.WHITE + "一楼");
                 blockData.setData("owner", e.getPlayer().getUniqueId().toString());
             }
@@ -95,15 +95,15 @@ public class ElevatorPlate extends SimpleSlimefunItem<BlockUseHandler> {
     }
 
     public void getFloors(@Nonnull Block b, @Nonnull Consumer<List<ElevatorFloor>> action) {
-        var blockDataList = new ArrayList<SlimefunBlockData>();
-        var shouldLoad = false;
+        ArrayList blockDataList = new ArrayList<SlimefunBlockData>();
+        boolean shouldLoad = false;
 
         for (int y = b.getWorld().getMinHeight(); y < b.getWorld().getMaxHeight(); y++) {
-            var block = b.getWorld().getBlockAt(b.getX(), y, b.getZ());
-            var loc = block.getLocation();
+            Object block = b.getWorld().getBlockAt(b.getX(), y, b.getZ());
+            Location loc = block.getLocation();
 
             if (block.getType() == getItem().getType() && StorageCacheUtils.isBlock(loc, getId())) {
-                var blockData = StorageCacheUtils.getBlock(loc);
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(loc);
                 if (blockData.isPendingRemove()) {
                     continue;
                 }
@@ -136,9 +136,9 @@ public class ElevatorPlate extends SimpleSlimefunItem<BlockUseHandler> {
     }
 
     private List<ElevatorFloor> toFloors(List<SlimefunBlockData> blockDataList) {
-        var floors = new LinkedList<ElevatorFloor>();
-        for (var i = 0; i < blockDataList.size(); i++) {
-            var blockData = blockDataList.get(i);
+        LinkedList floors = new LinkedList<ElevatorFloor>();
+        for (int i = 0; i < blockDataList.size(); i++) {
+            Object blockData = blockDataList.get(i);
             floors.addFirst(new ElevatorFloor(
                     ChatColors.color(blockData.getData(DATA_KEY)),
                     i,

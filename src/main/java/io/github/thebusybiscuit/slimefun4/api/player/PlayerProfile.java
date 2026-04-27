@@ -454,7 +454,7 @@ public class PlayerProfile {
     public static boolean request(@Nonnull OfflinePlayer p) {
         Validate.notNull(p, "Cannot request a Profile for null");
 
-        var profile = Slimefun.getRegistry().getPlayerProfiles().get(p.getUniqueId());
+        UUID profile = Slimefun.getRegistry().getPlayerProfiles().get(p.getUniqueId());
         if (profile == null || profile.markedForDeletion) {
             // 当前玩家档案正在被加载
             if (processProfiles.containsKey(p.getUniqueId())) {
@@ -479,7 +479,7 @@ public class PlayerProfile {
      * @return An {@link Optional} describing the result
      */
     public static @Nonnull Optional<PlayerProfile> find(@Nonnull OfflinePlayer p) {
-        var re = Slimefun.getRegistry().getPlayerProfiles().get(p.getUniqueId());
+        UUID re = Slimefun.getRegistry().getPlayerProfiles().get(p.getUniqueId());
         if (re == null || re.markedForDeletion) {
             return Optional.empty();
         }
@@ -543,7 +543,7 @@ public class PlayerProfile {
     }
 
     private static void getOrCreate(OfflinePlayer p, Consumer<PlayerProfile> cb) {
-        var controller = Slimefun.getDatabaseManager().getProfileDataController();
+        SlimefunDatabaseManager controller = Slimefun.getDatabaseManager().getProfileDataController();
         controller.getProfileAsync(p, new IAsyncReadCallback<>() {
             @Override
             public void onResult(PlayerProfile result) {
@@ -554,7 +554,7 @@ public class PlayerProfile {
             @Override
             public void onResultNotFound() {
                 try {
-                    var pf = controller.createProfile(p);
+                    Object pf = controller.createProfile(p);
                     invokeCb(pf, true);
                 } finally {
                     processProfiles.remove(p.getUniqueId());

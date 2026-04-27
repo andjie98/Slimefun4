@@ -145,7 +145,7 @@ public class SlimefunItemInteractListener implements Listener {
                 event.getInteractEvent().setCancelled(true);
 
                 if (!(item instanceof UniversalBlock)) {
-                    var blockData = StorageCacheUtils.getBlock(clickedBlock.getLocation());
+                    SlimefunBlockData blockData = StorageCacheUtils.getBlock(clickedBlock.getLocation());
 
                     if (blockData == null) {
                         return;
@@ -173,7 +173,7 @@ public class SlimefunItemInteractListener implements Listener {
                                 });
                     }
                 } else {
-                    var uniData = StorageCacheUtils.getUniversalBlock(clickedBlock);
+                    UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(clickedBlock);
 
                     if (uniData == null) {
                         return;

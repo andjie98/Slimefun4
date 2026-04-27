@@ -54,7 +54,7 @@ public abstract class ASlimefunDataContainer extends ADataContainer {
                 map = capturedPendingRemoveData.remove(this);
             }
             if (map != null) {
-                for (var entry : map.entrySet()) {
+                for (Map.Entry entry : map.entrySet()) {
                     setData(entry.getKey(), entry.getValue());
                 }
             }

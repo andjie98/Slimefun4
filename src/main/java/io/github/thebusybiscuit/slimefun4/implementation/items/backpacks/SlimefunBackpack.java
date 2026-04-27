@@ -86,8 +86,8 @@ public class SlimefunBackpack extends SimpleSlimefunItem<ItemUseHandler> impleme
 
     @Override
     public boolean canStack(@Nonnull ItemMeta itemMetaOne, @Nonnull ItemMeta itemMetaTwo) {
-        var uuid1 = PlayerBackpack.getBackpackUUID(itemMetaOne);
-        var uuid2 = PlayerBackpack.getBackpackUUID(itemMetaTwo);
+        Object uuid1 = PlayerBackpack.getBackpackUUID(itemMetaOne);
+        Object uuid2 = PlayerBackpack.getBackpackUUID(itemMetaTwo);
         if (uuid1.isPresent() || uuid2.isPresent()) {
             return uuid1.equals(uuid2);
         }

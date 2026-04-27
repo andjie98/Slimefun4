@@ -46,17 +46,17 @@ public class PlayerProfileMigrator implements IMigrator {
         }
 
         migrateLock = true;
-        var result = MigrateStatus.SUCCESS;
+        Object result = MigrateStatus.SUCCESS;
 
-        var listFiles = playerFolder.listFiles();
+        Object listFiles = playerFolder.listFiles();
 
         if (!hasOldData() || listFiles == null) {
             migrateLock = false;
             return MigrateStatus.MIGRATED;
         }
 
-        var migratedCount = 0;
-        var total = listFiles.length;
+        int migratedCount = 0;
+        int total = listFiles.length;
 
         for (File file : listFiles) {
             if (!file.getName().endsWith(".yml")) {
@@ -64,8 +64,8 @@ public class PlayerProfileMigrator implements IMigrator {
             }
 
             try {
-                var uuid = UUID.fromString(file.getName().replace(".yml", ""));
-                var p = Bukkit.getOfflinePlayer(uuid);
+                String uuid = UUID.fromString(file.getName().replace(".yml", ""));
+                Object p = Bukkit.getOfflinePlayer(uuid);
 
                 if (!p.hasPlayedBefore()) {
                     Slimefun.logger().log(Level.INFO, "检测到从未加入服务器玩家的数据, 已自动跳过: " + uuid);
@@ -101,22 +101,22 @@ public class PlayerProfileMigrator implements IMigrator {
     }
 
     private void migratePlayerProfile(@Nonnull OfflinePlayer p) {
-        var uuid = p.getUniqueId();
-        var configFile = new Config("data-storage/Slimefun/Players/" + uuid + ".yml");
+        UUID uuid = p.getUniqueId();
+        Config configFile = new Config("data-storage/Slimefun/Players/" + uuid + ".yml");
 
         if (!configFile.getFile().exists()) {
             return;
         }
 
-        var controller = Slimefun.getDatabaseManager().getProfileDataController();
-        var profile = controller.getProfile(p);
+        SlimefunDatabaseManager controller = Slimefun.getDatabaseManager().getProfileDataController();
+        Object profile = controller.getProfile(p);
         if (null == profile) {
             profile = controller.createProfile(p);
         }
 
         // Research migrate
         for (String researchID : configFile.getKeys("researches")) {
-            var research = Research.getResearchByID(Integer.parseInt(researchID));
+            Object research = Research.getResearchByID(Integer.parseInt(researchID));
 
             if (research.isEmpty()) {
                 continue;
@@ -126,21 +126,21 @@ public class PlayerProfileMigrator implements IMigrator {
         }
 
         // Backpack migrate
-        var max = 0;
+        int max = 0;
         for (String backpackID : configFile.getKeys("backpacks")) {
-            var bpID = Integer.parseInt(backpackID);
+            Object bpID = Integer.parseInt(backpackID);
             if (max < bpID) {
                 max = bpID;
             }
-            var size = configFile.getInt("backpacks." + bpID + ".size");
+            int size = configFile.getInt("backpacks." + bpID + ".size");
 
-            var bp = controller.createBackpack(p, "", bpID, size);
+            Object bp = controller.createBackpack(p, "", bpID, size);
 
-            //            var changedSlot = new HashSet<Integer>();
+            //            HashSet changedSlot = new HashSet<Integer>();
 
             for (String key : configFile.getKeys("backpacks." + bpID + ".contents")) {
-                var bpKey = Integer.parseInt(key);
-                var item = configFile.getItem("backpacks." + bpID + ".contents." + bpKey);
+                Object bpKey = Integer.parseInt(key);
+                Object item = configFile.getItem("backpacks." + bpID + ".contents." + bpKey);
                 bp.getInventory().setItem(bpKey, item);
                 //                changedSlot.add(bpKey);
             }

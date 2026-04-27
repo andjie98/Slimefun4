@@ -64,7 +64,7 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
         Executor executor = runCbOnMainThread
                 ? ThreadUtils.getMainDelayedExecutor()
                 : Slimefun.getDatabaseManager().getProfileDataController().getCallbackExecutor();
-        var bUuid = getBackpackUUID(item.getItemMeta());
+        ItemMeta bUuid = getBackpackUUID(item.getItemMeta());
         if (bUuid.isPresent()) {
             Slimefun.getDatabaseManager()
                     .getProfileDataController()
@@ -101,7 +101,7 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
                     .thenAcceptAsync(
                             (result) -> {
                                 if (result != null) {
-                                    var meta = item.getItemMeta();
+                                    ItemMeta meta = item.getItemMeta();
                                     meta.getPersistentDataContainer()
                                             .set(KEY_BACKPACK_UUID, PersistentDataType.STRING, result.uuid.toString());
                                     item.setItemMeta(meta);
@@ -118,7 +118,7 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
             return CompletableFuture.completedFuture(null);
         }
 
-        var bUuid = getBackpackUUID(item.getItemMeta());
+        ItemMeta bUuid = getBackpackUUID(item.getItemMeta());
         if (bUuid.isPresent()) {
             return Slimefun.getDatabaseManager().getProfileDataController().getBackpackAsync(bUuid.get());
         }
@@ -187,14 +187,14 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
     }
 
     public static void bindItem(ItemStack item, PlayerBackpack bp) {
-        var meta = item.getItemMeta();
+        ItemMeta meta = item.getItemMeta();
         setPdc(meta, bp.uuid.toString(), bp.owner.getUniqueId().toString());
         setItem(meta, bp);
         item.setItemMeta(meta);
     }
 
     public static void setItemDisplayInfo(ItemStack item, PlayerBackpack bp) {
-        var meta = item.getItemMeta();
+        ItemMeta meta = item.getItemMeta();
         setItem(meta, bp);
         item.setItemMeta(meta);
     }
@@ -203,20 +203,20 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
         if (Slimefun.getCfg().getBoolean("backpack.allow-open-when-owner-offline")) {
             return true;
         }
-        var ownerUuid = PlayerBackpack.getOwnerUUID(meta);
+        Object ownerUuid = PlayerBackpack.getOwnerUUID(meta);
         return ownerUuid.isEmpty() || Bukkit.getPlayer(UUID.fromString(ownerUuid.get())) != null;
     }
 
     private static void setPdc(ItemMeta meta, String bpUuid, String ownerUuid) {
-        var pdc = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
         pdc.set(PlayerBackpack.KEY_BACKPACK_UUID, PersistentDataType.STRING, bpUuid);
         pdc.set(PlayerBackpack.KEY_OWNER_UUID, PersistentDataType.STRING, ownerUuid);
     }
 
     private static void setItem(ItemMeta meta, PlayerBackpack bp) {
-        var lore = meta.getLore();
-        for (var i = 0; i < lore.size(); i++) {
-            var line = lore.get(i);
+        List<String> lore = meta.getLore();
+        for (int i = 0; i < lore.size(); i++) {
+            Object line = lore.get(i);
             if (COLORED_LORE_OWNER.equals(line)) {
                 lore.set(i, COLORED_LORE_OWNER + bp.getOwner().getName());
                 break;
@@ -371,7 +371,7 @@ public class PlayerBackpack extends SlimefunInventoryHolder {
 
     private void updateInv() {
         InventoryUtil.closeInventory(this.inventory);
-        var inv = newInv();
+        Object inv = newInv();
         inv.setContents(this.inventory.getContents());
         this.inventory.clear();
         this.inventory = inv;

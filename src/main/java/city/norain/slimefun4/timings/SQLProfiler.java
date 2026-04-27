@@ -105,7 +105,7 @@ public class SQLProfiler {
         Map<String, List<Map.Entry<TimingEntry, Long>>> groupByEntries = entries.entrySet().stream()
                 .collect(Collectors.groupingBy(entry -> entry.getKey().getIdentifier()));
 
-        var reportPath = generateReportFile(groupByEntries);
+        Object reportPath = generateReportFile(groupByEntries);
 
         if (reportPath == null) {
             subscribers.forEach(sub -> Slimefun.getLocalization().sendMessage(sub, "sf-cn.timings.warning", true));
@@ -137,7 +137,7 @@ public class SQLProfiler {
         int entryCount = 0;
         Duration sqlTotalTime = Duration.ZERO;
 
-        try (var writer = Files.newBufferedWriter(reportFile.toPath(), StandardCharsets.UTF_8)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(reportFile.toPath(), StandardCharsets.UTF_8)) {
             writer.append("Slimefun SQL Timing 报告");
             writer.newLine();
             writer.newLine();
@@ -156,7 +156,7 @@ public class SQLProfiler {
                     for (Map.Entry<TimingEntry, Long> timingEntry : value) {
                         entryCount++;
 
-                        var duration = Duration.ofNanos(timingEntry.getValue());
+                        Object duration = Duration.ofNanos(timingEntry.getValue());
                         sqlTotalTime = sqlTotalTime.plus(duration);
 
                         var formattedTime = String.format(
@@ -175,7 +175,7 @@ public class SQLProfiler {
                 }
             }
 
-            var totalTime = Duration.ofNanos(System.nanoTime()).minus(Duration.ofNanos(startTime));
+            Object totalTime = Duration.ofNanos(System.nanoTime()).minus(Duration.ofNanos(startTime));
             writer.append("已运行: ")
                     .append(String.format(
                             "%dh%dm%dns", totalTime.toHours(), totalTime.toMinutesPart(), totalTime.toSecondsPart()));
@@ -185,7 +185,7 @@ public class SQLProfiler {
                             "%dm%ds%dms",
                             sqlTotalTime.toSeconds(), sqlTotalTime.toMillisPart(), sqlTotalTime.toNanosPart()));
             writer.newLine();
-            var avg = sqlTotalTime.dividedBy(entryCount);
+            Object avg = sqlTotalTime.dividedBy(entryCount);
             writer.append("平均耗时: ")
                     .append(String.format("%dm%ds%dms", avg.toSeconds(), avg.toMillisPart(), avg.toNanosPart()));
         } catch (IOException e) {

@@ -133,11 +133,11 @@ public class BlockDataService implements Keyed {
     }
 
     public Optional<UUID> getUniversalDataUUID(@Nonnull Block b) {
-        var uuid = getBlockData(b, universalDataKey);
+        Object uuid = getBlockData(b, universalDataKey);
 
         return uuid.map(data -> {
             try {
-                var uniId = UUID.fromString(data);
+                Object uniId = UUID.fromString(data);
 
                 var uniData =
                         Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uniId);

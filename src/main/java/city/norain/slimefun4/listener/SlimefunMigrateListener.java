@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class SlimefunMigrateListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        var p = e.getPlayer();
+        Object p = e.getPlayer();
 
         if ((PlayerProfileMigrator.getInstance().hasOldData()
                         || BlockStorageMigrator.getInstance().hasOldData())

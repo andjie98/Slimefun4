@@ -63,7 +63,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static ASlimefunDataContainer getDataContainer(Location l) {
-        var blockData = getBlock(l);
+        Object blockData = getBlock(l);
         if (blockData != null) {
             return blockData;
         }
@@ -73,7 +73,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     public static boolean isBlock(Location l, String id) {
-        var blockData = getBlock(l);
+        Object blockData = getBlock(l);
         return blockData != null && id.equals(blockData.getSfId());
     }
 
@@ -88,24 +88,24 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static SlimefunItem getSlimefunItem(Location l) {
-        var blockData = getBlock(l);
+        Object blockData = getBlock(l);
 
         if (blockData != null) {
             return SlimefunItem.getById(blockData.getSfId());
         } else {
-            var universalData = getUniversalBlock(l.getBlock());
+            Block universalData = getUniversalBlock(l.getBlock());
             return universalData == null ? null : SlimefunItem.getById(universalData.getSfId());
         }
     }
 
     @ParametersAreNonnullByDefault
     @Nullable public static String getData(Location loc, String key) {
-        var blockData = getBlock(loc);
+        Object blockData = getBlock(loc);
 
         if (blockData != null) {
             return blockData.getData(key);
         } else {
-            var uniData = getUniversalBlock(loc.getBlock());
+            Block uniData = getUniversalBlock(loc.getBlock());
 
             if (uniData == null) {
                 return null;
@@ -117,17 +117,17 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static String getUniversalBlockData(UUID uuid, Location loc, String key) {
-        var universalData = getUniversalBlock(uuid, loc);
+        Object universalData = getUniversalBlock(uuid, loc);
         return universalData == null ? null : universalData.getData(key);
     }
 
     @ParametersAreNonnullByDefault
     public static void setData(Location loc, String key, String val) {
-        var block = getBlock(loc);
+        Object block = getBlock(loc);
         if (block != null) {
             block.setData(key, val);
         } else {
-            var uni = getUniversalBlock(loc.getBlock());
+            Block uni = getUniversalBlock(loc.getBlock());
 
             if (uni != null) {
                 uni.setData(key, val);
@@ -137,11 +137,11 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     public static void removeData(Location loc, String key) {
-        var block = getBlock(loc);
+        Object block = getBlock(loc);
         if (block != null) {
             block.removeData(key);
         } else {
-            var uni = getUniversalBlock(loc.getBlock());
+            Block uni = getUniversalBlock(loc.getBlock());
 
             if (uni != null) {
                 uni.removeData(key);
@@ -151,7 +151,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static BlockMenu getMenu(Location loc) {
-        var blockData = getBlock(loc);
+        Object blockData = getBlock(loc);
         if (blockData == null) {
             return null;
         }
@@ -166,7 +166,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static SlimefunUniversalBlockData getUniversalBlock(UUID uuid) {
-        var uniData = Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uuid);
+        BlockDataController uniData = Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uuid);
 
         if (uniData == null) {
             return null;
@@ -187,7 +187,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static SlimefunUniversalBlockData getUniversalBlock(UUID uuid, Location l, boolean updateLastPresent) {
-        var uniData = getUniversalBlock(uuid);
+        Object uniData = getUniversalBlock(uuid);
 
         if (uniData != null && updateLastPresent) {
             uniData.setLastPresent(new BlockPosition(l));
@@ -229,7 +229,7 @@ public class StorageCacheUtils {
      */
     @ParametersAreNonnullByDefault
     @Nullable public static UniversalMenu getUniversalMenu(Block block) {
-        var uniData = getUniversalBlock(block);
+        Object uniData = getUniversalBlock(block);
 
         if (uniData == null) {
             return null;
@@ -240,7 +240,7 @@ public class StorageCacheUtils {
 
     @ParametersAreNonnullByDefault
     @Nullable public static UniversalMenu getUniversalMenu(UUID uuid, Location l) {
-        var uniData = Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uuid);
+        BlockDataController uniData = Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uuid);
 
         if (uniData == null) {
             return null;

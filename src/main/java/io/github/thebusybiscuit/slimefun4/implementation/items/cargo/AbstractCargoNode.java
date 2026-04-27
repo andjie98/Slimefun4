@@ -81,7 +81,7 @@ abstract class AbstractCargoNode extends SimpleSlimefunItem<BlockPlaceHandler> i
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
                 // The owner and frequency are required by every node
-                var blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
                 blockData.setData("owner", e.getPlayer().getUniqueId().toString());
                 blockData.setData(FREQUENCY, "0");
 

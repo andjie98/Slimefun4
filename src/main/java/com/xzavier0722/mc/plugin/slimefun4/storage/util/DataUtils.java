@@ -30,10 +30,10 @@ public class DataUtils {
             return "";
         }
 
-        try (var stream = new ByteArrayOutputStream();
+        try (ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 var bs = new BukkitObjectOutputStream(stream)) {
             bs.writeObject(itemStack);
-            var itemStr = Base64.getEncoder().encodeToString(stream.toByteArray());
+            Object itemStr = Base64.getEncoder().encodeToString(stream.toByteArray());
 
             if (!Slimefun.getConfigManager().isBypassItemLengthCheck()
                     && Slimefun.getDatabaseManager().getBlockDataStorageType() == StorageType.MYSQL
@@ -64,9 +64,9 @@ public class DataUtils {
 
         Debug.log(TestCase.BACKPACK, "Deserializing itemstack: " + base64Str);
 
-        try (var stream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(base64Str));
+        try (ByteArrayInputStream stream = new ByteArrayInputStream(Base64.getMimeDecoder().decode(base64Str));
                 var bs = new BukkitObjectInputStream(stream)) {
-            var result = (ItemStack) bs.readObject();
+            Object result = (ItemStack) bs.readObject();
 
             Debug.log(TestCase.BACKPACK, "Deserialized itemstack: " + result);
 

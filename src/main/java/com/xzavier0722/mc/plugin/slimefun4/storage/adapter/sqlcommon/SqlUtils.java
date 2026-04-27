@@ -51,7 +51,7 @@ public class SqlUtils {
     private static final FieldMapper<String> mapper;
 
     static {
-        var fieldMap = new HashMap<FieldKey, String>();
+        HashMap fieldMap = new HashMap<FieldKey, String>();
         fieldMap.put(FieldKey.PLAYER_UUID, FIELD_PLAYER_UUID);
         fieldMap.put(FieldKey.PLAYER_NAME, FIELD_PLAYER_NAME);
         fieldMap.put(FieldKey.RESEARCH_ID, FIELD_RESEARCH_KEY);
@@ -136,8 +136,8 @@ public class SqlUtils {
     }
 
     public static List<RecordSet> execQuery(Connection conn, String sql) throws SQLException {
-        try (var stmt = conn.createStatement()) {
-            try (var result = stmt.executeQuery(sql)) {
+        try (Statement stmt = conn.createStatement()) {
+            try (ResultSet result = stmt.executeQuery(sql)) {
                 List<RecordSet> re = null;
                 ResultSetMetaData metaData = null;
                 int columnCount = 0;
@@ -147,8 +147,8 @@ public class SqlUtils {
                         metaData = result.getMetaData();
                         columnCount = metaData.getColumnCount();
                     }
-                    var row = new RecordSet();
-                    for (var i = 1; i <= columnCount; i++) {
+                    RecordSet row = new RecordSet();
+                    for (int i = 1; i <= columnCount; i++) {
                         row.put(SqlUtils.mapField(metaData.getColumnName(i)), result.getString(i));
                     }
                     row.readonly();
@@ -160,13 +160,13 @@ public class SqlUtils {
     }
 
     public static void execSql(Connection conn, String sql) throws SQLException {
-        try (var stmt = conn.createStatement()) {
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
         }
     }
 
     public static int execUpdate(Connection conn, String sql) throws SQLException {
-        try (var stmt = conn.createStatement()) {
+        try (Statement stmt = conn.createStatement()) {
             return stmt.executeUpdate(sql);
         }
     }

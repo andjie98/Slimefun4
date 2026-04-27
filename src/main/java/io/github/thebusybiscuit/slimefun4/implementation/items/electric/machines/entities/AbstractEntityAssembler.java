@@ -141,7 +141,7 @@ public abstract class AbstractEntityAssembler<T extends Entity> extends SimpleSl
             }
 
             private void onPlace(BlockEvent e) {
-                var blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
                 blockData.setData(KEY_OFFSET, "3.0");
                 blockData.setData(KEY_ENABLED, String.valueOf(false));
             }
@@ -166,7 +166,7 @@ public abstract class AbstractEntityAssembler<T extends Entity> extends SimpleSl
     }
 
     private void updateBlockInventory(BlockMenu menu, Block b) {
-        var blockData = StorageCacheUtils.getBlock(b.getLocation());
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(b.getLocation());
         String val;
         if (blockData == null || (val = blockData.getData(KEY_ENABLED)) == null || val.equals(String.valueOf(false))) {
             menu.replaceExistingItem(22, new CustomItemStack(Material.GUNPOWDER, "&7是否可用: &4\u2718", "", "&e> 单击开启机器"));

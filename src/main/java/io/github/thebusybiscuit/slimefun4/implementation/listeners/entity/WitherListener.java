@@ -30,10 +30,10 @@ public class WitherListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onWitherDestroy(EntityChangeBlockEvent e) {
         if (e.getEntity().getType() == EntityType.WITHER) {
-            var controller = Slimefun.getDatabaseManager().getBlockDataController();
-            var block = e.getBlock();
-            var blockData = controller.getBlockDataFromCache(block.getLocation());
-            var item = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
+            BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
+            Block block = e.getBlock();
+            Location blockData = controller.getBlockDataFromCache(block.getLocation());
+            SlimefunItem item = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
 
             // Hardened Glass is excluded from here
             if (item instanceof WitherProof witherProofBlock
@@ -47,7 +47,7 @@ public class WitherListener implements Listener {
                 controller.removeBlock(blockData.getLocation());
                 block.setType(Material.AIR);
 
-                for (var drop : item.getDrops()) {
+                for (Object drop : item.getDrops()) {
                     if (drop != null && !drop.getType().isAir()) {
                         block.getWorld().dropItemNaturally(block.getLocation(), drop);
                     }

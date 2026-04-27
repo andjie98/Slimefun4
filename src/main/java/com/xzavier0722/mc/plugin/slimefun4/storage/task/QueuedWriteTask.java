@@ -18,7 +18,7 @@ public class QueuedWriteTask implements Runnable {
             return;
         }
 
-        var task = next();
+        Object task = next();
         while (!aborted && task != null) {
             try {
                 task.run();
@@ -55,7 +55,7 @@ public class QueuedWriteTask implements Runnable {
     }
 
     private synchronized Runnable next() {
-        var key = queue.poll();
+        Object key = queue.poll();
         if (key == null) {
             done = true;
             return null;

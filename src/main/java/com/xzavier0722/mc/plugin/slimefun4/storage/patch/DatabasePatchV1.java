@@ -18,7 +18,7 @@ public class DatabasePatchV1 extends DatabasePatch {
     @Override
     public void patch(Statement stmt, ISqlCommonConfig config) throws SQLException {
         if (config instanceof MysqlConfig mysqlConf) {
-            var uniInvTable = SqlUtils.mapTable(DataScope.UNIVERSAL_INVENTORY, mysqlConf.tablePrefix());
+            Object uniInvTable = SqlUtils.mapTable(DataScope.UNIVERSAL_INVENTORY, mysqlConf.tablePrefix());
 
             try {
                 stmt.execute("SELECT * FROM " + uniInvTable + " LIMIT 1");

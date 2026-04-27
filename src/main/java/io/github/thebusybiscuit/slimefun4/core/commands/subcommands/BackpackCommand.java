@@ -119,10 +119,10 @@ class BackpackCommand extends SubCommand {
     }
 
     private void showBackpackMenu(OfflinePlayer owner, Player p, Set<PlayerBackpack> result, int page) {
-        var menu = new ChestMenu(owner.getName() + " 拥有的背包列表");
+        ChestMenu menu = new ChestMenu(owner.getName() + " 拥有的背包列表");
         menu.setEmptySlotsClickable(false);
 
-        var pages = result.size() / 36;
+        int pages = result.size() / 36;
 
         // Draw background start
         for (int i = 0; i < 9; i++) {
@@ -130,20 +130,20 @@ class BackpackCommand extends SubCommand {
             menu.addMenuClickHandler(i, (pl, slot, item, action) -> false);
         }
 
-        var bps = new ArrayList<>(result);
+        ArrayList bps = new ArrayList<>(result);
         // max display 36 backpacks per page
         for (int i = 0; i <= 36; i++) {
             int slot = DISPLAY_START_SLOT + i;
-            var index = i + 36 * (page - 1);
+            Object index = i + 36 * (page - 1);
             if (index >= bps.size()) {
                 break;
             }
-            var bp = bps.get(index);
+            Object bp = bps.get(index);
 
-            var visualBackpack = SlimefunItems.RESTORED_BACKPACK.clone();
-            var im = visualBackpack.getItemMeta();
+            Object visualBackpack = SlimefunItems.RESTORED_BACKPACK.clone();
+            ItemMeta im = visualBackpack.getItemMeta();
             im.setDisplayName(bp.getName().isEmpty() ? "背包 #" + bp.getId() : bp.getName());
-            var lore = new ArrayList<String>();
+            ArrayList lore = new ArrayList<String>();
             lore.add("");
             lore.add(ChatColor.translateAlternateColorCodes('&', "&a左键 获取此背包"));
             im.setLore(lore);
@@ -152,7 +152,7 @@ class BackpackCommand extends SubCommand {
             menu.addItem(slot, visualBackpack);
             menu.addMenuClickHandler(slot, (p1, slot1, item, action) -> {
                 if (!action.isRightClicked() && !action.isShiftClicked() && p1.getUniqueId() == p.getUniqueId()) {
-                    var restoreBp = SlimefunItems.RESTORED_BACKPACK.clone();
+                    Object restoreBp = SlimefunItems.RESTORED_BACKPACK.clone();
                     PlayerBackpack.bindItem(restoreBp, bp);
                     p1.getInventory().addItem(restoreBp);
                     Slimefun.getLocalization().sendMessage(p1, "commands.backpack.restored-backpack-given");

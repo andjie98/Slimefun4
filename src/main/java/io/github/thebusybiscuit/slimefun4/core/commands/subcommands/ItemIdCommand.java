@@ -24,13 +24,13 @@ class ItemIdCommand extends SubCommand {
     public void onExecute(@Nonnull CommandSender sender, @Nonnull String[] args) {
         if (sender instanceof Player p) {
             if (sender.hasPermission("slimefun.command.id")) {
-                var item = p.getInventory().getItemInMainHand();
+                Inventory item = p.getInventory().getItemInMainHand();
                 if (item.getType() != Material.AIR) {
-                    var sfItem = SlimefunItem.getByItem(item);
+                    Object sfItem = SlimefunItem.getByItem(item);
                     if (sfItem != null) {
-                        var sfId = sfItem.getId();
-                        var msg = new TextComponent("该物品的ID为: ");
-                        var idMsg = new TextComponent(sfId);
+                        Object sfId = sfItem.getId();
+                        TextComponent msg = new TextComponent("该物品的ID为: ");
+                        TextComponent idMsg = new TextComponent(sfId);
                         idMsg.setUnderlined(true);
                         idMsg.setItalic(true);
                         idMsg.setColor(ChatColor.GRAY);

@@ -53,7 +53,7 @@ public class VersionedMiddleClickListener implements Listener {
                     event.setCancelled(true);
 
                     // try redirect to another hotbar if it contains the slimefunItem
-                    for (var i = 0; i < 9; ++i) {
+                    for (int i = 0; i < 9; ++i) {
                         ItemStack hotbarItem = player.getInventory().getItem(i);
                         if (hotbarItem != null && !hotbarItem.getType().isAir() && sfItem.isItem(hotbarItem)) {
                             player.getInventory().setHeldItemSlot(i);

@@ -73,11 +73,11 @@ public class BlockListener implements Listener {
             return;
         }
         Block block = e.getBlock();
-        var loc = block.getLocation();
+        Location loc = block.getLocation();
 
         // Fixes #2636 - This will solve the "ghost blocks" issue
         if (e.getBlockReplacedState().getType().isAir()) {
-            var blockData = StorageCacheUtils.getDataContainer(loc);
+            UniversalBlockData blockData = StorageCacheUtils.getDataContainer(loc);
             if (blockData != null && blockData.isPendingRemove()) {
                 e.setCancelled(true);
                 return;
@@ -132,11 +132,11 @@ public class BlockListener implements Listener {
             if (!sfItem.canUse(e.getPlayer(), true)) {
                 e.setCancelled(true);
             } else {
-                var block = e.getBlock();
+                Block block = e.getBlock();
 
                 optimizePlacement(sfItem, block, e.getPlayer().getLocation());
 
-                var placeEvent = new SlimefunBlockPlaceEvent(e.getPlayer(), item, block, sfItem);
+                SlimefunBlockPlaceEvent placeEvent = new SlimefunBlockPlaceEvent(e.getPlayer(), item, block, sfItem);
                 Bukkit.getPluginManager().callEvent(placeEvent);
 
                 if (placeEvent.isCancelled()) {
@@ -174,10 +174,10 @@ public class BlockListener implements Listener {
             return;
         }
 
-        var heldItem = e.getPlayer().getInventory().getItemInMainHand();
-        var block = e.getBlock();
-        var blockData = StorageCacheUtils.getDataContainer(block.getLocation());
-        var sfItem = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
+        Inventory heldItem = e.getPlayer().getInventory().getItemInMainHand();
+        Block block = e.getBlock();
+        UniversalBlockData blockData = StorageCacheUtils.getDataContainer(block.getLocation());
+        SlimefunItem sfItem = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
 
         // If there is a Slimefun Block here, call our BreakEvent and, if cancelled, cancel this event
         // and return
@@ -213,7 +213,7 @@ public class BlockListener implements Listener {
 
             if (!blockData.isDataLoaded()) {
                 e.setDropItems(false);
-                var type = block.getType();
+                Object type = block.getType();
                 StorageCacheUtils.executeAfterLoad(
                         blockData,
                         () -> {
@@ -256,7 +256,7 @@ public class BlockListener implements Listener {
 
     @ParametersAreNonnullByDefault
     private void callBlockHandler(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
-        var loc = e.getBlock().getLocation();
+        Block loc = e.getBlock().getLocation();
         SlimefunItem sfItem = StorageCacheUtils.getSlimefunItem(loc);
 
         if (sfItem != null && !sfItem.useVanillaBlockBreaking()) {
@@ -317,8 +317,8 @@ public class BlockListener implements Listener {
         Block blockAbove = block.getRelative(BlockFace.UP);
 
         if (SlimefunTag.SENSITIVE_MATERIALS.isTagged(blockAbove.getType())) {
-            var loc = blockAbove.getLocation();
-            var blockData = StorageCacheUtils.getDataContainer(loc);
+            Location loc = blockAbove.getLocation();
+            UniversalBlockData blockData = StorageCacheUtils.getDataContainer(loc);
             SlimefunItem sfItem = StorageCacheUtils.getSlimefunItem(loc);
 
             if (sfItem != null && !sfItem.useVanillaBlockBreaking()) {
@@ -329,7 +329,7 @@ public class BlockListener implements Listener {
                 BlockBreakEvent dummyEvent = new BlockBreakEvent(blockAbove, player);
                 List<ItemStack> drops = new ArrayList<>(sfItem.getDrops(player));
 
-                var controller = Slimefun.getDatabaseManager().getBlockDataController();
+                BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
                 if (blockData.isDataLoaded()) {
                     sfItem.callItemHandler(
                             BlockBreakHandler.class, handler -> handler.onPlayerBreak(dummyEvent, item, drops));

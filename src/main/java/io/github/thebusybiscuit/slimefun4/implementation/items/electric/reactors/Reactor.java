@@ -100,7 +100,7 @@ public abstract class Reactor extends AbstractEnergyProvider
 
             @Override
             public void newInstance(BlockMenu menu, Block b) {
-                var blockData = StorageCacheUtils.getBlock(b.getLocation());
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(b.getLocation());
                 if (blockData.getData(MODE) == null) {
                     blockData.setData(MODE, ReactorMode.GENERATOR.toString());
                 }
@@ -280,7 +280,7 @@ public abstract class Reactor extends AbstractEnergyProvider
     protected ReactorMode getReactorMode(@Nonnull Location l) {
         ReactorMode mode = ReactorMode.GENERATOR;
 
-        var blockData = StorageCacheUtils.getDataContainer(l);
+        UniversalBlockData blockData = StorageCacheUtils.getDataContainer(l);
         if (blockData != null && ReactorMode.PRODUCTION.toString().equals(blockData.getData(MODE))) {
             mode = ReactorMode.PRODUCTION;
         }
@@ -554,8 +554,8 @@ public abstract class Reactor extends AbstractEnergyProvider
 
     @Nullable protected BlockMenu getAccessPort(BlockMenu menu, @Nonnull Location l) {
         Location portLoc = new Location(l.getWorld(), l.getX(), l.getY() + 3, l.getZ());
-        var controller = Slimefun.getDatabaseManager().getBlockDataController();
-        var port = controller.getBlockData(portLoc);
+        BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
+        SlimefunBlockData port = controller.getBlockData(portLoc);
 
         if (port == null || port.isPendingRemove()) {
             return null;

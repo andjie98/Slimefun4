@@ -43,8 +43,8 @@ public class BlockStorageMigrator implements IMigrator {
     public MigrateStatus migrateData() {
         Slimefun.getTickerTask().setPaused(true);
 
-        var controller = Slimefun.getDatabaseManager().getBlockDataController();
-        var isDelayedSavingEnabled = controller.isDelayedSavingEnabled();
+        BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
+        Object isDelayedSavingEnabled = controller.isDelayedSavingEnabled();
         if (isDelayedSavingEnabled) {
             controller.setDelayedSavingEnable(false);
         }
@@ -53,14 +53,14 @@ public class BlockStorageMigrator implements IMigrator {
             return MigrateStatus.MIGRATING;
         }
 
-        var status = MigrateStatus.SUCCESS;
+        Object status = MigrateStatus.SUCCESS;
         migrateLock = true;
 
         if (chunk.isFile()) {
             migrateChunks();
 
             try {
-                var chunkBak = Files.createFile(Path.of("data-storage/Slimefun/old_data/chunks.sfc"));
+                Object chunkBak = Files.createFile(Path.of("data-storage/Slimefun/old_data/chunks.sfc"));
                 Files.copy(chunk.toPath(), chunkBak, StandardCopyOption.REPLACE_EXISTING);
                 Files.delete(chunk.toPath());
             } catch (Exception e) {
@@ -91,9 +91,9 @@ public class BlockStorageMigrator implements IMigrator {
     }
 
     private boolean hasBlockData() {
-        for (var world : Bukkit.getWorlds()) {
-            var f = new File(blockFolder, world.getName());
-            var fList = f.listFiles();
+        for (World world : Bukkit.getWorlds()) {
+            File f = new File(blockFolder, world.getName());
+            Object fList = f.listFiles();
             if (fList != null && fList.length > 0) {
                 return true;
             }
@@ -103,15 +103,15 @@ public class BlockStorageMigrator implements IMigrator {
 
     private void migrateWorld(World w) {
         Slimefun.logger().log(Level.INFO, "开始迁移方块数据: " + w.getName());
-        var fList = new File(blockFolder, w.getName()).listFiles();
+        File fList = new File(blockFolder, w.getName()).listFiles();
         if (fList == null) {
             return;
         }
 
-        var count = 0;
-        var total = fList.length;
-        for (var f : fList) {
-            var id = f.getName();
+        int count = 0;
+        int total = fList.length;
+        for (Object f : fList) {
+            String id = f.getName();
             id = id.substring(0, id.length() - 4);
             Slimefun.logger().log(Level.INFO, "正在迁移方块数据: " + id + "(" + ++count + "/" + total + ")");
 
@@ -120,8 +120,8 @@ public class BlockStorageMigrator implements IMigrator {
                 continue;
             }
 
-            var cfg = new Config(f);
-            for (var key : cfg.getKeys()) {
+            Config cfg = new Config(f);
+            for (String key : cfg.getKeys()) {
                 migrateBlock(w, id, key, cfg.getString(key));
             }
         }
@@ -129,16 +129,16 @@ public class BlockStorageMigrator implements IMigrator {
 
     private void migrateBlock(World world, String sfId, String locStr, String jsonStr) {
         try {
-            var arr = locStr.split(";");
-            var x = Integer.parseInt(arr[1]);
-            var y = Integer.parseInt(arr[2]);
-            var z = Integer.parseInt(arr[3]);
+            String[] arr = locStr.split(";");
+            Object x = Integer.parseInt(arr[1]);
+            Object y = Integer.parseInt(arr[2]);
+            Object z = Integer.parseInt(arr[3]);
 
-            var loc = new Location(world, x, y, z);
-            var sfData = Slimefun.getDatabaseManager().getBlockDataController().createBlock(loc, sfId);
+            Location loc = new Location(world, x, y, z);
+            BlockDataController sfData = Slimefun.getDatabaseManager().getBlockDataController().createBlock(loc, sfId);
             Map<String, String> data = gson.fromJson(jsonStr, new TypeToken<Map<String, String>>() {}.getType());
-            for (var each : data.entrySet()) {
-                var key = each.getKey();
+            for (Map.Entry each : data.entrySet()) {
+                Object key = each.getKey();
                 if ("id".equals(key)) {
                     continue;
                 }
@@ -148,7 +148,7 @@ public class BlockStorageMigrator implements IMigrator {
             DirtyChestMenu menu = sfData.getBlockMenu();
 
             if (menu != null) {
-                var f = new File(invFolder, world.getName() + ";" + x + ";" + y + ";" + z + ".sfi");
+                File f = new File(invFolder, world.getName() + ";" + x + ";" + y + ";" + z + ".sfi");
                 if (!f.isFile()) {
                     return;
                 }
@@ -160,9 +160,9 @@ public class BlockStorageMigrator implements IMigrator {
     }
 
     private void migrateInv(DirtyChestMenu menu, File f) {
-        var cfg = new Config(f);
-        var preset = menu.getPreset().getPresetSlots();
-        for (var key : cfg.getKeys()) {
+        Config cfg = new Config(f);
+        Object preset = menu.getPreset().getPresetSlots();
+        for (String key : cfg.getKeys()) {
             if ("preset".equals(key)) {
                 continue;
             }
@@ -178,7 +178,7 @@ public class BlockStorageMigrator implements IMigrator {
                 continue;
             }
 
-            var item = cfg.getItem(key);
+            Object item = cfg.getItem(key);
             if (item == null) {
                 continue;
             }
@@ -188,21 +188,21 @@ public class BlockStorageMigrator implements IMigrator {
     }
 
     private void migrateChunks() {
-        var cfg = new Config(chunk);
-        var keys = cfg.getKeys();
-        var total = keys.size();
-        var count = 0;
-        for (var key : keys) {
+        Config cfg = new Config(chunk);
+        Object keys = cfg.getKeys();
+        int total = keys.size();
+        int count = 0;
+        for (Object key : keys) {
             Slimefun.logger().log(Level.INFO, "正在迁移区块数据: " + ++count + "/" + total);
-            var arr = key.split(";");
+            String[] arr = key.split(";");
             try {
-                var w = Bukkit.getWorld(arr[0]);
+                Object w = Bukkit.getWorld(arr[0]);
                 if (w == null) {
                     Slimefun.logger().log(Level.WARNING, "区块所在世界未加载，忽略: " + arr[0]);
                     continue;
                 }
 
-                var c = w.getChunkAt(Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
+                Object c = w.getChunkAt(Integer.parseInt(arr[2]), Integer.parseInt(arr[3]));
                 Map<String, String> data =
                         gson.fromJson(cfg.getString(key), new TypeToken<Map<String, String>>() {}.getType());
                 var chunkData =

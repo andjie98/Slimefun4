@@ -62,16 +62,16 @@ public class PostgreSqlAdapter extends SqlCommonAdapter<PostgreSqlConfig> {
 
     @Override
     public void setData(RecordKey key, RecordSet item) {
-        var data = item.getAll();
-        var fields = data.keySet();
-        var fieldStr = SqlUtils.buildFieldStr(fields);
+        Object data = item.getAll();
+        Object fields = data.keySet();
+        Object fieldStr = SqlUtils.buildFieldStr(fields);
         if (fieldStr.isEmpty()) {
             throw new IllegalArgumentException("No data provided in RecordSet.");
         }
 
-        var valStr = new StringBuilder();
-        var flag = false;
-        for (var field : fields) {
+        StringBuilder valStr = new StringBuilder();
+        boolean flag = false;
+        for (FieldKey field : fields) {
             if (flag) {
                 valStr.append(", ");
             } else {
@@ -80,7 +80,7 @@ public class PostgreSqlAdapter extends SqlCommonAdapter<PostgreSqlConfig> {
             valStr.append(SqlUtils.toSqlValStr(field, data.get(field)));
         }
 
-        var updateFields = key.getFields();
+        Object updateFields = key.getFields();
 
         if (!updateFields.isEmpty() && key.getConditions().isEmpty()) {
             throw new IllegalArgumentException("Condition is required for update statement!");
@@ -110,7 +110,7 @@ public class PostgreSqlAdapter extends SqlCommonAdapter<PostgreSqlConfig> {
                                                         ", ",
                                                         updateFields.stream()
                                                                 .map(field -> {
-                                                                    var val = item.get(field);
+                                                                    Object val = item.get(field);
                                                                     if (val == null) {
                                                                         throw new IllegalArgumentException(
                                                                                 "Cannot find value in RecordSet for the specific"

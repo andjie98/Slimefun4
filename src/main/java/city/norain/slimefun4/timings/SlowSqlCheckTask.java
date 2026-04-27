@@ -16,8 +16,8 @@ public class SlowSqlCheckTask implements Runnable {
     @Override
     public void run() {
         for (Map.Entry<TimingEntry, Long> mapEntry : statusChecker.get().entrySet()) {
-            var entry = mapEntry.getKey();
-            var startTime = mapEntry.getValue();
+            Object entry = mapEntry.getKey();
+            Object startTime = mapEntry.getValue();
 
             long elapsedTime = System.currentTimeMillis() - startTime;
 

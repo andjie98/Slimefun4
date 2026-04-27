@@ -20,37 +20,37 @@ public class InvStorageUtils {
     }
 
     public static Set<Integer> getChangedSlots(List<Pair<ItemStack, Integer>> snapshot, ItemStack[] currContent) {
-        var isEmptySnapshot = (snapshot == null || snapshot.isEmpty());
+        Object isEmptySnapshot = (snapshot == null || snapshot.isEmpty());
         if (isEmptySnapshot && currContent == null) {
             return Collections.emptySet();
         }
 
-        var re = new HashSet<Integer>();
+        HashSet re = new HashSet<Integer>();
         if (isEmptySnapshot) {
-            for (var i = 0; i < currContent.length; i++) {
+            for (int i = 0; i < currContent.length; i++) {
                 re.add(i);
             }
             return re;
         }
 
         if (currContent == null) {
-            for (var i = 0; i < snapshot.size(); i++) {
+            for (int i = 0; i < snapshot.size(); i++) {
                 re.add(i);
             }
             return re;
         }
 
-        var size = currContent.length;
-        var snapshotSize = snapshot.size();
+        int size = currContent.length;
+        int snapshotSize = snapshot.size();
         if (snapshotSize > size) {
-            for (var i = size; i < snapshotSize; i++) {
+            for (Object i = size; i < snapshotSize; i++) {
                 re.add(i);
             }
         }
 
-        for (var i = 0; i < size; i++) {
-            var each = i < snapshotSize ? snapshot.get(i) : emptyPair;
-            var curr = currContent[i];
+        for (int i = 0; i < size; i++) {
+            Object each = i < snapshotSize ? snapshot.get(i) : emptyPair;
+            Object curr = currContent[i];
             if (curr == null) {
                 if (each.getFirstValue() != null) {
                     re.add(i);
@@ -70,8 +70,8 @@ public class InvStorageUtils {
 
     @Nonnull
     public static List<Pair<ItemStack, Integer>> getInvSnapshot(ItemStack[] invContents) {
-        var re = new ArrayList<Pair<ItemStack, Integer>>(invContents.length);
-        for (var each : invContents) {
+        ArrayList re = new ArrayList<Pair<ItemStack, Integer>>(invContents.length);
+        for (ItemStack each : invContents) {
             // fix: in case some addons directly manipulate origin ItemStack
             // fix: # 1099 bundles may change their meta internally without a new itemstack instance
             re.add(each == null ? emptyPair : new Pair<>(each.clone(), each.getAmount()));

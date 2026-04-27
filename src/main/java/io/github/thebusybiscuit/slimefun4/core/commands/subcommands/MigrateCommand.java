@@ -31,7 +31,7 @@ public class MigrateCommand extends SubCommand {
 
                 Bukkit.getScheduler().runTaskAsynchronously(Slimefun.instance(), () -> {
                     try {
-                        var status = PlayerProfileMigrator.getInstance().migrateData();
+                        Object status = PlayerProfileMigrator.getInstance().migrateData();
                         sendMigrateStatus("玩家数据", sender, status);
                     } catch (Exception e) {
                         Slimefun.getLocalization().sendMessage(sender, "commands.migrate.failed", true);
@@ -41,7 +41,7 @@ public class MigrateCommand extends SubCommand {
 
                 Bukkit.getScheduler().runTaskAsynchronously(Slimefun.instance(), () -> {
                     try {
-                        var status = BlockStorageMigrator.getInstance().migrateData();
+                        Object status = BlockStorageMigrator.getInstance().migrateData();
                         sendMigrateStatus("方块数据", sender, status);
                     } catch (Exception e) {
                         Slimefun.getLocalization().sendMessage(sender, "commands.migrate.failed", true);

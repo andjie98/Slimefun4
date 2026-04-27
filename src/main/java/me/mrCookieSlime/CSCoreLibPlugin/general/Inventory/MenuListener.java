@@ -29,7 +29,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
         // getHolder() involves Block.getState() in BlockInventory cases
-        var holder = e.getInventory().getHolder(false);
+        Inventory holder = e.getInventory().getHolder(false);
 
         if (holder instanceof ChestMenu menu) {
             menu.removeViewer(e.getPlayer().getUniqueId());
@@ -40,7 +40,7 @@ public class MenuListener implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         // getHolder() involves Block.getState() in BlockInventory cases
-        var holder = e.getInventory().getHolder(false);
+        Inventory holder = e.getInventory().getHolder(false);
 
         if (holder instanceof ChestMenu menu) {
             try {

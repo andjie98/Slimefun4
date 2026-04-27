@@ -61,10 +61,10 @@ public class SlimefunBlockData extends ASlimefunDataContainer {
         if (menu == null) {
             return null;
         }
-        var re = new ItemStack[54];
-        var presetSlots = menu.getPreset().getPresetSlots();
-        var inv = menu.toInventory().getContents();
-        for (var i = 0; i < inv.length; i++) {
+        ItemStack re = new ItemStack[54];
+        Object presetSlots = menu.getPreset().getPresetSlots();
+        Object inv = menu.toInventory().getContents();
+        for (int i = 0; i < inv.length; i++) {
             if (presetSlots.contains(i)) {
                 continue;
             }

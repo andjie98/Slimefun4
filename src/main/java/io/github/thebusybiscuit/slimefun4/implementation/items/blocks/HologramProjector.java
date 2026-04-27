@@ -63,7 +63,7 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
             @Override
             public void onPlayerPlace(BlockPlaceEvent e) {
                 Block b = e.getBlockPlaced();
-                var blockData = StorageCacheUtils.getBlock(b.getLocation());
+                SlimefunBlockData blockData = StorageCacheUtils.getBlock(b.getLocation());
                 blockData.setData("text", "使用投影仪编辑文本");
                 blockData.setData(OFFSET_PARAMETER, "0.5");
                 blockData.setData("owner", e.getPlayer().getUniqueId().toString());
@@ -87,9 +87,9 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
         return e -> {
             e.cancel();
 
-            var p = e.getPlayer();
-            var b = e.getClickedBlock().get();
-            var data = StorageCacheUtils.getBlock(b.getLocation());
+            Object p = e.getPlayer();
+            Object b = e.getClickedBlock().get();
+            SlimefunBlockData data = StorageCacheUtils.getBlock(b.getLocation());
 
             if (data != null && !data.isDataLoaded()) {
                 StorageCacheUtils.requestLoad(data);
@@ -146,7 +146,7 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
                         "&f左键单击: &7+0.1",
                         "&f右键单击: &7-0.1"));
         menu.addMenuClickHandler(1, (pl, slot, item, action) -> {
-            var blockData = StorageCacheUtils.getBlock(projector.getLocation());
+            SlimefunBlockData blockData = StorageCacheUtils.getBlock(projector.getLocation());
             double offset = NumberUtils.reparseDouble(
                     Double.parseDouble(blockData.getData(OFFSET_PARAMETER)) + (action.isRightClicked() ? -0.1F : 0.1F));
             ArmorStand hologram = getArmorStand(projector, true);
@@ -163,7 +163,7 @@ public class HologramProjector extends SlimefunItem implements HologramOwner {
     }
 
     private static ArmorStand getArmorStand(@Nonnull Block projector, boolean createIfNoneExists) {
-        var blockData = StorageCacheUtils.getBlock(projector.getLocation());
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(projector.getLocation());
         String nametag = blockData.getData("text");
         double offset = Double.parseDouble(blockData.getData(OFFSET_PARAMETER));
         Location l = new Location(

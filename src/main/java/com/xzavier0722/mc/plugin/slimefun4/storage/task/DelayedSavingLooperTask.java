@@ -28,7 +28,7 @@ public class DelayedSavingLooperTask implements Runnable {
 
     @Override
     public void run() {
-        var tasks = taskGetter.get();
+        Object tasks = taskGetter.get();
         if (tasks == null || tasks.isEmpty()) {
             return;
         }

@@ -40,15 +40,15 @@ public class SlimefunChunkData extends ADataContainer {
     @Nonnull
     @ParametersAreNonnullByDefault
     public SlimefunBlockData createBlockData(Location l, String sfId) {
-        var lKey = LocationUtils.getLocKey(l);
+        Object lKey = LocationUtils.getLocKey(l);
         if (getBlockCacheInternal(lKey) != null) {
             throw new IllegalStateException("There already a block in this location: " + lKey);
         }
-        var re = new SlimefunBlockData(l, sfId);
+        SlimefunBlockData re = new SlimefunBlockData(l, sfId);
         re.setIsDataLoaded(true);
         sfBlocks.put(lKey, re);
 
-        var preset = BlockMenuPreset.getPreset(sfId);
+        Object preset = BlockMenuPreset.getPreset(sfId);
         if (preset != null) {
             re.setBlockMenu(new BlockMenu(preset, l));
         }
@@ -66,8 +66,8 @@ public class SlimefunChunkData extends ADataContainer {
 
     @Nullable @ParametersAreNonnullByDefault
     public SlimefunBlockData removeBlockData(Location l) {
-        var lKey = LocationUtils.getLocKey(l);
-        var re = removeBlockDataCacheInternal(lKey);
+        Object lKey = LocationUtils.getLocKey(l);
+        Object re = removeBlockDataCacheInternal(lKey);
         if (re == null) {
             if (isDataLoaded()) {
                 return null;
@@ -87,12 +87,12 @@ public class SlimefunChunkData extends ADataContainer {
     }
 
     SlimefunBlockData getBlockCacheInternal(String lKey) {
-        var re = sfBlocks.get(lKey);
+        Object re = sfBlocks.get(lKey);
         return re == INVALID_BLOCK_DATA ? null : re;
     }
 
     Set<SlimefunBlockData> getAllCacheInternal() {
-        var re = new HashSet<>(sfBlocks.values());
+        HashSet re = new HashSet<>(sfBlocks.values());
         re.removeIf(v -> v == INVALID_BLOCK_DATA);
         return re;
     }
@@ -106,7 +106,7 @@ public class SlimefunChunkData extends ADataContainer {
     }
 
     SlimefunBlockData removeBlockDataCacheInternal(String lKey) {
-        var re = isDataLoaded() ? sfBlocks.remove(lKey) : sfBlocks.put(lKey, INVALID_BLOCK_DATA);
+        Object re = isDataLoaded() ? sfBlocks.remove(lKey) : sfBlocks.put(lKey, INVALID_BLOCK_DATA);
         return re == INVALID_BLOCK_DATA ? null : re;
     }
 

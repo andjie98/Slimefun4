@@ -112,7 +112,7 @@ public class ResourceManager {
         Validate.notNull(world, "World must not be null");
 
         String key = resource.getKey().toString().replace(':', '-');
-        var chunkData = Slimefun.getDatabaseManager().getBlockDataController().getChunkData(world.getChunkAt(x, z));
+        BlockDataController chunkData = Slimefun.getDatabaseManager().getBlockDataController().getChunkData(world.getChunkAt(x, z));
         if (chunkData == null) {
             return OptionalInt.empty();
         }

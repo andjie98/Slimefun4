@@ -63,7 +63,7 @@ public class BlockStorage {
     }
 
     private static SlimefunBlockData getBlockData(Location l) {
-        var re = Slimefun.getDatabaseManager().getBlockDataController().getBlockData(l);
+        SlimefunBlockData re = Slimefun.getDatabaseManager().getBlockDataController().getBlockData(l);
         if (re == null) {
             return null;
         }
@@ -75,7 +75,7 @@ public class BlockStorage {
     }
 
     public static String getLocationInfo(Location l, String key) {
-        var data = getBlockData(l);
+        Object data = getBlockData(l);
         return data == null ? null : "id".equals(key) ? data.getSfId() : data.getData(key);
     }
 
@@ -96,7 +96,7 @@ public class BlockStorage {
             Slimefun.getDatabaseManager().getBlockDataController().createBlock(l, value);
             return;
         }
-        var data = getBlockData(l);
+        Object data = getBlockData(l);
         if (data != null) {
             if (value == null) {
                 data.removeData(key);
@@ -167,12 +167,12 @@ public class BlockStorage {
     }
 
     public static boolean hasInventory(Block b) {
-        var data = getBlockData(b.getLocation());
+        Location data = getBlockData(b.getLocation());
         return data != null && data.getBlockMenu() != null;
     }
 
     public static BlockMenu getInventory(Location l) {
-        var data = getBlockData(l);
+        Object data = getBlockData(l);
         return data == null ? null : data.getBlockMenu();
     }
 
@@ -193,12 +193,12 @@ public class BlockStorage {
     }
 
     public static Config getLocationInfo(Location location) {
-        var re = getBlockData(location);
+        Object re = getBlockData(location);
         return re == null ? emptyData : new BlockDataConfigWrapper(re);
     }
 
     public static void deleteLocationInfoUnsafely(Location l, boolean destroy) {
-        var blockData = getBlockData(l);
+        Object blockData = getBlockData(l);
 
         if (blockData == null) {
             return;

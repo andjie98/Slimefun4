@@ -43,7 +43,7 @@ public class CargoInputNode extends AbstractFilterNode {
     protected void onPlace(BlockPlaceEvent e) {
         super.onPlace(e);
 
-        var l = e.getBlock().getLocation();
+        Block l = e.getBlock().getLocation();
         StorageCacheUtils.setData(l, ROUND_ROBIN_MODE, String.valueOf(false));
         StorageCacheUtils.setData(l, SMART_FILL_MODE, String.valueOf(false));
     }
@@ -52,7 +52,7 @@ public class CargoInputNode extends AbstractFilterNode {
     protected void updateBlockMenu(BlockMenu menu, Block b) {
         super.updateBlockMenu(menu, b);
 
-        var blockData = StorageCacheUtils.getBlock(b.getLocation());
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(b.getLocation());
         String roundRobinMode = blockData.getData(ROUND_ROBIN_MODE);
         if (roundRobinMode == null || roundRobinMode.equals(String.valueOf(false))) {
             menu.replaceExistingItem(

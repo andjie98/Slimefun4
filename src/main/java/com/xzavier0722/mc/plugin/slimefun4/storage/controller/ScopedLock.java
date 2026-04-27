@@ -13,12 +13,12 @@ class ScopedLock {
     }
 
     void lock(ScopeKey scopeKey) {
-        var lock = locks.computeIfAbsent(scopeKey, k -> new ReentrantLock());
+        ReentrantLock lock = locks.computeIfAbsent(scopeKey, k -> new ReentrantLock());
         lock.lock();
     }
 
     void unlock(ScopeKey scopeKey) {
-        var lock = locks.get(scopeKey);
+        Object lock = locks.get(scopeKey);
         if (lock == null) {
             return;
         }

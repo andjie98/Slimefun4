@@ -70,8 +70,8 @@ public class ExplosionsListener implements Listener {
     private void removeResistantBlocks(@Nonnull Iterator<Block> blocks) {
         while (blocks.hasNext()) {
             Block block = blocks.next();
-            var loc = block.getLocation();
-            var blockData = StorageCacheUtils.getDataContainer(loc);
+            Location loc = block.getLocation();
+            UniversalBlockData blockData = StorageCacheUtils.getDataContainer(loc);
             SlimefunItem item = blockData == null ? null : SlimefunItem.getById(blockData.getSfId());
 
             if (item != null) {

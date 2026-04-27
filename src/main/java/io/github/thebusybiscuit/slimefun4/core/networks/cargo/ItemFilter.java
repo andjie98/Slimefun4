@@ -81,7 +81,7 @@ class ItemFilter implements Predicate<ItemStack> {
             return;
         }
 
-        var blockData = StorageCacheUtils.getDataContainer(b.getLocation());
+        UniversalBlockData blockData = StorageCacheUtils.getDataContainer(b.getLocation());
         if (blockData.isDataLoaded()) {
             update(blockData);
         } else {

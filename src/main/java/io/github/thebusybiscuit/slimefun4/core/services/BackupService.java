@@ -43,7 +43,7 @@ public class BackupService implements Runnable {
 
     @Override
     public void run() {
-        var dbManager = Slimefun.getDatabaseManager();
+        SlimefunDatabaseManager dbManager = Slimefun.getDatabaseManager();
         if (dbManager.getProfileStorageType() != StorageType.SQLITE
                 && dbManager.getBlockDataStorageType() != StorageType.SQLITE) {
             return;
@@ -98,11 +98,11 @@ public class BackupService implements Runnable {
     }
 
     private void addFile(ZipOutputStream output, File file, String path) throws IOException {
-        var entry = new ZipEntry(path + "/" + file.getName());
+        ZipEntry entry = new ZipEntry(path + "/" + file.getName());
         output.putNextEntry(entry);
 
         byte[] buffer = new byte[4096];
-        try (var input = new FileInputStream(file)) {
+        try (FileInputStream input = new FileInputStream(file)) {
             int length;
 
             while ((length = input.read(buffer)) > 0) {

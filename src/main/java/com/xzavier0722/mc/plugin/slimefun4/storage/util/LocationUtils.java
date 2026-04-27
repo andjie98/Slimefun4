@@ -39,8 +39,8 @@ public class LocationUtils {
         }
 
         try {
-            var strArr = lKey.split(";");
-            var loc = strArr[1].split(":");
+            String[] strArr = lKey.split(";");
+            String[] loc = strArr[1].split(":");
             return new Location(
                     Bukkit.getWorld(strArr[0]),
                     Double.parseDouble(loc[0]),
@@ -65,7 +65,7 @@ public class LocationUtils {
     }
 
     public static Chunk toChunk(World w, String cKey) {
-        var loc = cKey.split(";")[1].split(":");
+        String[] loc = cKey.split(";")[1].split(":");
         if (SlimefunExtended.isAtLeast(1, 19, 4)) {
             return w.getChunkAt(Integer.parseInt(loc[0]), Integer.parseInt(loc[1]), false);
         } else {

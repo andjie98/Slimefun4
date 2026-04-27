@@ -161,14 +161,14 @@ public class EnergyNet extends Network implements HologramOwner {
                 for (Map.Entry<Location, EnergyNetComponent> entry : consumers.entrySet()) {
                     Location loc = entry.getKey();
 
-                    var data = StorageCacheUtils.getDataContainer(loc);
+                    UniversalBlockData data = StorageCacheUtils.getDataContainer(loc);
                     if (data == null || data.isPendingRemove()) {
                         continue;
                     }
 
                     EnergyNetComponent component = entry.getValue();
                     if (!((SlimefunItem) component).getId().equals(data.getSfId())) {
-                        var newItem = SlimefunItem.getById(data.getSfId());
+                        SlimefunItem newItem = SlimefunItem.getById(data.getSfId());
                         if (!(newItem instanceof EnergyNetComponent newComponent)
                                 || newComponent.getEnergyComponentType() != EnergyNetComponentType.CONSUMER) {
                             continue;
@@ -216,7 +216,7 @@ public class EnergyNet extends Network implements HologramOwner {
         for (Map.Entry<Location, EnergyNetComponent> entry : capacitors.entrySet()) {
             Location loc = entry.getKey();
 
-            var data = StorageCacheUtils.getDataContainer(loc);
+            UniversalBlockData data = StorageCacheUtils.getDataContainer(loc);
             if (data == null || data.isPendingRemove() || !data.isDataLoaded()) {
                 continue;
             }
@@ -241,7 +241,7 @@ public class EnergyNet extends Network implements HologramOwner {
         for (Map.Entry<Location, EnergyNetProvider> entry : generators.entrySet()) {
             Location loc = entry.getKey();
 
-            var data = StorageCacheUtils.getDataContainer(loc);
+            UniversalBlockData data = StorageCacheUtils.getDataContainer(loc);
             if (data == null || data.isPendingRemove() || !data.isDataLoaded()) {
                 continue;
             }
@@ -274,13 +274,13 @@ public class EnergyNet extends Network implements HologramOwner {
             SlimefunItem item = (SlimefunItem) provider;
 
             try {
-                var data = StorageCacheUtils.getDataContainer(loc);
+                UniversalBlockData data = StorageCacheUtils.getDataContainer(loc);
                 if (data == null || data.isPendingRemove()) {
                     continue;
                 }
 
                 if (!item.getId().equals(data.getSfId())) {
-                    var newItem = SlimefunItem.getById(data.getSfId());
+                    SlimefunItem newItem = SlimefunItem.getById(data.getSfId());
                     if (!(newItem instanceof EnergyNetProvider newProvider)) {
                         continue;
                     }

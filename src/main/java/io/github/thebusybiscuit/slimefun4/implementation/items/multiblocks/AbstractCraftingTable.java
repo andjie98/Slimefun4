@@ -51,7 +51,7 @@ abstract class AbstractCraftingTable extends MultiBlockMachine {
             if (stack != null) {
                 stack = stack.clone();
 
-                var consumed = Slimefun.getItemStackService().consume(stack, 1, true, ConsumeContext.VIRTUAL_CRAFTING);
+                Object consumed = Slimefun.getItemStackService().consume(stack, 1, true, ConsumeContext.VIRTUAL_CRAFTING);
                 if (consumed.handled()) {
                     stack = consumed.item();
                 } else {
@@ -71,9 +71,9 @@ abstract class AbstractCraftingTable extends MultiBlockMachine {
             Player p, Inventory inv, SlimefunBackpack backpack, ItemStack output, Runnable onReadyCb) {
         ItemStack input = null;
 
-        var contents = inv.getContents();
+        Object contents = inv.getContents();
         for (int j = 0; j < 9; j++) {
-            var item = contents[j];
+            Object item = contents[j];
             if (item != null
                     && item.getType() != Material.AIR
                     && SlimefunItem.getByItem(item) instanceof SlimefunBackpack) {

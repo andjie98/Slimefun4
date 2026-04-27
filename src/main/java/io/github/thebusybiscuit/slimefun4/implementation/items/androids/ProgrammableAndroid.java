@@ -103,7 +103,7 @@ public class ProgrammableAndroid extends SlimefunItem
 
             @Override
             public boolean canOpen(Block b, Player p) {
-                var uniData = StorageCacheUtils.getUniversalBlock(b);
+                UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(b);
 
                 Objects.requireNonNull(
                         uniData,
@@ -124,7 +124,7 @@ public class ProgrammableAndroid extends SlimefunItem
 
             @Override
             public void newInstance(UniversalMenu menu, Block b) {
-                var uniData = StorageCacheUtils.getUniversalBlock(menu.getUuid());
+                UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(menu.getUuid());
 
                 menu.replaceExistingItem(
                         15, new CustomItemStack(HeadTexture.SCRIPT_START.getAsItemStack(), "&a启动/继续运行"));
@@ -186,7 +186,7 @@ public class ProgrammableAndroid extends SlimefunItem
                 Player p = e.getPlayer();
                 Block b = e.getBlock();
 
-                var universalData = StorageCacheUtils.getUniversalBlock(b);
+                UniversalBlockData universalData = StorageCacheUtils.getUniversalBlock(b);
 
                 universalData.setData("owner", p.getUniqueId().toString());
                 universalData.setData("script", DEFAULT_SCRIPT);
@@ -215,7 +215,7 @@ public class ProgrammableAndroid extends SlimefunItem
             public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
                 Block b = e.getBlock();
 
-                var uniData = StorageCacheUtils.getUniversalBlock(b);
+                UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(b);
 
                 if (!e.getPlayer().hasPermission("slimefun.android.bypass")
                         && !e.getPlayer().getUniqueId().toString().equals(uniData.getData("owner"))) {
@@ -224,7 +224,7 @@ public class ProgrammableAndroid extends SlimefunItem
                     return;
                 }
 
-                var menu = uniData.getMenu();
+                UniversalMenu menu = uniData.getMenu();
                 if (menu != null) {
                     menu.dropItems(b.getLocation(), 43);
                     menu.dropItems(b.getLocation(), getOutputSlots());
@@ -1003,7 +1003,7 @@ public class ProgrammableAndroid extends SlimefunItem
 
     @ParametersAreNonnullByDefault
     protected void move(Block from, BlockFace face, Block to) {
-        var uniData = StorageCacheUtils.getUniversalBlock(from);
+        UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(from);
 
         if (uniData == null) {
             throw new IllegalStateException("This android doesn't have universal data! Location at "
@@ -1026,7 +1026,7 @@ public class ProgrammableAndroid extends SlimefunItem
 
             // Bro encountered a ghost 💀
             if (StorageCacheUtils.hasSlimefunBlock(to.getLocation())) {
-                var data = StorageCacheUtils.getDataContainer(to.getLocation());
+                UniversalBlockData data = StorageCacheUtils.getDataContainer(to.getLocation());
                 if (data != null && !data.isPendingRemove()) {
                     // Since it's a ghost, we just hunt it.
                     Slimefun.getDatabaseManager().getBlockDataController().removeBlock(to.getLocation());

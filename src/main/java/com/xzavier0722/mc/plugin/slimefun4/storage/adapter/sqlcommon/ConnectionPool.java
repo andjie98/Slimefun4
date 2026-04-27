@@ -35,12 +35,12 @@ public class ConnectionPool {
                 return getConn();
             }
 
-            var re = connCreator.get();
+            Object re = connCreator.get();
             currConnCount++;
             usingConn.add(re);
             return re;
         } else {
-            var re = freeConn.poll();
+            Object re = freeConn.poll();
             if (!testConn(re)) {
                 currConnCount--;
                 return getConn();
@@ -74,7 +74,7 @@ public class ConnectionPool {
     }
 
     private boolean testConn(Connection conn) {
-        try (var stmt = conn.createStatement()) {
+        try (Statement stmt = conn.createStatement()) {
             stmt.execute("/* ping */ SHOW DATABASES");
             return true;
         } catch (SQLException e) {

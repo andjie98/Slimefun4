@@ -9,7 +9,7 @@ public class ControllerHolder<T extends ADataController> {
     private final Map<StorageType, T> controllers;
 
     public static <CT extends ADataController> CT getController(Class<CT> clazz, StorageType type) {
-        final var holder = holders.get(clazz);
+        final Object holder = holders.get(clazz);
         return holder == null ? null : ((ControllerHolder<CT>) holder).get(type);
     }
 
@@ -19,7 +19,7 @@ public class ControllerHolder<T extends ADataController> {
 
     public static <CT extends ADataController> CT createController(Class<CT> clazz, StorageType type) {
         try {
-            var re = clazz.getDeclaredConstructor().newInstance();
+            Object re = clazz.getDeclaredConstructor().newInstance();
             ((ControllerHolder<CT>) holders.computeIfAbsent(clazz, k -> new ControllerHolder<CT>())).put(type, re);
             return re;
         } catch (Throwable e) {

@@ -14,7 +14,7 @@ public class StringUtil {
             return "null";
         }
 
-        var sfItem = SlimefunItem.getByItem(item);
+        Object sfItem = SlimefunItem.getByItem(item);
 
         if (sfItem != null) {
             return String.format(
@@ -30,11 +30,11 @@ public class StringUtil {
             return new HashSet<>();
         }
 
-        var traits = new HashSet<UniversalDataTrait>();
+        HashSet traits = new HashSet<UniversalDataTrait>();
 
         for (String t : str.split(",")) {
             try {
-                var trait = UniversalDataTrait.valueOf(t.toUpperCase());
+                Object trait = UniversalDataTrait.valueOf(t.toUpperCase());
                 traits.add(trait);
             } catch (IllegalArgumentException ignored) {
             }

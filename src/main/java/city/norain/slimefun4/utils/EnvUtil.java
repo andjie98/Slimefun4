@@ -11,13 +11,13 @@ public class EnvUtil {
     public static Properties gitInfo = null;
 
     public void init() {
-        try (var resource = Slimefun.class.getResourceAsStream("/git.properties")) {
+        try (InputStream resource = Slimefun.class.getResourceAsStream("/git.properties")) {
             if (resource == null) {
                 Slimefun.logger().warning("无法加载构建信息: 未找到 /git.properties");
                 return;
             }
 
-            var prop = new Properties();
+            Properties prop = new Properties();
             prop.load(resource);
 
             gitInfo = prop;

@@ -80,19 +80,19 @@ public class DirtyChestMenu extends ChestMenu {
     }
 
     public boolean fits(@Nonnull ItemStack item, int... slots) {
-        var virtualItems = Slimefun.getItemStackService();
-        var isSfItem = SlimefunItem.getByItem(item) != null || virtualItems.isVirtualItem(item);
+        Object virtualItems = Slimefun.getItemStackService();
+        Object isSfItem = SlimefunItem.getByItem(item) != null || virtualItems.isVirtualItem(item);
 
         if (slots.length == 0) {
             return virtualItems.fits(toInventory(), item, InventoryContext.MENU_FIT);
         }
 
-        var wrapper = ItemStackWrapper.wrap(item);
-        var remain = item.getAmount();
+        Object wrapper = ItemStackWrapper.wrap(item);
+        Object remain = item.getAmount();
 
         for (int slot : slots) {
             // A small optimization for empty slots
-            var slotItem = getItemInSlot(slot);
+            Object slotItem = getItemInSlot(slot);
             if (slotItem == null || slotItem.getType().isAir()) {
                 if (!virtualItems.canInsertIntoEmptySlot(item, InventoryContext.MENU_FIT)) {
                     continue;
@@ -128,7 +128,7 @@ public class DirtyChestMenu extends ChestMenu {
                 int maxStackSize = Math.min(
                         virtualItems.getMaxStackSize(slotItem, InventoryContext.MENU_FIT, slotItem.getMaxStackSize()),
                         toInventory().getMaxStackSize());
-                var slotRemain = Math.max(0, maxStackSize - slotItem.getAmount());
+                Object slotRemain = Math.max(0, maxStackSize - slotItem.getAmount());
 
                 remain -= slotRemain;
 
@@ -169,7 +169,7 @@ public class DirtyChestMenu extends ChestMenu {
 
         ItemStackWrapper wrapper = null;
         int amount = item.getAmount();
-        var virtualItems = Slimefun.getItemStackService();
+        Object virtualItems = Slimefun.getItemStackService();
 
         for (int slot : slots) {
             if (amount <= 0) {
@@ -248,8 +248,8 @@ public class DirtyChestMenu extends ChestMenu {
         }
 
         ItemStack item = getItemInSlot(slot);
-        var virtualItems = Slimefun.getItemStackService();
-        var result = virtualItems.consume(item, amount, replaceConsumables, ConsumeContext.MENU_CONSUME);
+        Object virtualItems = Slimefun.getItemStackService();
+        Object result = virtualItems.consume(item, amount, replaceConsumables, ConsumeContext.MENU_CONSUME);
         if (result.handled()) {
             replaceExistingItem(slot, result.item());
         } else {

@@ -43,7 +43,7 @@ public class BlockPhysicsListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onBlockFall(EntityChangeBlockEvent e) {
-        var blockData = StorageCacheUtils.getDataContainer(e.getBlock().getLocation());
+        UniversalBlockData blockData = StorageCacheUtils.getDataContainer(e.getBlock().getLocation());
         if (blockData == null) {
             return;
         }
@@ -51,7 +51,7 @@ public class BlockPhysicsListener implements Listener {
         switch (e.getEntity().getType()) {
             case FALLING_BLOCK -> {
                 e.setCancelled(true);
-                var block = (FallingBlock) e.getEntity();
+                Object block = (FallingBlock) e.getEntity();
 
                 if (block.getDropItem()) {
                     block.getWorld()
@@ -65,9 +65,9 @@ public class BlockPhysicsListener implements Listener {
                 // fix issue 1126
                 // the wither break is handled in the WitherListener, then the data is removed there, so it will
                 // conflict with this listener
-                var block = e.getBlock();
-                var item = SlimefunItem.getById(blockData.getSfId());
-                var controller = Slimefun.getDatabaseManager().getBlockDataController();
+                Block block = e.getBlock();
+                SlimefunItem item = SlimefunItem.getById(blockData.getSfId());
+                BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
                 if (item != null) {
                     if (item instanceof WitherProof witherProof) {
                         witherProof.onAttackEvent(e);
@@ -77,7 +77,7 @@ public class BlockPhysicsListener implements Listener {
                     }
                     controller.removeBlock(block.getLocation());
                     block.setType(Material.AIR);
-                    for (var drop : item.getDrops()) {
+                    for (Object drop : item.getDrops()) {
                         if (drop != null && !drop.getType().isAir()) {
                             block.getWorld().dropItemNaturally(block.getLocation(), drop);
                         }
@@ -138,7 +138,7 @@ public class BlockPhysicsListener implements Listener {
             return;
         }
 
-        var state = block.getState(false);
+        Object state = block.getState(false);
 
         // Check the skull if it had lost its data, but name still remained.
         if (state instanceof Skull) {

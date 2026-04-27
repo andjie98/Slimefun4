@@ -234,7 +234,7 @@ public class TalismanListener implements Listener {
         }
 
         if (entity instanceof AbstractHorse abstractHorse) {
-            var inventory = abstractHorse.getInventory();
+            Inventory inventory = abstractHorse.getInventory();
             items.remove(inventory.getSaddle());
 
             if (inventory instanceof LlamaInventory llamaInventory) {

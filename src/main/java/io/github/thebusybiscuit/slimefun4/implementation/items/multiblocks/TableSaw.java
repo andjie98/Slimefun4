@@ -137,7 +137,7 @@ public class TableSaw extends MultiBlockMachine {
         }
 
         if (p.getGameMode() != GameMode.CREATIVE) {
-            var consumed = Slimefun.getItemStackService().consume(item, 1, true, ConsumeContext.VIRTUAL_CRAFTING);
+            Object consumed = Slimefun.getItemStackService().consume(item, 1, true, ConsumeContext.VIRTUAL_CRAFTING);
             if (consumed.handled()) {
                 p.getInventory()
                         .setItemInMainHand(consumed.item() == null ? new ItemStack(Material.AIR) : consumed.item());

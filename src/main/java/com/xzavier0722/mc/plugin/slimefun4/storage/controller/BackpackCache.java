@@ -21,7 +21,7 @@ public class BackpackCache {
     }
 
     public PlayerBackpack get(String pUuid, int num) {
-        var map = numCache.get(pUuid);
+        Object map = numCache.get(pUuid);
         return map == null ? null : map.get(num);
     }
 
@@ -30,7 +30,7 @@ public class BackpackCache {
     }
 
     public void invalidate(String pUuid) {
-        var cache = numCache.remove(pUuid);
+        Object cache = numCache.remove(pUuid);
         if (cache == null) {
             return;
         }

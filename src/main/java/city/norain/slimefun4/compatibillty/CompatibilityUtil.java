@@ -34,11 +34,11 @@ public class CompatibilityUtil {
                     return Material.REDSTONE;
                 }
                 default -> {
-                    var mat = blockData.getMaterial();
-                    var enumName = blockData.getMaterial().name();
+                    Object mat = blockData.getMaterial();
+                    Object enumName = blockData.getMaterial().name();
 
                     if (Ageable.class.equals(mat.data) && enumName.endsWith("S")) {
-                        var itemMat = Material.getMaterial(enumName.substring(0, enumName.length() - 1));
+                        int itemMat = Material.getMaterial(enumName.substring(0, enumName.length() - 1));
                         return itemMat != null && itemMat.isItem() ? itemMat : mat;
                     }
 

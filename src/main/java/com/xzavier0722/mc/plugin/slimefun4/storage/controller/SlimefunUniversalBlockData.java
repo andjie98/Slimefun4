@@ -46,7 +46,7 @@ public class SlimefunUniversalBlockData extends SlimefunUniversalData {
             return null;
         }
 
-        var data = getData(UniversalDataTrait.BLOCK.getReservedKey());
+        Object data = getData(UniversalDataTrait.BLOCK.getReservedKey());
 
         // 自动修复丢失的位置数据
         if (lastPresent != null) {
@@ -77,7 +77,7 @@ public class SlimefunUniversalBlockData extends SlimefunUniversalData {
 
     private void oldLocationFix(String data) {
         try {
-            var lArr = data.split(",");
+            String[] lArr = data.split(",");
             var bp = new BlockPosition(
                     Bukkit.getWorld(lArr[0].replace("[world=", "")),
                     (int) Double.parseDouble(lArr[1].replace("x=", "")),

@@ -142,7 +142,7 @@ public class SlimefunConfigManager {
             return true;
         }
 
-        var researchSnapshot = new ArrayList<>(Slimefun.getRegistry().getResearches());
+        ArrayList researchSnapshot = new ArrayList<>(Slimefun.getRegistry().getResearches());
 
         // Reload Research costs
         for (Research research : researchSnapshot) {
@@ -158,7 +158,7 @@ public class SlimefunConfigManager {
                             researchesConfig.getDouble(key.getNamespace() + '.' + key.getKey() + ".currency-cost"));
                 }
 
-                var status = researchesConfig.getBoolean(key.getNamespace() + '.' + key.getKey() + ".enabled");
+                Object status = researchesConfig.getBoolean(key.getNamespace() + '.' + key.getKey() + ".enabled");
 
                 if (research.isEnabled() != status) {
                     if (status) {
@@ -178,10 +178,10 @@ public class SlimefunConfigManager {
             }
         }
 
-        var enabledItemSnapshot = new ArrayList<>(Slimefun.getRegistry().getAllSlimefunItems());
+        ArrayList enabledItemSnapshot = new ArrayList<>(Slimefun.getRegistry().getAllSlimefunItems());
 
         for (SlimefunItem item : enabledItemSnapshot) {
-            var newState = itemsConfig.getBoolean(item.getId() + ".enabled") ? ItemState.ENABLED : ItemState.DISABLED;
+            Object newState = itemsConfig.getBoolean(item.getId() + ".enabled") ? ItemState.ENABLED : ItemState.DISABLED;
 
             if (item.getState() != newState) {
                 switch (newState) {

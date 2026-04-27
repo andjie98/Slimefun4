@@ -139,14 +139,14 @@ public abstract class ADataController {
 
         try {
             float totalTask = scheduledWriteTasks.size();
-            var pendingTask = scheduledWriteTasks.size();
-            var timer = new TaskTimer();
+            int pendingTask = scheduledWriteTasks.size();
+            TaskTimer timer = new TaskTimer();
 
             while (pendingTask > 0) {
-                var doneTaskPercent = String.format("%.1f", (totalTask - pendingTask) / totalTask * 100);
+                Object doneTaskPercent = String.format("%.1f", (totalTask - pendingTask) / totalTask * 100);
                 logger.log(Level.INFO, "数据保存中，请稍候... 剩余 {0} 个任务 ({1}%)", new Object[] {pendingTask, doneTaskPercent});
                 TimeUnit.SECONDS.sleep(1);
-                var currentTask = scheduledWriteTasks.size();
+                int currentTask = scheduledWriteTasks.size();
 
                 if (pendingTask == currentTask) {
                     if (timer.peek() / 1000 > 10) {
@@ -189,8 +189,8 @@ public abstract class ADataController {
         // log.info("schedule write scope [{}], key [{}]", scopeKey, key);
 
         try {
-            var scopeToUse = forceScopeKey ? scopeKey : key;
-            var queuedTask = scheduledWriteTasks.get(scopeKey);
+            Object scopeToUse = forceScopeKey ? scopeKey : key;
+            Object queuedTask = scheduledWriteTasks.get(scopeKey);
             if (queuedTask == null && scopeKey != scopeToUse) {
                 queuedTask = scheduledWriteTasks.get(scopeToUse);
             }
@@ -280,7 +280,7 @@ public abstract class ADataController {
     }
 
     protected void abortScopeTask(ScopeKey key) {
-        var task = scheduledWriteTasks.remove(key);
+        Object task = scheduledWriteTasks.remove(key);
         if (task != null) {
             task.abort();
         }

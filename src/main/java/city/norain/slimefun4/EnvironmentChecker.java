@@ -68,7 +68,7 @@ class EnvironmentChecker {
             return true;
         }
 
-        var serverVer = Bukkit.getVersion().toLowerCase();
+        Object serverVer = Bukkit.getVersion().toLowerCase();
 
         return serverVer.contains("arclight") || serverVer.contains("mohist");
     }

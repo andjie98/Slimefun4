@@ -78,8 +78,8 @@ public class MultiTool extends SlimefunItem implements Rechargeable {
             ItemStack item = e.getItem();
             e.cancel();
 
-            var im = item.getItemMeta();
-            var pdc = im.getPersistentDataContainer();
+            ItemMeta im = item.getItemMeta();
+            PersistentDataContainer pdc = im.getPersistentDataContainer();
             int index = pdc.getOrDefault(multiToolMode, PersistentDataType.INTEGER, 0);
 
             if (!p.isSneaking()) {

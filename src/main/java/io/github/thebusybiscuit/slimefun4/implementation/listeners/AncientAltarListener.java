@@ -285,7 +285,7 @@ public class AncientAltarListener implements Listener {
 
     private @Nonnull List<Block> getPedestals(@Nonnull Block altar) {
         List<Block> list = new ArrayList<>();
-        var id = pedestalItem.getId();
+        Object id = pedestalItem.getId();
 
         if (StorageCacheUtils.isBlock(altar.getRelative(2, 0, -2).getLocation(), id)) {
             list.add(altar.getRelative(2, 0, -2));

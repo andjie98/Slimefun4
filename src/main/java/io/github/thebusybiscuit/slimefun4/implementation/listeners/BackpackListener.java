@@ -95,7 +95,7 @@ public class BackpackListener implements Listener {
             e.setCancelled(true);
             return;
         }
-        var player = e.getPlayer();
+        Object player = e.getPlayer();
         if (!backpacks.containsKey(player.getUniqueId())) {
             return;
         }
@@ -118,7 +118,7 @@ public class BackpackListener implements Listener {
             atEntityEvent.setCancelled(true);
             return;
         }
-        var player = atEntityEvent.getPlayer();
+        Object player = atEntityEvent.getPlayer();
         if (!backpacks.containsKey(player.getUniqueId())) {
             return;
         }
@@ -132,7 +132,7 @@ public class BackpackListener implements Listener {
             atEntityEvent.setCancelled(true);
             return;
         }
-        var player = atEntityEvent.getPlayer();
+        Object player = atEntityEvent.getPlayer();
         if (!backpacks.containsKey(player.getUniqueId())) {
             return;
         }
@@ -199,7 +199,7 @@ public class BackpackListener implements Listener {
             Slimefun.getLocalization().sendMessage(p, "backpack.no-stack", true);
             return;
         }
-        var meta = item.getItemMeta();
+        ItemMeta meta = item.getItemMeta();
         // Check if the backpack owner is online
         if (!PlayerBackpack.isOwnerOnline(meta)) {
             Slimefun.getLocalization().sendMessage(p, "backpack.not-backpack-owner");
@@ -216,7 +216,7 @@ public class BackpackListener implements Listener {
                 Player player = Bukkit.getPlayer(puuid);
                 // Don't let player quit server during the input
                 if (player == null) return;
-                var pInv = player.getInventory();
+                Inventory pInv = player.getInventory();
                 // Check if the player change the amount of item
                 if (item.getAmount() != 1) {
                     Slimefun.getLocalization().sendMessage(player, "backpack.no-stack", true);

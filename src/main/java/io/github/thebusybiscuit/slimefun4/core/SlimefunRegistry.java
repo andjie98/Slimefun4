@@ -85,7 +85,7 @@ public final class SlimefunRegistry {
         guides.put(SlimefunGuideMode.SURVIVAL_MODE, new SurvivalSlimefunGuide());
         guides.put(SlimefunGuideMode.CHEAT_MODE, new CheatSheetSlimefunGuide());
 
-        var cfg = Slimefun.getConfigManager().getPluginConfig();
+        Config cfg = Slimefun.getConfigManager().getPluginConfig();
         researchRanks.addAll(cfg.getStringList("research-ranks"));
     }
 

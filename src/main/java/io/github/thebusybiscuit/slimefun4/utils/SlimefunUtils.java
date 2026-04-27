@@ -394,7 +394,7 @@ public final class SlimefunUtils {
                          * in which case we want to use the method provided to compare
                          */
                         // to fix issue #976
-                        var match = id.equals(possibleItemId);
+                        Object match = id.equals(possibleItemId);
                         if (match) {
                             Optional<DistinctiveItem> optionalDistinctive = getDistinctiveItem(id);
                             if (optionalDistinctive.isPresent()) {

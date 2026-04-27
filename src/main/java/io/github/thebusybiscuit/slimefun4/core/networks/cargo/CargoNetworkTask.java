@@ -154,7 +154,7 @@ class CargoNetworkTask implements Runnable {
     private ItemStack distributeItem(ItemStack stack, Location inputNode, List<Location> outputNodes) {
         ItemStack item = stack;
 
-        var blockData = StorageCacheUtils.getBlock(inputNode);
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(inputNode);
         boolean roundrobin = Objects.equals(blockData.getData("round-robin"), "true");
         boolean smartFill = Objects.equals(blockData.getData("smart-fill"), "true");
 

@@ -54,7 +54,7 @@ public class BlockMenu extends DirtyChestMenu {
         this.location = l;
 
         for (int i = 0; i < contents.length; i++) {
-            var item = contents[i];
+            Object item = contents[i];
             if (item == null) {
                 continue;
             }

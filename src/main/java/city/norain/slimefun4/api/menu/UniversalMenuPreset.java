@@ -33,7 +33,7 @@ public abstract class UniversalMenuPreset extends BlockMenuPreset {
     @Override
     protected void clone(@Nonnull DirtyChestMenu menu) {
         if (menu instanceof UniversalMenu universalMenu) {
-            var uniData = StorageCacheUtils.getUniversalBlock(universalMenu.getUuid());
+            UniversalBlockData uniData = StorageCacheUtils.getUniversalBlock(universalMenu.getUuid());
 
             if (uniData == null) {
                 return;
@@ -76,7 +76,7 @@ public abstract class UniversalMenuPreset extends BlockMenuPreset {
         if (id == null) {
             return null;
         } else {
-            var preset = Slimefun.getRegistry().getMenuPresets().get(id);
+            Object preset = Slimefun.getRegistry().getMenuPresets().get(id);
             if (preset instanceof UniversalMenuPreset uniPreset) {
                 return uniPreset;
             } else {

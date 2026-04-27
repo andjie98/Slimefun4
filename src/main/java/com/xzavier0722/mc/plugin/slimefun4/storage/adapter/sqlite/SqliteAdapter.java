@@ -47,16 +47,16 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
 
     @Override
     public void setData(RecordKey key, RecordSet item) {
-        var data = item.getAll();
-        var fields = data.keySet();
-        var fieldStr = SqlUtils.buildFieldStr(fields);
+        Object data = item.getAll();
+        Object fields = data.keySet();
+        Object fieldStr = SqlUtils.buildFieldStr(fields);
         if (fieldStr.isEmpty()) {
             throw new IllegalArgumentException("No data provided in RecordSet.");
         }
 
-        var valStr = new StringBuilder();
-        var flag = false;
-        for (var field : fields) {
+        StringBuilder valStr = new StringBuilder();
+        boolean flag = false;
+        for (FieldKey field : fields) {
             if (flag) {
                 valStr.append(", ");
             } else {
@@ -65,8 +65,8 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
             valStr.append(SqlUtils.toSqlValStr(field, data.get(field)));
         }
 
-        var updateFields = key.getFields();
-        var table = SqlUtils.mapTable(key.getScope());
+        Object updateFields = key.getFields();
+        Object table = SqlUtils.mapTable(key.getScope());
 
         if (!updateFields.isEmpty()) {
             if (key.getConditions().isEmpty()) {
@@ -80,7 +80,7 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
                             ", ",
                             updateFields.stream()
                                     .map(field -> {
-                                        var val = item.get(field);
+                                        Object val = item.get(field);
                                         if (val == null) {
                                             throw new IllegalArgumentException(
                                                     "Cannot find value in RecordSet for the specific key: " + field);
@@ -134,7 +134,7 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
     }
 
     private void createProfileTable() {
-        var table = SqlUtils.mapTable(DataScope.PLAYER_PROFILE);
+        Object table = SqlUtils.mapTable(DataScope.PLAYER_PROFILE);
         executeSql("CREATE TABLE IF NOT EXISTS "
                 + table
                 + "("
@@ -150,7 +150,7 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
     }
 
     private void createResearchTable() {
-        var table = SqlUtils.mapTable(DataScope.PLAYER_RESEARCH);
+        Object table = SqlUtils.mapTable(DataScope.PLAYER_RESEARCH);
         executeSql("CREATE TABLE IF NOT EXISTS "
                 + table
                 + "("
@@ -178,7 +178,7 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
     }
 
     private void createBackpackTable() {
-        var table = SqlUtils.mapTable(DataScope.BACKPACK_PROFILE);
+        Object table = SqlUtils.mapTable(DataScope.BACKPACK_PROFILE);
         executeSql("CREATE TABLE IF NOT EXISTS "
                 + table
                 + "("
@@ -239,7 +239,7 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
     }
 
     private void createBlockRecordTable() {
-        var table = SqlUtils.mapTable(DataScope.BLOCK_RECORD);
+        Object table = SqlUtils.mapTable(DataScope.BLOCK_RECORD);
         executeSql("CREATE TABLE IF NOT EXISTS "
                 + table
                 + "("
@@ -416,10 +416,10 @@ public class SqliteAdapter extends SqlCommonAdapter<SqliteConfig> {
     }
 
     private synchronized int executeUpdate(String sql) {
-        var entry = new SQLEntry(sql);
+        SQLEntry entry = new SQLEntry(sql);
         Slimefun.getSQLProfiler().recordEntry(entry);
 
-        try (var conn = ds.getConnection()) {
+        try (Connection conn = ds.getConnection()) {
             return SqlUtils.execUpdate(conn, sql);
         } catch (SQLException e) {
             throw new IllegalStateException("An exception thrown while executing sql: " + sql, e);

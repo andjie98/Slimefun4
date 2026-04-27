@@ -52,10 +52,10 @@ public class SlimefunDatabaseManager {
 
         try {
             blockDataStorageType = StorageType.valueOf(blockStorageConfig.getString("storageType"));
-            var readExecutorThread = blockStorageConfig.getInt("readExecutorThread");
+            int readExecutorThread = blockStorageConfig.getInt("readExecutorThread");
             var writeExecutorThread =
                     blockDataStorageType == StorageType.SQLITE ? 1 : blockStorageConfig.getInt("writeExecutorThread");
-            var connectionPoolSize = getConnectionPoolSize(blockDataStorageType, blockStorageConfig);
+            Object connectionPoolSize = getConnectionPoolSize(blockDataStorageType, blockStorageConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
                 plugin.getLogger().log(Level.WARNING, "检测到 block-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
@@ -81,17 +81,17 @@ public class SlimefunDatabaseManager {
 
         try {
             profileStorageType = StorageType.valueOf(profileConfig.getString("storageType"));
-            var readExecutorThread = profileConfig.getInt("readExecutorThread");
+            int readExecutorThread = profileConfig.getInt("readExecutorThread");
             var writeExecutorThread =
                     profileStorageType == StorageType.SQLITE ? 1 : profileConfig.getInt("writeExecutorThread");
-            var connectionPoolSize = getConnectionPoolSize(profileStorageType, profileConfig);
+            Object connectionPoolSize = getConnectionPoolSize(profileStorageType, profileConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
                 plugin.getLogger().log(Level.WARNING, "检测到 profile-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
             }
 
             initAdapter(profileStorageType, DataType.PLAYER_PROFILE, profileConfig);
-            var profileController = ControllerHolder.createController(ProfileDataController.class, profileStorageType);
+            Object profileController = ControllerHolder.createController(ProfileDataController.class, profileStorageType);
             profileController.init(profileAdapter, readExecutorThread, writeExecutorThread);
         } catch (IOException e) {
             plugin.getLogger().log(Level.SEVERE, "加载玩家档案适配器失败", e);
@@ -101,7 +101,7 @@ public class SlimefunDatabaseManager {
     private void initAdapter(StorageType storageType, DataType dataType, Config databaseConfig) throws IOException {
         switch (storageType) {
             case MYSQL -> {
-                var adapter = new MysqlAdapter();
+                MysqlAdapter adapter = new MysqlAdapter();
 
                 adapter.prepare(new MysqlConfig(
                         databaseConfig.getString("mysql.host"),
@@ -119,7 +119,7 @@ public class SlimefunDatabaseManager {
                 }
             }
             case SQLITE -> {
-                var adapter = new SqliteAdapter();
+                SqliteAdapter adapter = new SqliteAdapter();
 
                 File databasePath = null;
 
@@ -137,7 +137,7 @@ public class SlimefunDatabaseManager {
                         databasePath.getAbsolutePath(), databaseConfig.getInt("sqlite.maxConnection")));
             }
             case POSTGRESQL -> {
-                var adapter = new PostgreSqlAdapter();
+                PostgreSqlAdapter adapter = new PostgreSqlAdapter();
 
                 adapter.prepare(new PostgreSqlConfig(
                         databaseConfig.getString("postgresql.host"),

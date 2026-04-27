@@ -10,7 +10,7 @@ plugins {
     java
     `maven-publish`
     alias(libs.plugins.spotless)
-    alias(libs.plugins.shadow)
+    id("com.gradleup.shadow") version "9.3.2"
     alias(libs.plugins.git.properties)
 }
 
@@ -18,13 +18,13 @@ group = "com.github.slimefun"
 version = resolveVersion()
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withSourcesJar()
 }
 
 tasks.compileJava {
     options.encoding = "UTF-8"
-    options.release.set(21)
 }
 
 repositories {
@@ -53,6 +53,7 @@ dependencies {
     testRuntimeOnly(libs.junit.platform.launcher)
 
     implementation(libs.dough.api)
+    implementation(libs.xseries)
     implementation(libs.unirest.java) {
         exclude(group = "com.google.code.gson", module = "gson")
     }
@@ -135,6 +136,7 @@ tasks.named<ShadowJar>("shadowJar") {
     archiveVersion.set(project.version.toString())
     archiveClassifier.set("")
     relocate("io.github.bakedlibs.dough", "io.github.thebusybiscuit.slimefun4.libraries.dough")
+    relocate("com.cryptomorin.xseries", "io.github.thebusybiscuit.slimefun4.libraries.xseries")
     relocate("io.papermc.lib", "io.github.thebusybiscuit.slimefun4.libraries.paperlib")
     relocate("kong.unirest", "io.github.thebusybiscuit.slimefun4.libraries.unirest")
     relocate("org.apache.commons.lang", "io.github.thebusybiscuit.slimefun4.libraries.commons.lang")

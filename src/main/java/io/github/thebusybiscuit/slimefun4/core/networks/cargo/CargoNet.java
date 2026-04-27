@@ -88,7 +88,7 @@ public class CargoNet extends AbstractItemNetwork implements HologramOwner {
 
     @Override
     public NetworkComponent classifyLocation(@Nonnull Location l) {
-        var data = StorageCacheUtils.getBlock(l);
+        SlimefunBlockData data = StorageCacheUtils.getBlock(l);
 
         if (data == null) {
             return null;
@@ -112,7 +112,7 @@ public class CargoNet extends AbstractItemNetwork implements HologramOwner {
         }
 
         if (to == NetworkComponent.TERMINUS) {
-            var data = StorageCacheUtils.getBlock(l);
+            SlimefunBlockData data = StorageCacheUtils.getBlock(l);
             switch (data.getSfId()) {
                 case "CARGO_NODE_INPUT" -> inputNodes.add(l);
                 case "CARGO_NODE_OUTPUT", "CARGO_NODE_OUTPUT_ADVANCED" -> outputNodes.add(l);
@@ -155,7 +155,7 @@ public class CargoNet extends AbstractItemNetwork implements HologramOwner {
                 if (blockData.isPendingRemove()) {
                     return;
                 }
-                var event = new CargoTickEvent(inputs, outputs);
+                CargoTickEvent event = new CargoTickEvent(inputs, outputs);
                 Bukkit.getPluginManager().callEvent(event);
                 event.getHologramMsg().ifPresent(msg -> updateHologram(b, msg));
                 if (event.isCancelled()) {
@@ -228,7 +228,7 @@ public class CargoNet extends AbstractItemNetwork implements HologramOwner {
      * @return The frequency of the given node
      */
     private static int getFrequency(@Nonnull Location node) {
-        var data = StorageCacheUtils.getBlock(node);
+        SlimefunBlockData data = StorageCacheUtils.getBlock(node);
         if (data == null) {
             return -1;
         }

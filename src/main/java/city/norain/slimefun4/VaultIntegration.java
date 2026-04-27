@@ -17,7 +17,7 @@ public class VaultIntegration {
 
     protected static void register(@Nonnull Slimefun plugin) {
         if (plugin.getServer().getPluginManager().isPluginEnabled("Vault")) {
-            var rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
+            Object rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
             if (rsp != null) {
                 econ = rsp.getProvider();
                 plugin.getLogger().log(Level.INFO, "成功接入 Vault");

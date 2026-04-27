@@ -27,7 +27,7 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoin(@Nonnull PlayerJoinEvent e) {
-        final var p = e.getPlayer();
+        final Object p = e.getPlayer();
 
         PlayerProfile.get(p, playerProfile -> {
             final ItemStack[] armorContents = p.getInventory().getArmorContents();

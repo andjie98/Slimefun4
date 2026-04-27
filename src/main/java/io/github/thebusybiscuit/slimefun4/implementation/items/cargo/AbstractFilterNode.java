@@ -72,7 +72,7 @@ abstract class AbstractFilterNode extends AbstractCargoNode {
 
     @Override
     protected void onPlace(BlockPlaceEvent e) {
-        var blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(e.getBlock().getLocation());
         blockData.setData("index", "0");
         blockData.setData(FILTER_TYPE, "whitelist");
         blockData.setData(FILTER_LORE, String.valueOf(true));
@@ -97,7 +97,7 @@ abstract class AbstractFilterNode extends AbstractCargoNode {
     @Override
     protected void updateBlockMenu(BlockMenu menu, Block b) {
         Location loc = b.getLocation();
-        var blockData = StorageCacheUtils.getBlock(b.getLocation());
+        SlimefunBlockData blockData = StorageCacheUtils.getBlock(b.getLocation());
         String filterType = blockData.getData(FILTER_TYPE);
 
         if (filterType == null || filterType.equals("whitelist")) {

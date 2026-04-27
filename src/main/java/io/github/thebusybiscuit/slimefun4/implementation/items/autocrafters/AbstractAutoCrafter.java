@@ -559,7 +559,7 @@ public abstract class AbstractAutoCrafter extends SlimefunItem implements Energy
      * @return The leftover item or null if the item is fully consumed
      */
     @Nullable private ItemStack getLeftoverItem(@Nonnull ItemStack item) {
-        var virtualLeftover = Slimefun.getItemStackService().getRemainder(item, RemainderContext.AUTO_CRAFTER);
+        Object virtualLeftover = Slimefun.getItemStackService().getRemainder(item, RemainderContext.AUTO_CRAFTER);
         if (virtualLeftover.handled()) {
             return virtualLeftover.item();
         }

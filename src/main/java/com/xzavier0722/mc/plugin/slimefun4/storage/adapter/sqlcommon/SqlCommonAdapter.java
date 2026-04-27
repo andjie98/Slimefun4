@@ -40,9 +40,9 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
     }
 
     protected void executeSql(String sql) {
-        var entry = new SQLEntry(sql);
+        SQLEntry entry = new SQLEntry(sql);
         Slimefun.getSQLProfiler().recordEntry(entry);
-        try (var conn = ds.getConnection()) {
+        try (Connection conn = ds.getConnection()) {
             SqlUtils.execSql(conn, sql);
         } catch (SQLException e) {
             throw new IllegalStateException("An exception thrown while executing sql: " + sql, e);
@@ -52,10 +52,10 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
     }
 
     protected List<RecordSet> executeQuery(String sql) {
-        var entry = new SQLEntry(sql);
+        SQLEntry entry = new SQLEntry(sql);
         Slimefun.getSQLProfiler().recordEntry(entry);
 
-        try (var conn = ds.getConnection()) {
+        try (Connection conn = ds.getConnection()) {
             return SqlUtils.execQuery(conn, sql);
         } catch (SQLException e) {
             throw new IllegalStateException("An exception thrown while executing sql: " + sql, e);
@@ -111,7 +111,7 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
 
         if (query.isEmpty()) {
             try {
-                var prefix = config instanceof SqlCommonConfig sqc ? sqc.tablePrefix() : "";
+                Object prefix = config instanceof SqlCommonConfig sqc ? sqc.tablePrefix() : "";
                 var fallbackQuery = executeQuery(
                         "SELECT (" + FIELD_TABLE_VERSION + ") FROM " + (prefix + TABLE_NAME_TABLE_INFORMATION));
 
@@ -131,7 +131,7 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
     @Override
     public void patch() {
         DatabasePatch patch = null;
-        var dbVer = getDatabaseVersion();
+        Object dbVer = getDatabaseVersion();
 
         Slimefun.logger().log(Level.INFO, "当前数据库版本 {0}", new Object[] {dbVer});
 
@@ -144,9 +144,9 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
             return;
         }
 
-        try (var conn = ds.getConnection()) {
+        try (Connection conn = ds.getConnection()) {
             Slimefun.logger().log(Level.INFO, "正在更新数据库版本至 " + patch.getVersion() + ", 可能需要一段时间...");
-            var stmt = conn.createStatement();
+            Object stmt = conn.createStatement();
             patch.updateVersion(stmt, config);
             patch.patch(stmt, config);
             Slimefun.logger().log(Level.INFO, "更新完成. ");
