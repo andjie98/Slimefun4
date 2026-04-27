@@ -57,7 +57,8 @@ public class SlimefunPoolExecutor extends ThreadPoolExecutor {
                                 t);
             }
 
-            if (r instanceof FutureTask<?> future && future.isDone()) {
+            if (r instanceof FutureTask<?> && ((FutureTask<?>) r).isDone()) {
+                FutureTask<?> future = (FutureTask<?>) r;
                 try {
                     future.get();
                 } catch (Exception e) {

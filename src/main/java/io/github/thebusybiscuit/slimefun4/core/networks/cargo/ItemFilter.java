@@ -102,8 +102,8 @@ class ItemFilter implements Predicate<ItemStack> {
         }
 
         SlimefunItem item = SlimefunItem.getById(data.getSfId());
-        var menu =
-                data instanceof SlimefunBlockData sbd ? sbd.getBlockMenu() : ((SlimefunUniversalData) data).getMenu();
+        me.mrCookieSlime.Slimefun.api.inventory.BlockMenu menu =
+                data instanceof SlimefunBlockData ? ((SlimefunBlockData) data).getBlockMenu() : ((SlimefunUniversalData) data).getMenu();
 
         if (!(item instanceof CargoNode) || menu == null) {
             // Don't filter for a non-existing item (safety check)

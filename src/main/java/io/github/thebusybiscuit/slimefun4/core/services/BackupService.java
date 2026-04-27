@@ -129,8 +129,8 @@ public class BackupService implements Runnable {
      *             An {@link IOException} is thrown if a {@link File} could not be deleted
      */
     private void purgeBackups(@Nonnull List<File> backups) throws IOException {
-        var matchedBackup = backups.stream()
-                .filter(f -> f.getName().matches("^\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}$"))
+        List<File> matchedBackup = backups.stream()
+                .filter(f -> f.getName().matches("^\\d{4}-\\d{2}-\\d{2}-\\d{2}-\\d{2}\.zip$"))
                 .sorted((a, b) -> {
                     LocalDateTime time1 = LocalDateTime.parse(
                             a.getName().substring(0, a.getName().length() - 4), format);
@@ -139,7 +139,7 @@ public class BackupService implements Runnable {
 
                     return time2.compareTo(time1);
                 })
-                .toList();
+                .collect(java.util.stream.Collectors.toList());
 
         for (int i = matchedBackup.size() - MAX_BACKUPS; i > 0; i--) {
             Files.delete(matchedBackup.get(i).toPath());

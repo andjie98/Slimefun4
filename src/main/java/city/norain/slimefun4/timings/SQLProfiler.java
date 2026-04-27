@@ -5,6 +5,7 @@ import city.norain.slimefun4.timings.entry.TimingEntry;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import java.io.File;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.time.Duration;
@@ -156,12 +157,15 @@ public class SQLProfiler {
                     for (Map.Entry<TimingEntry, Long> timingEntry : value) {
                         entryCount++;
 
-                        Object duration = Duration.ofNanos(timingEntry.getValue());
+                        Duration duration = Duration.ofNanos(timingEntry.getValue());
                         sqlTotalTime = sqlTotalTime.plus(duration);
 
-                        var formattedTime = String.format(
+                        long seconds = duration.getSeconds();
+                        long millis = duration.toMillis() % 1000;
+                        long nanos = duration.toNanos() % 1000000;
+                        String formattedTime = String.format(
                                 "%ds%dms%dns",
-                                duration.toSecondsPart(), duration.toMillisPart(), duration.toNanosPart());
+                                seconds, millis, nanos);
 
                         writer.append(timingEntry.getKey().normalize())
                                 .append(" -- ")

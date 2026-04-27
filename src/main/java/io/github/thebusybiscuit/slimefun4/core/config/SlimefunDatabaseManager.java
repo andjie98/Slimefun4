@@ -53,9 +53,9 @@ public class SlimefunDatabaseManager {
         try {
             blockDataStorageType = StorageType.valueOf(blockStorageConfig.getString("storageType"));
             int readExecutorThread = blockStorageConfig.getInt("readExecutorThread");
-            var writeExecutorThread =
+            int writeExecutorThread =
                     blockDataStorageType == StorageType.SQLITE ? 1 : blockStorageConfig.getInt("writeExecutorThread");
-            Object connectionPoolSize = getConnectionPoolSize(blockDataStorageType, blockStorageConfig);
+            int connectionPoolSize = getConnectionPoolSize(blockDataStorageType, blockStorageConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
                 plugin.getLogger().log(Level.WARNING, "检测到 block-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
@@ -63,7 +63,7 @@ public class SlimefunDatabaseManager {
 
             initAdapter(blockDataStorageType, DataType.BLOCK_STORAGE, blockStorageConfig);
 
-            var blockDataController =
+            BlockDataController blockDataController =
                     ControllerHolder.createController(BlockDataController.class, blockDataStorageType);
             blockDataController.init(blockStorageAdapter, readExecutorThread, writeExecutorThread);
 
@@ -82,9 +82,9 @@ public class SlimefunDatabaseManager {
         try {
             profileStorageType = StorageType.valueOf(profileConfig.getString("storageType"));
             int readExecutorThread = profileConfig.getInt("readExecutorThread");
-            var writeExecutorThread =
+            int writeExecutorThread =
                     profileStorageType == StorageType.SQLITE ? 1 : profileConfig.getInt("writeExecutorThread");
-            Object connectionPoolSize = getConnectionPoolSize(profileStorageType, profileConfig);
+            int connectionPoolSize = getConnectionPoolSize(profileStorageType, profileConfig);
 
             if (readExecutorThread + writeExecutorThread > connectionPoolSize) {
                 plugin.getLogger().log(Level.WARNING, "检测到 profile-storage 连接池大小配置小于读写线程总和, 可能会导致性能问题");
@@ -100,60 +100,74 @@ public class SlimefunDatabaseManager {
 
     private void initAdapter(StorageType storageType, DataType dataType, Config databaseConfig) throws IOException {
         switch (storageType) {
-            case MYSQL -> {
-                MysqlAdapter adapter = new MysqlAdapter();
+            case MYSQL:
+                {
+                    MysqlAdapter adapter = new MysqlAdapter();
 
-                adapter.prepare(new MysqlConfig(
-                        databaseConfig.getString("mysql.host"),
-                        databaseConfig.getInt("mysql.port"),
-                        databaseConfig.getString("mysql.database"),
-                        databaseConfig.getString("mysql.tablePrefix"),
-                        databaseConfig.getString("mysql.user"),
-                        databaseConfig.getString("mysql.password"),
-                        databaseConfig.getBoolean("mysql.useSSL"),
-                        databaseConfig.getInt("mysql.maxConnection")));
+                    adapter.prepare(new MysqlConfig(
+                            databaseConfig.getString("mysql.host"),
+                            databaseConfig.getInt("mysql.port"),
+                            databaseConfig.getString("mysql.database"),
+                            databaseConfig.getString("mysql.tablePrefix"),
+                            databaseConfig.getString("mysql.user"),
+                            databaseConfig.getString("mysql.password"),
+                            databaseConfig.getBoolean("mysql.useSSL"),
+                            databaseConfig.getInt("mysql.maxConnection")));
 
-                switch (dataType) {
-                    case BLOCK_STORAGE -> blockStorageAdapter = adapter;
-                    case PLAYER_PROFILE -> profileAdapter = adapter;
-                }
-            }
-            case SQLITE -> {
-                SqliteAdapter adapter = new SqliteAdapter();
-
-                File databasePath = null;
-
-                switch (dataType) {
-                    case PLAYER_PROFILE -> {
-                        databasePath = new File("data-storage/Slimefun", "profile.db");
-                        profileAdapter = adapter;
-                    }
-                    case BLOCK_STORAGE -> {
-                        databasePath = new File("data-storage/Slimefun", "block-storage.db");
-                        blockStorageAdapter = adapter;
+                    switch (dataType) {
+                        case BLOCK_STORAGE:
+                            blockStorageAdapter = adapter;
+                            break;
+                        case PLAYER_PROFILE:
+                            profileAdapter = adapter;
+                            break;
                     }
                 }
-                adapter.prepare(new SqliteConfig(
-                        databasePath.getAbsolutePath(), databaseConfig.getInt("sqlite.maxConnection")));
-            }
-            case POSTGRESQL -> {
-                PostgreSqlAdapter adapter = new PostgreSqlAdapter();
+                break;
+            case SQLITE:
+                {
+                    SqliteAdapter adapter = new SqliteAdapter();
 
-                adapter.prepare(new PostgreSqlConfig(
-                        databaseConfig.getString("postgresql.host"),
-                        databaseConfig.getInt("postgresql.port"),
-                        databaseConfig.getString("postgresql.database"),
-                        databaseConfig.getString("postgresql.tablePrefix"),
-                        databaseConfig.getString("postgresql.user"),
-                        databaseConfig.getString("postgresql.password"),
-                        databaseConfig.getBoolean("postgresql.useSSL"),
-                        databaseConfig.getInt("postgresql.maxConnection")));
+                    File databasePath = null;
 
-                switch (dataType) {
-                    case BLOCK_STORAGE -> blockStorageAdapter = adapter;
-                    case PLAYER_PROFILE -> profileAdapter = adapter;
+                    switch (dataType) {
+                        case PLAYER_PROFILE:
+                            databasePath = new File("data-storage/Slimefun", "profile.db");
+                            profileAdapter = adapter;
+                            break;
+                        case BLOCK_STORAGE:
+                            databasePath = new File("data-storage/Slimefun", "block-storage.db");
+                            blockStorageAdapter = adapter;
+                            break;
+                    }
+                    adapter.prepare(new SqliteConfig(
+                            databasePath.getAbsolutePath(), databaseConfig.getInt("sqlite.maxConnection")));
                 }
-            }
+                break;
+            case POSTGRESQL:
+                {
+                    PostgreSqlAdapter adapter = new PostgreSqlAdapter();
+
+                    adapter.prepare(new PostgreSqlConfig(
+                            databaseConfig.getString("postgresql.host"),
+                            databaseConfig.getInt("postgresql.port"),
+                            databaseConfig.getString("postgresql.database"),
+                            databaseConfig.getString("postgresql.tablePrefix"),
+                            databaseConfig.getString("postgresql.user"),
+                            databaseConfig.getString("postgresql.password"),
+                            databaseConfig.getBoolean("postgresql.useSSL"),
+                            databaseConfig.getInt("postgresql.maxConnection")));
+
+                    switch (dataType) {
+                        case BLOCK_STORAGE:
+                            blockStorageAdapter = adapter;
+                            break;
+                        case PLAYER_PROFILE:
+                            profileAdapter = adapter;
+                            break;
+                    }
+                }
+                break;
         }
     }
 

@@ -97,7 +97,8 @@ public class BlockDataService implements Keyed {
          */
         BlockState state = b.getState();
 
-        if (state instanceof TileState tileState) {
+        if (state instanceof TileState) {
+            TileState tileState = (TileState) state;
             try {
                 PersistentDataContainer container = tileState.getPersistentDataContainer();
                 container.set(key, PersistentDataType.STRING, value);
@@ -139,7 +140,7 @@ public class BlockDataService implements Keyed {
             try {
                 Object uniId = UUID.fromString(data);
 
-                var uniData =
+                com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunUniversalBlockData uniData =
                         Slimefun.getDatabaseManager().getBlockDataController().getUniversalBlockDataFromCache(uniId);
 
                 // Auto fix missing location
@@ -168,7 +169,8 @@ public class BlockDataService implements Keyed {
     }
 
     @Nullable private PersistentDataContainer getPersistentDataContainer(@Nonnull BlockState state) {
-        if (state instanceof TileState tileState) {
+        if (state instanceof TileState) {
+            TileState tileState = (TileState) state;
             return tileState.getPersistentDataContainer();
         } else {
             return null;

@@ -95,7 +95,7 @@ public class ArmorForge extends AbstractCraftingTable {
                 ItemStack item = inv.getContents()[j];
 
                 if (item != null && item.getType() != Material.AIR) {
-                    var consumed =
+                    io.github.bakedlibs.dough.items.ConsumedItem consumed =
                             Slimefun.getItemStackService().consume(item, 1, true, ConsumeContext.VIRTUAL_CRAFTING);
                     if (consumed.handled()) {
                         inv.setItem(j, consumed.item());

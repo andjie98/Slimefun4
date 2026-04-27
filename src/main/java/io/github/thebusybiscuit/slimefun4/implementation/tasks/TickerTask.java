@@ -373,7 +373,7 @@ public class TickerTask implements Runnable {
 
         synchronized (tickingLocations) {
             ChunkPosition chunk = new ChunkPosition(l.getWorld(), l.getBlockX() >> 4, l.getBlockZ() >> 4);
-            final var tickPosition = uuid == null
+            final TickLocation tickPosition = uuid == null
                     ? new TickLocation(new BlockPosition(l))
                     : new TickLocation(new BlockPosition(l), uuid);
 

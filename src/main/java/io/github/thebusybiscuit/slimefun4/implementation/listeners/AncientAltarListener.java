@@ -272,7 +272,7 @@ public class AncientAltarListener implements Listener {
         Block pedestal = e.getBlockPlaced().getRelative(BlockFace.DOWN);
 
         if (pedestal.getType() == Material.DISPENSER) {
-            var blockData = Slimefun.getDatabaseManager()
+            SlimefunBlockData blockData = Slimefun.getDatabaseManager()
                     .getBlockDataController()
                     .getBlockDataFromCache(pedestal.getLocation());
 

@@ -105,7 +105,7 @@ public class ErrorReport<T extends Throwable> {
 
             stream.println("Slimefun 数据:");
             stream.println("  ID: " + item.getId());
-            var blockData =
+            com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData blockData =
                     Slimefun.getDatabaseManager().getBlockDataController().getBlockData(l);
 
             if (blockData == null) {
@@ -113,7 +113,7 @@ public class ErrorReport<T extends Throwable> {
                         .getUniversalDataUUID(l.getBlock())
                         .ifPresentOrElse(
                                 uuid -> {
-                                    var universalData = Slimefun.getDatabaseManager()
+                                    com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunUniversalBlockData universalData = Slimefun.getDatabaseManager()
                                             .getBlockDataController()
                                             .getUniversalBlockDataFromCache(uuid);
                                     if (universalData != null) {

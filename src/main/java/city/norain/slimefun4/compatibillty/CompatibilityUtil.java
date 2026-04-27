@@ -27,22 +27,20 @@ public class CompatibilityUtil {
             return blockData.getPlacementMaterial();
         } else {
             switch (blockData.getMaterial()) {
-                case PLAYER_WALL_HEAD -> {
+                case PLAYER_WALL_HEAD:
                     return Material.PLAYER_HEAD;
-                }
-                case REDSTONE_WIRE -> {
+                case REDSTONE_WIRE:
                     return Material.REDSTONE;
-                }
-                default -> {
-                    Object mat = blockData.getMaterial();
-                    Object enumName = blockData.getMaterial().name();
+                default:
+                    Material mat = blockData.getMaterial();
+                    String enumName = mat.name();
 
-                    if (Ageable.class.equals(mat.data) && enumName.endsWith("S")) {
-                        int itemMat = Material.getMaterial(enumName.substring(0, enumName.length() - 1));
+                    if (blockData instanceof Ageable && enumName.endsWith("S")) {
+                        Material itemMat = Material.getMaterial(enumName.substring(0, enumName.length() - 1));
                         return itemMat != null && itemMat.isItem() ? itemMat : mat;
                     }
 
-                    if (WallSign.class.equals(mat.data) && enumName.contains("_WALL_")) {
+                    if (blockData instanceof WallSign && enumName.contains("_WALL_")) {
                         Material itemMat = Material.getMaterial(enumName.replace("_WALL_", "_"));
 
                         if (itemMat != null && itemMat.isItem()) {
@@ -52,7 +50,6 @@ public class CompatibilityUtil {
 
                     // Fallback to original material
                     return blockData.getMaterial();
-                }
             }
         }
     }

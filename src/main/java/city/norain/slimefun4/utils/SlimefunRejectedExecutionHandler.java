@@ -8,7 +8,7 @@ import java.util.logging.Level;
 public class SlimefunRejectedExecutionHandler implements RejectedExecutionHandler {
     @Override
     public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-        var name = executor instanceof SlimefunPoolExecutor
+        String name = executor instanceof SlimefunPoolExecutor
                 ? ((SlimefunPoolExecutor) executor).getName()
                 : executor.getClass().getSimpleName();
 
