@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter
 plugins {
     java
     `maven-publish`
-    alias(libs.plugins.spotless)
+    // alias(libs.plugins.spotless)
     id("com.gradleup.shadow") version "9.3.2"
-    alias(libs.plugins.git.properties)
+    // alias(libs.plugins.git.properties)
 }
 
 group = "com.github.slimefun"
@@ -28,16 +28,18 @@ tasks.compileJava {
 }
 
 repositories {
+    maven { url = uri("https://maven.aliyun.com/repository/central") }
+    maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+    maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots") }
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven { url = uri("https://maven.norain.city/snapshots") }
+    maven { url = uri("https://jitpack.io") }
+    maven { url = uri("https://maven.enginehub.org/repo/") }
+    maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi") }
+    maven { url = uri("https://nexus.neetgames.com/repository/maven-public") }
+    maven { url = uri("https://repo.walshy.dev/public") }
+    maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots")
-    maven("https://repo.papermc.io/repository/maven-public/")
-    maven("https://maven.norain.city/snapshots")
-    maven("https://jitpack.io")
-    maven("https://maven.enginehub.org/repo/")
-    maven("https://repo.extendedclip.com/content/repositories/placeholderapi")
-    maven("https://nexus.neetgames.com/repository/maven-public")
-    maven("https://repo.walshy.dev/public")
-    maven("https://repo.codemc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -93,33 +95,33 @@ tasks.test {
     }
 }
 
-spotless {
-    java {
-        palantirJavaFormat("2.90.0").style("PALANTIR")
-        removeUnusedImports()
-        formatAnnotations()
-    }
-}
+// spotless {
+//     java {
+//         palantirJavaFormat("2.90.0").style("PALANTIR")
+//         removeUnusedImports()
+//         formatAnnotations()
+//     }
+// }
 
 val buildVersion = version.toString()
-val gitBuildTime: String? = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+// val gitBuildTime: String? = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-configure<GitPropertiesPluginExtension> {
-    keys = listOf(
-        "git.build.time",
-        "git.build.version",
-        "git.commit.id.abbrev",
-        "git.commit.id.full",
-        "git.branch",
-    )
-    customProperty("git.build.version", buildVersion)
-    customProperty("git.build.time", gitBuildTime)
-    gitPropertiesName = "git.properties"
-    gitPropertiesResourceDir = layout.buildDirectory.dir("generated/git-properties").get().asFile
-}
+// configure<GitPropertiesPluginExtension> {
+//     keys = listOf(
+//         "git.build.time",
+//         "git.build.version",
+//         "git.commit.id.abbrev",
+//         "git.commit.id.full",
+//         "git.branch",
+//     )
+//     customProperty("git.build.version", buildVersion)
+//     customProperty("git.build.time", gitBuildTime)
+//     gitPropertiesName = "git.properties"
+//     gitPropertiesResourceDir = layout.buildDirectory.dir("generated/git-properties").get().asFile
+// }
 
 tasks.named<ProcessResources>("processResources") {
-    dependsOn(tasks.named("generateGitProperties"))
+    // dependsOn(tasks.named("generateGitProperties"))
     val pluginVersion = buildVersion
     inputs.property("version", pluginVersion)
     filesMatching("plugin.yml") {
@@ -128,7 +130,7 @@ tasks.named<ProcessResources>("processResources") {
 }
 
 tasks.named("sourcesJar") {
-    dependsOn(tasks.named("generateGitProperties"))
+    // dependsOn(tasks.named("generateGitProperties"))
 }
 
 tasks.named<ShadowJar>("shadowJar") {
