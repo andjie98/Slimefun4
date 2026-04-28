@@ -130,7 +130,7 @@ public class GrindStone extends MultiBlockMachine {
         Block possibleDispenser = b.getRelative(BlockFace.DOWN);
         BlockState state = possibleDispenser.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
             Inventory inv = dispenser.getInventory();
 
             for (ItemStack current : inv.getContents()) {

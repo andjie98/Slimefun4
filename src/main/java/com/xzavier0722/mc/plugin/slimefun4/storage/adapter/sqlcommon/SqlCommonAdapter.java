@@ -111,7 +111,7 @@ public abstract class SqlCommonAdapter<T extends ISqlCommonConfig> implements ID
 
         if (query.isEmpty()) {
             try {
-                Object prefix = config instanceof SqlCommonConfig sqc ? sqc.tablePrefix() : "";
+                Object prefix = config instanceof SqlCommonConfig ? sqc.tablePrefix() : "";
                 var fallbackQuery = executeQuery(
                         "SELECT (" + FIELD_TABLE_VERSION + ") FROM " + (prefix + TABLE_NAME_TABLE_INFORMATION));
 

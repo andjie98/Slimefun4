@@ -34,7 +34,7 @@ public class IcyBow extends SlimefunBow {
     @Override
     public BowShootHandler onShoot() {
         return (e, n) -> {
-            if (n instanceof Player player) {
+            if (n instanceof Player) {
                 // Fixes #3060 - Don't apply effects if the arrow was successfully blocked.
                 if (player.isBlocking() && e.getFinalDamage() <= 0) {
                     return;

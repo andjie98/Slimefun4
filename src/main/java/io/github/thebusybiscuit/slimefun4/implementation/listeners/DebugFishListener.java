@@ -130,7 +130,7 @@ public class DebugFishListener implements Listener {
                 if (data.isDataLoaded()) {
                     sendInfo(p, b, data);
                 } else {
-                    if (data instanceof SlimefunBlockData blockData) {
+                    if (data instanceof SlimefunBlockData) {
                         Slimefun.getDatabaseManager()
                                 .getBlockDataController()
                                 .loadBlockDataAsync(blockData, new IAsyncReadCallback<>() {
@@ -213,14 +213,14 @@ public class DebugFishListener implements Listener {
             }
         }
 
-        if ((data instanceof SlimefunBlockData bd && bd.getBlockMenu() != null)
-                || (data instanceof SlimefunUniversalData ud && ud.getMenu() != null)) {
+        if ((data instanceof SlimefunBlockData && bd.getBlockMenu() != null)
+                || (data instanceof SlimefunUniversalData && ud.getMenu() != null)) {
             p.sendMessage(ChatColors.color("&dInventory: " + greenCheckmark));
         } else {
             p.sendMessage(ChatColors.color("&dInventory: " + redCross));
         }
 
-        if (data instanceof SlimefunUniversalData universalData) {
+        if (data instanceof SlimefunUniversalData) {
             p.sendMessage(ChatColors.color("&dUniversal Item: " + greenCheckmark));
             p.sendMessage(ChatColors.color("    &dUUID: " + universalData.getUUID()));
             p.sendMessage(ChatColors.color("    &dTrait: " + universalData.getTraits()));
@@ -270,7 +270,7 @@ public class DebugFishListener implements Listener {
                             ChatColors.color("&d " + component.getId() + " - " + LocationUtils.locationToString(loc))));
         }
 
-        if (item instanceof EnergyNetComponent component) {
+        if (item instanceof EnergyNetComponent) {
             p.sendMessage(ChatColors.color("&dEnergyNet Component"));
             p.sendMessage(ChatColors.color("  &dType: &e" + component.getEnergyComponentType()));
 

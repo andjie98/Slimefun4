@@ -57,7 +57,7 @@ public interface EnergyNetProvider extends EnergyNetComponent {
      * @return The generated output energy of this {@link EnergyNetProvider}.
      */
     default int getGeneratedOutput(@Nonnull Location l, @Nonnull ASlimefunDataContainer data) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             return getGeneratedOutput(l, blockData);
         }
 
@@ -101,7 +101,7 @@ public interface EnergyNetProvider extends EnergyNetComponent {
      * @return The generated output energy of this {@link EnergyNetProvider}.
      */
     default long getGeneratedOutputLong(@Nonnull Location l, @Nonnull ASlimefunDataContainer data) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             return getGeneratedOutputLong(l, blockData);
         }
 
@@ -117,7 +117,7 @@ public interface EnergyNetProvider extends EnergyNetComponent {
      * @return Whether or not this {@link Location} will explode.
      */
     default boolean willExplode(@Nonnull Location l, @Nonnull ASlimefunDataContainer data) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             return willExplode(l, blockData);
         }
 

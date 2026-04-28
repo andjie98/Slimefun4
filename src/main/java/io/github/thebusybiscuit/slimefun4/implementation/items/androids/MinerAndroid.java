@@ -137,7 +137,7 @@ public class MinerAndroid extends ProgrammableAndroid {
             menu.pushItem(drop, getOutputSlots());
         }
 
-        if (block.getState() instanceof Container container) {
+        if (block.getState() instanceof Container) {
             for (ItemStack content : container.getInventory().getContents()) {
                 if (content == null || content.getType().isAir()) {
                     continue;

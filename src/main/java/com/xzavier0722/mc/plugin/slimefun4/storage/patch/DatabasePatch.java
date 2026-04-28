@@ -23,7 +23,7 @@ public abstract class DatabasePatch {
 
     public void updateVersion(Statement stmt, ISqlCommonConfig config) throws SQLException {
         var table = SqlUtils.mapTable(
-                DataScope.TABLE_METADATA, config instanceof SqlCommonConfig scc ? scc.tablePrefix() : "");
+                DataScope.TABLE_METADATA, config instanceof SqlCommonConfig ? scc.tablePrefix() : "");
 
         if (config instanceof SqliteConfig) {
             stmt.execute(String.format(

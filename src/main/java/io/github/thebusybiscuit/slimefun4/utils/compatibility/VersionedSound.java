@@ -61,7 +61,7 @@ public final class VersionedSound {
                 return ((Enum<?>) sound).name();
             } else if (GET_KEY_METHOD != null) {
                 Object key = GET_KEY_METHOD.invoke(sound);
-                if (!(key instanceof NamespacedKey nsKey)) {
+                if (!(key instanceof NamespacedKey)) {
                     throw new IllegalStateException("Sound.getKey() 返回的不是 NamespacedKey");
                 }
                 return nsKey.getKey();

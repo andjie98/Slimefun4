@@ -434,17 +434,17 @@ public class BlockListener implements Listener {
 
     // 美化可旋转类 (如头颅) 物品放置
     private void optimizePlacement(SlimefunItem sfItem, Block block, Location l) {
-        if (block.getBlockData() instanceof Rotatable rotatable
+        if (block.getBlockData() instanceof Rotatable
                 && !(rotatable.getRotation() == BlockFace.UP || rotatable.getRotation() == BlockFace.DOWN)) {
             BlockFace rotation = null;
 
             if (sfItem instanceof NotCardinallyRotatable && sfItem instanceof NotDiagonallyRotatable) {
                 rotation = BlockFace.NORTH;
-            } else if (sfItem instanceof NotRotatable notRotatable) {
+            } else if (sfItem instanceof NotRotatable) {
                 rotation = notRotatable.getRotation();
-            } else if (sfItem instanceof NotCardinallyRotatable notRotatable) {
+            } else if (sfItem instanceof NotCardinallyRotatable) {
                 rotation = notRotatable.getRotation(Location.normalizeYaw(l.getYaw()));
-            } else if (sfItem instanceof NotDiagonallyRotatable notRotatable) {
+            } else if (sfItem instanceof NotDiagonallyRotatable) {
                 rotation = notRotatable.getRotation(Location.normalizeYaw(l.getYaw()));
             }
 

@@ -70,7 +70,7 @@ public class Compressor extends MultiBlockMachine {
         Block dispBlock = b.getRelative(BlockFace.DOWN);
         BlockState state = dispBlock.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
             Inventory inv = dispenser.getInventory();
 
             for (ItemStack item : inv.getContents()) {

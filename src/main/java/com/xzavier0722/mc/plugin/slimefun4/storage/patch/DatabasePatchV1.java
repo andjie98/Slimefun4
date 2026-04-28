@@ -17,7 +17,7 @@ public class DatabasePatchV1 extends DatabasePatch {
 
     @Override
     public void patch(Statement stmt, ISqlCommonConfig config) throws SQLException {
-        if (config instanceof MysqlConfig mysqlConf) {
+        if (config instanceof MysqlConfig) {
             Object uniInvTable = SqlUtils.mapTable(DataScope.UNIVERSAL_INVENTORY, mysqlConf.tablePrefix());
 
             try {

@@ -140,7 +140,7 @@ final class ProfiledBlock {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ProfiledBlock profiledBlock) {
+        if (obj instanceof ProfiledBlock) {
             return position == profiledBlock.position && Objects.equals(world, profiledBlock.world);
         }
 

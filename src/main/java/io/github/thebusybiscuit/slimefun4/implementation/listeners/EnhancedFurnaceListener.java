@@ -44,7 +44,7 @@ public class EnhancedFurnaceListener implements Listener {
         SlimefunItem furnace = StorageCacheUtils.getSlimefunItem(e.getBlock().getLocation());
 
         // Fixes #2958
-        if (furnace instanceof EnhancedFurnace enhancedFurnace
+        if (furnace instanceof EnhancedFurnace
                 && !enhancedFurnace.isDisabledIn(e.getBlock().getWorld())
                 && enhancedFurnace.getFuelEfficiency() > 0) {
             int burnTime = e.getBurnTime();
@@ -63,11 +63,11 @@ public class EnhancedFurnaceListener implements Listener {
 
         SlimefunItem sfItem = StorageCacheUtils.getSlimefunItem(e.getBlock().getLocation());
 
-        if (sfItem instanceof EnhancedFurnace enhancedFurnace
+        if (sfItem instanceof EnhancedFurnace
                 && !enhancedFurnace.isDisabledIn(e.getBlock().getWorld())) {
             BlockState state = e.getBlock().getState(false);
 
-            if (state instanceof Furnace furnace) {
+            if (state instanceof Furnace) {
                 FurnaceInventory inventory = furnace.getInventory();
 
                 // This if statement fixes #3741

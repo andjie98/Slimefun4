@@ -197,7 +197,7 @@ public class ProgrammableAndroid extends SlimefunItem
                 universalData.setData("paused", String.valueOf(true));
 
                 b.setBlockData(Material.PLAYER_HEAD.createBlockData(data -> {
-                    if (data instanceof Rotatable rotatable) {
+                    if (data instanceof Rotatable) {
                         rotatable.setRotation(p.getFacing());
                     }
                 }));
@@ -867,7 +867,7 @@ public class ProgrammableAndroid extends SlimefunItem
         BlockFace rotation = POSSIBLE_ROTATIONS.get(index);
 
         b.setBlockData(Material.PLAYER_HEAD.createBlockData(data -> {
-            if (data instanceof Rotatable rotatable) {
+            if (data instanceof Rotatable) {
                 rotatable.setRotation(rotation.getOppositeFace());
             }
         }));
@@ -880,7 +880,7 @@ public class ProgrammableAndroid extends SlimefunItem
                 && StorageCacheUtils.isBlock(facedBlock.getLocation(), "ANDROID_INTERFACE_ITEMS")) {
             BlockState state = facedBlock.getState(false);
 
-            if (state instanceof Dispenser dispenser) {
+            if (state instanceof Dispenser) {
                 for (int slot : getOutputSlots()) {
                     ItemStack stack = menu.getItemInSlot(slot);
 
@@ -904,7 +904,7 @@ public class ProgrammableAndroid extends SlimefunItem
                 && StorageCacheUtils.isBlock(facedBlock.getLocation(), "ANDROID_INTERFACE_FUEL")) {
             BlockState state = facedBlock.getState(false);
 
-            if (state instanceof Dispenser dispenser) {
+            if (state instanceof Dispenser) {
                 for (int slot = 0; slot < 9; slot++) {
                     ItemStack item = dispenser.getInventory().getItem(slot);
 
@@ -1035,7 +1035,7 @@ public class ProgrammableAndroid extends SlimefunItem
             }
 
             to.setBlockData(Material.PLAYER_HEAD.createBlockData(data -> {
-                if (data instanceof Rotatable rotatable) {
+                if (data instanceof Rotatable) {
                     rotatable.setRotation(face.getOppositeFace());
                 }
             }));

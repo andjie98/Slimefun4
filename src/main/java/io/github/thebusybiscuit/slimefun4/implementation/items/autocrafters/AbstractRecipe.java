@@ -131,9 +131,9 @@ public abstract class AbstractRecipe {
      * @return The wrapped {@link AbstractRecipe} or null
      */
     @Nullable public static AbstractRecipe of(@Nullable Recipe recipe) {
-        if (recipe instanceof ShapedRecipe shapedRecipe) {
+        if (recipe instanceof ShapedRecipe) {
             return new VanillaRecipe(shapedRecipe);
-        } else if (recipe instanceof ShapelessRecipe shapelessRecipe) {
+        } else if (recipe instanceof ShapelessRecipe) {
             return new VanillaRecipe(shapelessRecipe);
         } else {
             return null;

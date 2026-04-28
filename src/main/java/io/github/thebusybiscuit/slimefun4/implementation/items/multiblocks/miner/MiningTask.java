@@ -275,7 +275,7 @@ class MiningTask implements Runnable {
             if (chest.getType() == Material.CHEST) {
                 BlockState state = chest.getState(false);
 
-                if (state instanceof Chest chestState) {
+                if (state instanceof Chest) {
                     Inventory inv = chestState.getBlockInventory();
 
                     if (Slimefun.getItemStackService().fits(inv, item, InventoryContext.OUTPUT_CHEST)) {
@@ -306,7 +306,7 @@ class MiningTask implements Runnable {
         if (chest.getType() == Material.CHEST) {
             BlockState state = chest.getState(false);
 
-            if (state instanceof Chest chestState) {
+            if (state instanceof Chest) {
                 Inventory inv = chestState.getBlockInventory();
                 this.fuelLevel = grabFuelFrom(inv);
             }

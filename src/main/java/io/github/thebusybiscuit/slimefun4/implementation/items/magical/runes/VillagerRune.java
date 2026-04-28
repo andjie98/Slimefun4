@@ -51,7 +51,7 @@ public class VillagerRune extends SimpleSlimefunItem<EntityInteractHandler> {
                 return;
             }
 
-            if (e.getRightClicked() instanceof Villager villager) {
+            if (e.getRightClicked() instanceof Villager) {
                 if (villager.getProfession() == Profession.NONE || villager.getProfession() == Profession.NITWIT) {
                     return;
                 }

@@ -269,9 +269,9 @@ public class StorageCacheUtils {
     }
 
     public static void requestLoad(ASlimefunDataContainer data) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             requestLoad(blockData);
-        } else if (data instanceof SlimefunUniversalData uniData) {
+        } else if (data instanceof SlimefunUniversalData) {
             requestLoad(uniData);
         }
     }
@@ -329,9 +329,9 @@ public class StorageCacheUtils {
     }
 
     public static void executeAfterLoad(ASlimefunDataContainer data, Runnable execute, boolean runOnMainThread) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             executeAfterLoad(blockData, execute, runOnMainThread);
-        } else if (data instanceof SlimefunUniversalData universalData) {
+        } else if (data instanceof SlimefunUniversalData) {
             executeAfterLoad(universalData, execute, runOnMainThread);
         }
     }

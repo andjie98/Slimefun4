@@ -332,8 +332,8 @@ public final class SlimefunUtils {
                 || checkAmount && item.getAmount() < sfitem.getAmount()) {
             return false;
         } else if (checkDistinctiveItem
-                && sfitem instanceof SlimefunItemStack stackOne
-                && item instanceof SlimefunItemStack stackTwo) {
+                && sfitem instanceof SlimefunItemStack
+                && item instanceof SlimefunItemStack) {
             if (stackOne.getItemId().equals(stackTwo.getItemId())) {
                 /*
                  * PR #3417
@@ -341,7 +341,7 @@ public final class SlimefunUtils {
                  * Some items can't rely on just IDs matching and will implement Distinctive Item
                  * in which case we want to use the method provided to compare
                  */
-                if (stackOne instanceof DistinctiveItem && stackTwo instanceof DistinctiveItem distinctiveItem) {
+                if (stackOne instanceof DistinctiveItem && stackTwo instanceof DistinctiveItem) {
                     return distinctiveItem.canStack(stackOne.getItemMeta(), stackTwo.getItemMeta());
                 }
                 return true;
@@ -350,7 +350,7 @@ public final class SlimefunUtils {
         } else if (item.hasItemMeta()) {
             ItemMeta itemMeta = item.getItemMeta();
 
-            if (sfitem instanceof SlimefunItemStack sfItemStack) {
+            if (sfitem instanceof SlimefunItemStack) {
                 String id = Slimefun.getItemDataService().getItemData(itemMeta).orElse(null);
 
                 if (id != null) {
@@ -417,7 +417,7 @@ public final class SlimefunUtils {
 
     private static @Nonnull Optional<DistinctiveItem> getDistinctiveItem(@Nonnull String id) {
         SlimefunItem slimefunItem = SlimefunItem.getById(id);
-        if (slimefunItem instanceof DistinctiveItem distinctiveItem) {
+        if (slimefunItem instanceof DistinctiveItem) {
             return Optional.of(distinctiveItem);
         }
         return Optional.empty();
@@ -511,7 +511,7 @@ public final class SlimefunUtils {
             }
         }
 
-        if (itemMeta instanceof PotionMeta potionMeta && sfitemMeta instanceof PotionMeta sfPotionMeta) {
+        if (itemMeta instanceof PotionMeta && sfitemMeta instanceof PotionMeta) {
             if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_20_5)) {
                 if (!potionMeta.hasBasePotionType() && !sfPotionMeta.hasBasePotionType()) {
                     return true;

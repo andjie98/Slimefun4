@@ -31,7 +31,8 @@ public class MenuListener implements Listener {
         // getHolder() involves Block.getState() in BlockInventory cases
         Inventory holder = e.getInventory().getHolder(false);
 
-        if (holder instanceof ChestMenu menu) {
+        if (holder instanceof ChestMenu) {
+            ChestMenu menu = (ChestMenu) holder;
             menu.removeViewer(e.getPlayer().getUniqueId());
             menu.getMenuCloseHandler().onClose((Player) e.getPlayer());
         }
@@ -42,7 +43,8 @@ public class MenuListener implements Listener {
         // getHolder() involves Block.getState() in BlockInventory cases
         Inventory holder = e.getInventory().getHolder(false);
 
-        if (holder instanceof ChestMenu menu) {
+        if (holder instanceof ChestMenu) {
+            ChestMenu menu = (ChestMenu) holder;
             try {
                 if (e.getRawSlot() < e.getInventory().getSize()) {
                     MenuClickHandler handler = menu.getMenuClickHandler(e.getSlot());
@@ -69,7 +71,8 @@ public class MenuListener implements Listener {
     }
 
     private void handleEvent(@Nonnull InventoryClickEvent e, @Nonnull MenuClickHandler handler) {
-        if (handler instanceof AdvancedMenuClickHandler advancedHandler) {
+        if (handler instanceof AdvancedMenuClickHandler) {
+            AdvancedMenuClickHandler advancedHandler = (AdvancedMenuClickHandler) handler;
             e.setCancelled(!advancedHandler.onClick(
                     e,
                     (Player) e.getWhoClicked(),

@@ -168,7 +168,7 @@ public class RecipeType implements Keyed {
         this.key = key;
         this.registerConsumer = callback;
 
-        if (item instanceof SlimefunItemStack slimefunItemStack) {
+        if (item instanceof SlimefunItemStack) {
             this.machine = slimefunItemStack.getItemId();
         } else {
             this.machine = "";
@@ -186,7 +186,7 @@ public class RecipeType implements Keyed {
         this.registerConsumer = registerCallback;
         this.unregisterConsumer = unregisterCallback;
 
-        if (item instanceof SlimefunItemStack slimefunItemStack) {
+        if (item instanceof SlimefunItemStack) {
             this.machine = slimefunItemStack.getItemId();
         } else {
             this.machine = "";
@@ -196,7 +196,7 @@ public class RecipeType implements Keyed {
     public RecipeType(NamespacedKey key, ItemStack item) {
         this.key = key;
         this.item = item;
-        this.machine = item instanceof SlimefunItemStack slimefunItemStack ? slimefunItemStack.getItemId() : "";
+        this.machine = item instanceof SlimefunItemStack ? slimefunItemStack.getItemId() : "";
     }
 
     public RecipeType(MinecraftRecipe<?> recipe) {
@@ -212,7 +212,7 @@ public class RecipeType implements Keyed {
         } else {
             SlimefunItem slimefunItem = SlimefunItem.getById(this.machine);
 
-            if (slimefunItem instanceof MultiBlockMachine mbm) {
+            if (slimefunItem instanceof MultiBlockMachine) {
                 mbm.addRecipe(recipe, result);
             }
         }
@@ -224,7 +224,7 @@ public class RecipeType implements Keyed {
         } else {
             SlimefunItem slimefunItem = SlimefunItem.getById(this.machine);
 
-            if (slimefunItem instanceof MultiBlockMachine mbm) {
+            if (slimefunItem instanceof MultiBlockMachine) {
                 mbm.clearRecipe();
             }
         }
@@ -249,7 +249,7 @@ public class RecipeType implements Keyed {
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof RecipeType recipeType) {
+        if (obj instanceof RecipeType) {
             return recipeType.getKey().equals(this.getKey());
         } else {
             return false;

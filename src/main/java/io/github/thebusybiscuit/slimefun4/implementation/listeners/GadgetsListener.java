@@ -69,7 +69,7 @@ public class GadgetsListener implements Listener {
             return;
         }
 
-        if (chestplate instanceof Jetpack jetpack) {
+        if (chestplate instanceof Jetpack) {
             double thrust = jetpack.getThrust();
 
             if (thrust > 0.2) {
@@ -81,7 +81,7 @@ public class GadgetsListener implements Listener {
     }
 
     private void handleBoots(@Nonnull Player p, @Nullable SlimefunItem boots) {
-        if (boots instanceof JetBoots jetBoots && boots.canUse(p, true)) {
+        if (boots instanceof JetBoots && boots.canUse(p, true)) {
             double speed = jetBoots.getSpeed();
 
             if (speed > 0.2) {

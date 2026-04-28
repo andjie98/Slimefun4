@@ -110,7 +110,7 @@ public class IgnitionChamber extends SlimefunItem {
                     && StorageCacheUtils.getSlimefunItem(block.getLocation()) instanceof IgnitionChamber) {
                 BlockState state = b.getRelative(face).getState(false);
 
-                if (state instanceof Dropper dropper) {
+                if (state instanceof Dropper) {
                     return dropper.getInventory();
                 }
             }

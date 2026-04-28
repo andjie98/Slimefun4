@@ -1,16 +1,12 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-import com.gorylenko.GitPropertiesPluginExtension
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.language.jvm.tasks.ProcessResources
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 plugins {
     java
     `maven-publish`
     // alias(libs.plugins.spotless)
-    id("com.gradleup.shadow") version "9.3.2"
+    // id("com.gradleup.shadow") version "9.3.2"
     // alias(libs.plugins.git.properties)
 }
 
@@ -28,8 +24,8 @@ tasks.compileJava {
 }
 
 repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/central") }
-    maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
+    maven { url = uri("file:///tmp/maven-repo") }
+    mavenCentral()
     maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots") }
     maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
     maven { url = uri("https://maven.norain.city/snapshots") }
@@ -39,7 +35,6 @@ repositories {
     maven { url = uri("https://nexus.neetgames.com/repository/maven-public") }
     maven { url = uri("https://repo.walshy.dev/public") }
     maven { url = uri("https://repo.codemc.io/repository/maven-public/") }
-    mavenCentral()
 }
 
 dependencies {
@@ -79,7 +74,7 @@ dependencies {
 }
 
 tasks.jar {
-    enabled = false
+    enabled = true
 }
 
 sourceSets.main {
@@ -133,29 +128,29 @@ tasks.named("sourcesJar") {
     // dependsOn(tasks.named("generateGitProperties"))
 }
 
-tasks.named<ShadowJar>("shadowJar") {
-    archiveBaseName.set("Slimefun")
-    archiveVersion.set(project.version.toString())
-    archiveClassifier.set("")
-    relocate("io.github.bakedlibs.dough", "io.github.thebusybiscuit.slimefun4.libraries.dough")
-    relocate("com.cryptomorin.xseries", "io.github.thebusybiscuit.slimefun4.libraries.xseries")
-    relocate("io.papermc.lib", "io.github.thebusybiscuit.slimefun4.libraries.paperlib")
-    relocate("kong.unirest", "io.github.thebusybiscuit.slimefun4.libraries.unirest")
-    relocate("org.apache.commons.lang", "io.github.thebusybiscuit.slimefun4.libraries.commons.lang")
-    relocate("net.guizhanss.guizhanlib", "io.github.thebusybiscuit.slimefun4.libraries.guizhanlib")
-    /**exclude {
-        it.path == "META-INF" || it.path.startsWith("META-INF/")
-    }*/
-}
+// tasks.named<ShadowJar>("shadowJar") {
+//     archiveBaseName.set("Slimefun")
+//     archiveVersion.set(project.version.toString())
+//     archiveClassifier.set("")
+//     relocate("io.github.bakedlibs.dough", "io.github.thebusybiscuit.slimefun4.libraries.dough")
+//     relocate("com.cryptomorin.xseries", "io.github.thebusybiscuit.slimefun4.libraries.xseries")
+//     relocate("io.papermc.lib", "io.github.thebusybiscuit.slimefun4.libraries.paperlib")
+//     relocate("kong.unirest", "io.github.thebusybiscuit.slimefun4.libraries.unirest")
+//     relocate("org.apache.commons.lang", "io.github.thebusybiscuit.slimefun4.libraries.commons.lang")
+//     relocate("net.guizhanss.guizhanlib", "io.github.thebusybiscuit.slimefun4.libraries.guizhanlib")
+//     /**exclude {
+//         it.path == "META-INF" || it.path.startsWith("META-INF/")
+//     }*/
+// }
 
-tasks.build {
-    dependsOn(tasks.named("shadowJar"))
-}
+// tasks.build {
+//     dependsOn(tasks.named("shadowJar"))
+// }
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifact(tasks.named("shadowJar"))
+            artifact(tasks.named("jar"))
             artifact(tasks.named("sourcesJar"))
             groupId = project.group.toString()
             artifactId = "Slimefun"

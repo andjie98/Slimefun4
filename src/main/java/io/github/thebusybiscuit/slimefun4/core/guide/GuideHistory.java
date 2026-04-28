@@ -184,13 +184,13 @@ public class GuideHistory {
     private <T> void open(@Nonnull SlimefunGuideImplementation guide, @Nullable GuideEntry<T> entry) {
         if (entry == null) {
             guide.openMainMenu(profile, mainMenuPage);
-        } else if (entry.getIndexedObject() instanceof ItemGroup group) {
+        } else if (entry.getIndexedObject() instanceof ItemGroup) {
             guide.openItemGroup(profile, group, entry.getPage());
-        } else if (entry.getIndexedObject() instanceof SlimefunItem item) {
+        } else if (entry.getIndexedObject() instanceof SlimefunItem) {
             guide.displayItem(profile, item, false);
-        } else if (entry.getIndexedObject() instanceof ItemStack stack) {
+        } else if (entry.getIndexedObject() instanceof ItemStack) {
             guide.displayItem(profile, stack, entry.getPage(), false);
-        } else if (entry.getIndexedObject() instanceof String query) {
+        } else if (entry.getIndexedObject() instanceof String) {
             guide.openSearch(profile, query, false);
         } else {
             throw new IllegalStateException("Unknown GuideHistory entry: " + entry.getIndexedObject());

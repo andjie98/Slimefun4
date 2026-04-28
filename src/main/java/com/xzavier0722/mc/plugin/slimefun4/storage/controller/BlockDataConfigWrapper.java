@@ -66,7 +66,7 @@ public class BlockDataConfigWrapper extends Config {
 
     @Override
     public void setDefaultValue(@Nonnull String path, @Nullable Object value) {
-        if (!(value instanceof String str)) {
+        if (!(value instanceof String)) {
             throw new NotImplementedException();
         }
         if (getString(path) == null) {
@@ -80,7 +80,7 @@ public class BlockDataConfigWrapper extends Config {
             blockData.removeData(path);
         }
 
-        if (!(value instanceof String str)) {
+        if (!(value instanceof String)) {
             throw new NotImplementedException();
         }
         blockData.setData(path, str);

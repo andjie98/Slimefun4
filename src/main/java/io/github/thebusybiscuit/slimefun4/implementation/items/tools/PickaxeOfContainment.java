@@ -80,7 +80,7 @@ public class PickaxeOfContainment extends SimpleSlimefunItem<ToolUseHandler> {
 
         BlockState state = b.getState(false);
 
-        if (state instanceof CreatureSpawner creatureSpawner) {
+        if (state instanceof CreatureSpawner) {
             // Fallback to pig in 1.19.3+
             EntityType entityType =
                     Optional.ofNullable(creatureSpawner.getSpawnedType()).orElse(EntityType.PIG);

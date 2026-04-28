@@ -243,7 +243,7 @@ public class FluidPump extends SimpleSlimefunItem<BlockTicker> implements Invent
         if (block.isLiquid()) {
             BlockData data = block.getBlockData();
 
-            if (data instanceof Levelled levelled) {
+            if (data instanceof Levelled) {
                 // Check if this is a full block.
                 return levelled.getLevel() == 0;
             }

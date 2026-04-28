@@ -365,7 +365,7 @@ public abstract class AbstractAutoCrafter extends SlimefunItem implements Energy
 
         BlockState state = b.getState(false);
 
-        if (state instanceof Skull skull) {
+        if (state instanceof Skull) {
             if (recipe == null) {
                 // Clear the value from persistent data storage
                 PersistentDataAPI.remove(skull, recipeStorageKey);
@@ -459,7 +459,7 @@ public abstract class AbstractAutoCrafter extends SlimefunItem implements Energy
         BlockState state = b.getState(false);
 
         // Make sure the block is still a Skull
-        if (state instanceof Skull skull) {
+        if (state instanceof Skull) {
             if (enabled) {
                 PersistentDataAPI.remove(skull, recipeEnabledKey);
                 Slimefun.getLocalization().sendMessage(p, "messages.auto-crafting.re-enabled");

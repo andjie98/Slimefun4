@@ -34,7 +34,7 @@ public class ElectricFurnace extends AContainer implements NotHopperable {
             for (FurnaceRecipe recipe : snapshot.getRecipes(FurnaceRecipe.class)) {
                 RecipeChoice choice = recipe.getInputChoice();
 
-                if (choice instanceof MaterialChoice materialChoice) {
+                if (choice instanceof MaterialChoice) {
                     for (Material input : materialChoice.getChoices()) {
                         registerRecipe(4, new ItemStack[] {new ItemStack(input)}, new ItemStack[] {recipe.getResult()});
                     }

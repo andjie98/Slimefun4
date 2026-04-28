@@ -26,7 +26,7 @@ public class FireworksListener implements Listener {
 
     @EventHandler
     public void onResearchFireworkDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Firework firework) {
+        if (e.getDamager() instanceof Firework) {
             FireworkMeta meta = firework.getFireworkMeta();
 
             /*

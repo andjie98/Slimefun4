@@ -56,7 +56,7 @@ public class AutoCrafterListener implements Listener {
             SlimefunItem block = slimefunBlock.get();
 
             // Fixes #2957
-            if (block instanceof AbstractAutoCrafter crafter && crafter.canUse(e.getPlayer(), true)) {
+            if (block instanceof AbstractAutoCrafter && crafter.canUse(e.getPlayer(), true)) {
                 Optional<SlimefunItem> slimefunItem = e.getSlimefunItem();
 
                 if (!e.getPlayer().isSneaking()
@@ -94,7 +94,7 @@ public class AutoCrafterListener implements Listener {
     @ParametersAreNonnullByDefault
     private boolean hasUnlockedRecipe(Player p, ItemStack item) {
         for (Recipe recipe : Slimefun.getMinecraftRecipeService().getRecipesFor(item)) {
-            if (recipe instanceof Keyed keyed && !p.hasDiscoveredRecipe(keyed.getKey())) {
+            if (recipe instanceof Keyed && !p.hasDiscoveredRecipe(keyed.getKey())) {
                 return false;
             }
         }

@@ -156,7 +156,7 @@ class VersionsCommand extends SubCommand {
                 secondaryColor = NamedTextColor.DARK_GREEN;
                 String authors = String.join(", ", plugin.getDescription().getAuthors());
 
-                if (plugin instanceof SlimefunAddon addon && addon.getBugTrackerURL() != null) {
+                if (plugin instanceof SlimefunAddon && addon.getBugTrackerURL() != null) {
 
                     try {
                         String url = addon.getBugTrackerURL();
@@ -193,7 +193,7 @@ class VersionsCommand extends SubCommand {
                 primaryColor = NamedTextColor.RED;
                 secondaryColor = NamedTextColor.DARK_RED;
 
-                if (plugin instanceof SlimefunAddon addon && addon.getBugTrackerURL() != null) {
+                if (plugin instanceof SlimefunAddon && addon.getBugTrackerURL() != null) {
                     try {
                         String url = addon.getBugTrackerURL();
                         if (url != null) {

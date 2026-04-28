@@ -40,7 +40,7 @@ public class ElytraImpactListener implements Listener {
     @EventHandler
     public void onGlideToggle(EntityToggleGlideEvent event) {
         Entity entity = event.getEntity();
-        if (entity instanceof Player player && player.isGliding()) {
+        if (entity instanceof Player && player.isGliding()) {
             UUID uuid = player.getUniqueId();
             gliding.add(uuid);
         }
@@ -50,7 +50,7 @@ public class ElytraImpactListener implements Listener {
 
     @EventHandler
     public void onPlayerCrash(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player p)) {
+        if (!(e.getEntity() instanceof Player)) {
             // We only wanna handle damaged Players
             return;
         }
@@ -74,7 +74,7 @@ public class ElytraImpactListener implements Listener {
                     SoundEffect.ELYTRA_CAP_IMPACT_SOUND.playFor(p);
                     e.setCancelled(true);
 
-                    if (item instanceof DamageableItem damageableItem) {
+                    if (item instanceof DamageableItem) {
                         damageableItem.damageItem(p, p.getInventory().getHelmet());
                     }
                 }

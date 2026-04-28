@@ -20,7 +20,7 @@ class SearchCommand extends SubCommand {
 
     @Override
     public void onExecute(CommandSender sender, String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
             if (sender.hasPermission("slimefun.command.search")) {
                 if (args.length > 1) {
                     String query = String.join(" ", Arrays.copyOfRange(args, 1, args.length));

@@ -50,7 +50,7 @@ public class FarmerAndroid extends ProgrammableAndroid {
             return;
         }
 
-        if (data instanceof Ageable ageable && ageable.getAge() >= ageable.getMaximumAge()) {
+        if (data instanceof Ageable && ageable.getAge() >= ageable.getMaximumAge()) {
             drop = getDropFromCrop(blockType);
         }
 
@@ -65,7 +65,7 @@ public class FarmerAndroid extends ProgrammableAndroid {
             if (drop != null && menu.pushItem(drop, getOutputSlots()) == null) {
                 block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, blockType);
 
-                if (data instanceof Ageable ageable) {
+                if (data instanceof Ageable) {
                     ageable.setAge(0);
                     block.setBlockData(data);
                 }

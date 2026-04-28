@@ -121,7 +121,7 @@ public class GPSNetwork {
         for (Location l : locations) {
             SlimefunItem item = StorageCacheUtils.getSlimefunItem(l);
 
-            if (item instanceof GPSTransmitter transmitter) {
+            if (item instanceof GPSTransmitter) {
                 level += transmitter.getMultiplier(Math.max(l.getBlockY(), 0));
             }
         }
@@ -199,7 +199,7 @@ public class GPSNetwork {
 
             SlimefunItem sfi = StorageCacheUtils.getSlimefunItem(l);
 
-            if (sfi instanceof GPSTransmitter transmitter) {
+            if (sfi instanceof GPSTransmitter) {
                 int slot = inventory[index];
 
                 menu.addItem(

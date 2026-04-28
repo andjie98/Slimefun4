@@ -133,11 +133,11 @@ public class SlimefunItemStack extends ItemStack {
                 im.setLore(lines);
             }
 
-            if (im instanceof LeatherArmorMeta leatherArmorMeta) {
+            if (im instanceof LeatherArmorMeta) {
                 leatherArmorMeta.setColor(color);
             }
 
-            if (im instanceof PotionMeta potionMeta) {
+            if (im instanceof PotionMeta) {
                 potionMeta.setColor(color);
             }
         });
@@ -164,7 +164,7 @@ public class SlimefunItemStack extends ItemStack {
                 im.setLore(lines);
             }
 
-            if (im instanceof PotionMeta potionMeta) {
+            if (im instanceof PotionMeta) {
                 potionMeta.setColor(color);
                 potionMeta.addCustomEffect(effect, true);
 

@@ -125,9 +125,9 @@ public class EnergyNet extends Network implements HologramOwner {
                     consumers.put(l, component);
                     break;
                 case GENERATOR:
-                    if (component instanceof EnergyNetProvider provider) {
+                    if (component instanceof EnergyNetProvider) {
                         generators.put(l, provider);
-                    } else if (component instanceof SlimefunItem item) {
+                    } else if (component instanceof SlimefunItem) {
                         item.warn("This Item is marked as a GENERATOR but does not implement the interface"
                                 + " EnergyNetProvider!");
                     }
@@ -169,7 +169,7 @@ public class EnergyNet extends Network implements HologramOwner {
                     EnergyNetComponent component = entry.getValue();
                     if (!((SlimefunItem) component).getId().equals(data.getSfId())) {
                         SlimefunItem newItem = SlimefunItem.getById(data.getSfId());
-                        if (!(newItem instanceof EnergyNetComponent newComponent)
+                        if (!(newItem instanceof EnergyNetComponent)
                                 || newComponent.getEnergyComponentType() != EnergyNetComponentType.CONSUMER) {
                             continue;
                         }
@@ -281,7 +281,7 @@ public class EnergyNet extends Network implements HologramOwner {
 
                 if (!item.getId().equals(data.getSfId())) {
                     SlimefunItem newItem = SlimefunItem.getById(data.getSfId());
-                    if (!(newItem instanceof EnergyNetProvider newProvider)) {
+                    if (!(newItem instanceof EnergyNetProvider)) {
                         continue;
                     }
                     generators.put(loc, newProvider);
@@ -352,7 +352,7 @@ public class EnergyNet extends Network implements HologramOwner {
     @Nullable private static EnergyNetComponent getComponent(@Nonnull Location l) {
         SlimefunItem item = StorageCacheUtils.getSlimefunItem(l);
 
-        if (item instanceof EnergyNetComponent component) {
+        if (item instanceof EnergyNetComponent) {
             return component;
         }
 

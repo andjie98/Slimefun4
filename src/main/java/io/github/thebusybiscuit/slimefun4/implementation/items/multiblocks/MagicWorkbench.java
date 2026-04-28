@@ -55,7 +55,7 @@ public class MagicWorkbench extends AbstractCraftingTable {
 
         BlockState state = possibleDispener.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
             Inventory inv = dispenser.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
@@ -91,7 +91,7 @@ public class MagicWorkbench extends AbstractCraftingTable {
             SlimefunItem sfItem = SlimefunItem.getByItem(output);
 
             boolean waitCallback = false;
-            if (sfItem instanceof SlimefunBackpack backpack) {
+            if (sfItem instanceof SlimefunBackpack) {
                 waitCallback =
                         upgradeBackpack(p, inv, backpack, output, () -> startAnimation(p, b, inv, dispenser, output));
             }

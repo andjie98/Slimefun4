@@ -67,8 +67,8 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
                 return Optional.of(type);
             }
         }
-        if (meta instanceof BlockStateMeta blockStateMeta) {
-            if (blockStateMeta.hasBlockState() && blockStateMeta.getBlockState() instanceof CreatureSpawner spawner) {
+        if (meta instanceof BlockStateMeta) {
+            if (blockStateMeta.hasBlockState() && blockStateMeta.getBlockState() instanceof CreatureSpawner) {
                 EntityType type = spawner.getSpawnedType();
                 if (type != null) return Optional.of(type);
             }
@@ -97,10 +97,10 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
         if (type != null && type.isSpawnable()) {
 
             // Fixes #2583 - Proper NBT handling of Spawners
-            if (meta instanceof BlockStateMeta stateMeta) {
+            if (meta instanceof BlockStateMeta) {
                 BlockState state = stateMeta.getBlockState();
 
-                if (state instanceof CreatureSpawner spawner) {
+                if (state instanceof CreatureSpawner) {
                     spawner.setSpawnedType(type);
                 }
 
@@ -126,12 +126,12 @@ public abstract class AbstractMonsterSpawner extends SlimefunItem implements Dis
     // to fix the bug of stacking two BROKEN_SPAWNER/REINFORCED_SPAWNER containing different EntityType using cargo or
     // machine
     public boolean canStack(@Nonnull ItemMeta itemMetaOne, @Nonnull ItemMeta itemMetaTwo) {
-        if (itemMetaOne instanceof BlockStateMeta blockStateMeta1
-                && itemMetaTwo instanceof BlockStateMeta blockStateMeta2) {
+        if (itemMetaOne instanceof BlockStateMeta
+                && itemMetaTwo instanceof BlockStateMeta) {
             if (blockStateMeta1.hasBlockState() && blockStateMeta2.hasBlockState()) {
                 // BlockState.equals do not compare these data
-                if (blockStateMeta1.getBlockState() instanceof CreatureSpawner spawner1
-                        && blockStateMeta2.getBlockState() instanceof CreatureSpawner spawner2) {
+                if (blockStateMeta1.getBlockState() instanceof CreatureSpawner
+                        && blockStateMeta2.getBlockState() instanceof CreatureSpawner) {
                     return spawner1.getSpawnedType() == spawner2.getSpawnedType();
                 }
             } else {

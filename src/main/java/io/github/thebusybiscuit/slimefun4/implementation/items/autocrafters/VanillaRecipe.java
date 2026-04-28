@@ -81,7 +81,8 @@ class VanillaRecipe extends AbstractRecipe {
         RecipeChoice[] choices = Slimefun.getMinecraftRecipeService().getRecipeShape(recipe);
         ItemStack[] items = new ItemStack[9];
 
-        if (choices.length == 1 && choices[0] instanceof MaterialChoice materialChoice) {
+        if (choices.length == 1 && choices[0] instanceof MaterialChoice) {
+            MaterialChoice materialChoice = (MaterialChoice) choices[0];
             items[4] = new ItemStack(materialChoice.getChoices().get(0));
 
             if (materialChoice.getChoices().size() > 1) {
@@ -89,7 +90,8 @@ class VanillaRecipe extends AbstractRecipe {
             }
         } else {
             for (int i = 0; i < choices.length; i++) {
-                if (choices[i] instanceof MaterialChoice materialChoice) {
+                if (choices[i] instanceof MaterialChoice) {
+                    MaterialChoice materialChoice = (MaterialChoice) choices[i];
                     items[i] = new ItemStack(materialChoice.getChoices().get(0));
 
                     if (materialChoice.getChoices().size() > 1) {
@@ -107,7 +109,8 @@ class VanillaRecipe extends AbstractRecipe {
 
     @Override
     public String toString() {
-        if (recipe instanceof Keyed keyed) {
+        if (recipe instanceof Keyed) {
+            Keyed keyed = (Keyed) recipe;
             return keyed.getKey().toString();
         } else {
             return "invalid-recipe";

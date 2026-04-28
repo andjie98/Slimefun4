@@ -49,7 +49,8 @@ public class EnhancedCraftingTable extends AbstractCraftingTable {
         Block possibleDispenser = b.getRelative(BlockFace.DOWN);
         BlockState state = possibleDispenser.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
+            Dispenser dispenser = (Dispenser) state;
             Inventory inv = dispenser.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 
@@ -84,7 +85,8 @@ public class EnhancedCraftingTable extends AbstractCraftingTable {
             SlimefunItem sfItem = SlimefunItem.getByItem(output);
 
             boolean waitCallback = false;
-            if (sfItem instanceof SlimefunBackpack backpack) {
+            if (sfItem instanceof SlimefunBackpack) {
+                SlimefunBackpack backpack = (SlimefunBackpack) sfItem;
                 waitCallback = upgradeBackpack(p, inv, backpack, output, () -> {
                     SoundEffect.ENHANCED_CRAFTING_TABLE_CRAFT_SOUND.playAt(b);
                     handleCraftedItem(output, dispenser, inv);

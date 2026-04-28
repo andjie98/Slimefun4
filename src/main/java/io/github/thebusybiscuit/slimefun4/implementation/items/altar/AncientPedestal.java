@@ -97,7 +97,7 @@ public class AncientPedestal extends SimpleSlimefunItem<BlockDispenseHandler> im
         Location l = pedestal.getLocation().add(0.5, 1.2, 0.5);
 
         for (Entity n : l.getWorld().getNearbyEntities(l, 0.5, 0.5, 0.5, AncientPedestal::testItem)) {
-            if (n instanceof Item item) {
+            if (n instanceof Item) {
                 return Optional.of(item);
             }
         }
@@ -108,13 +108,13 @@ public class AncientPedestal extends SimpleSlimefunItem<BlockDispenseHandler> im
     public @Nullable ArmorStand getArmorStand(@Nonnull Block pedestal, boolean createIfNoneExists) {
         Optional<Item> entity = getPlacedItem(pedestal);
 
-        if (entity.isPresent() && entity.get().getVehicle() instanceof ArmorStand armorStand) {
+        if (entity.isPresent() && entity.get().getVehicle() instanceof ArmorStand) {
             return armorStand;
         }
 
         Location l = pedestal.getLocation().add(0.5, 1.2, 0.5);
         for (Entity n : l.getWorld().getNearbyEntities(l, 0.5, 0.5, 0.5, this::testArmorStand)) {
-            if (n instanceof ArmorStand armorStand) {
+            if (n instanceof ArmorStand) {
                 return armorStand;
             }
         }
@@ -123,7 +123,7 @@ public class AncientPedestal extends SimpleSlimefunItem<BlockDispenseHandler> im
     }
 
     public static boolean testItem(@Nullable Entity n) {
-        if (n instanceof Item item && n.isValid()) {
+        if (n instanceof Item && n.isValid()) {
             ItemMeta meta = item.getItemStack().getItemMeta();
 
             return meta.hasDisplayName() && meta.getDisplayName().startsWith(ITEM_PREFIX);

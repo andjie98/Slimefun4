@@ -46,7 +46,7 @@ public class SlimefunBootsListener implements Listener {
 
     @EventHandler
     public void onEnderPearlDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof EnderPearl && e.getEntity() instanceof Player p) {
+        if (e.getDamager() instanceof EnderPearl && e.getEntity() instanceof Player) {
             SlimefunItem boots = SlimefunItem.getByItem(p.getInventory().getBoots());
 
             if (boots instanceof EnderBoots && boots.canUse(p, true)) {
@@ -56,7 +56,7 @@ public class SlimefunBootsListener implements Listener {
     }
 
     private void onFallDamage(@Nonnull EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player p) {
+        if (e.getEntity() instanceof Player) {
             SlimefunItem boots = SlimefunItem.getByItem(p.getInventory().getBoots());
 
             if (boots != null) {
@@ -65,10 +65,10 @@ public class SlimefunBootsListener implements Listener {
                     return;
                 }
 
-                if (boots instanceof StomperBoots stomperBoots) {
+                if (boots instanceof StomperBoots) {
                     e.setCancelled(true);
                     stomperBoots.stomp(e);
-                } else if (boots instanceof LongFallBoots longFallBoots) {
+                } else if (boots instanceof LongFallBoots) {
                     e.setCancelled(true);
                     longFallBoots.getSoundEffect().playAt(p.getLocation(), SoundCategory.PLAYERS);
                 }

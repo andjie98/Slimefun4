@@ -62,7 +62,7 @@ public class BackpackListener implements Listener {
     public void onClose(InventoryCloseEvent e) {
         Player p = (Player) e.getPlayer();
 
-        if (e.getInventory().getHolder(false) instanceof PlayerBackpack backpack) {
+        if (e.getInventory().getHolder(false) instanceof PlayerBackpack) {
             openingPlayers.remove(p.getUniqueId());
             backpacks.remove(p.getUniqueId());
             backpackInstances.remove(p.getUniqueId());

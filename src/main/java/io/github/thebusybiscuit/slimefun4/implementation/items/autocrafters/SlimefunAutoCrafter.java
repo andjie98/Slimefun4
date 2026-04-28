@@ -60,7 +60,7 @@ public class SlimefunAutoCrafter extends AbstractAutoCrafter {
 
         BlockState state = b.getState(false);
 
-        if (state instanceof Skull skull) {
+        if (state instanceof Skull) {
             // Read the stored value from persistent data storage
             PersistentDataContainer container = skull.getPersistentDataContainer();
             String value = container.get(recipeStorageKey, PersistentDataType.STRING);

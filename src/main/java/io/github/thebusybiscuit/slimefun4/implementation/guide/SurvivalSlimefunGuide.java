@@ -108,7 +108,8 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
 
         for (ItemGroup group : Slimefun.getRegistry().getAllItemGroups()) {
             try {
-                if (group instanceof FlexItemGroup flexItemGroup) {
+                if (group instanceof FlexItemGroup) {
+                    FlexItemGroup flexItemGroup = (FlexItemGroup) group;
                     if (flexItemGroup.isVisible(p, profile, getMode())) {
                         groups.add(group);
                     }
@@ -232,7 +233,8 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             return;
         }
 
-        if (itemGroup instanceof FlexItemGroup flexItemGroup) {
+        if (itemGroup instanceof FlexItemGroup) {
+            FlexItemGroup flexItemGroup = (FlexItemGroup) itemGroup;
             flexItemGroup.open(p, profile, getMode());
             return;
         }
@@ -605,7 +607,8 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
 
         displayItem(menu, profile, p, item, result, recipeType, recipe, task);
 
-        if (item instanceof RecipeDisplayItem recipeDisplayItem) {
+        if (item instanceof RecipeDisplayItem) {
+            RecipeDisplayItem recipeDisplayItem = (RecipeDisplayItem) item;
             displayRecipes(p, profile, menu, recipeDisplayItem, 0);
         }
 

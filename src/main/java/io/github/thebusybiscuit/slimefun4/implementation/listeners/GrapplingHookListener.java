@@ -59,7 +59,7 @@ public class GrapplingHookListener implements Listener {
             return;
         }
 
-        if (e.getDamager() instanceof Arrow arrow) {
+        if (e.getDamager() instanceof Arrow) {
             handleGrapplingHook(arrow);
         }
     }
@@ -72,7 +72,7 @@ public class GrapplingHookListener implements Listener {
 
         Slimefun.runSync(
                 () -> {
-                    if (e.getEntity() instanceof Arrow arrow) {
+                    if (e.getEntity() instanceof Arrow) {
                         handleGrapplingHook(arrow);
                     }
                 },
@@ -86,7 +86,7 @@ public class GrapplingHookListener implements Listener {
         }
 
         // This is called when the arrow shoots off a painting or an item frame
-        if (e.getRemover() instanceof Player player) {
+        if (e.getRemover() instanceof Player) {
             GrapplingHookEntity hook = activeHooks.get(player.getUniqueId());
             if (hook == null) return;
             handleGrapplingHook(hook.getArrow());
@@ -135,7 +135,7 @@ public class GrapplingHookListener implements Listener {
             return;
         }
 
-        if (e.getEntity() instanceof Arrow arrow) {
+        if (e.getEntity() instanceof Arrow) {
             handleGrapplingHook(arrow);
         }
     }
@@ -172,7 +172,7 @@ public class GrapplingHookListener implements Listener {
     }
 
     private void handleGrapplingHook(@Nullable Arrow arrow) {
-        if (arrow != null && arrow.isValid() && arrow.getShooter() instanceof Player player) {
+        if (arrow != null && arrow.isValid() && arrow.getShooter() instanceof Player) {
             GrapplingHookEntity hook = activeHooks.get(player.getUniqueId());
 
             if (hook != null) {

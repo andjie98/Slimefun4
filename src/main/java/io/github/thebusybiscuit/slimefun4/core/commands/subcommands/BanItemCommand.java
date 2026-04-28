@@ -39,7 +39,7 @@ public class BanItemCommand extends SubCommand {
                                 sender, "messages.invalid-item", true, msg -> msg.replace(PLACEHOLDER_ITEM, args[1]));
                 return;
             }
-            if (sender instanceof Player player) {
+            if (sender instanceof Player) {
                 ItemStack itemOnHand = player.getInventory().getItemInMainHand();
                 if (!itemOnHand.getType().isAir()) {
                     SlimefunItem item = SlimefunItem.getByItem(itemOnHand);

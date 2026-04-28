@@ -70,7 +70,7 @@ public class ThreadUtils {
      * @return A FutureTask wrapping the runnable
      */
     public static FutureTask<Void> getFutureTask(Runnable runnable) {
-        return runnable instanceof FutureTask<?> future
+        return runnable instanceof FutureTask<?>
                 ? (FutureTask<Void>) future
                 : new FutureTask<>(runnable, (Void) null);
     }

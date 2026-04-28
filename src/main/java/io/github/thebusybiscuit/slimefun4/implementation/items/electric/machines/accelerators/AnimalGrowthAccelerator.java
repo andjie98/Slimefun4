@@ -69,6 +69,6 @@ public class AnimalGrowthAccelerator extends AbstractGrowthAccelerator {
     }
 
     private boolean isReadyToGrow(Entity n) {
-        return n instanceof Ageable ageable && n.isValid() && !ageable.isAdult();
+        return n instanceof Ageable && n.isValid() && !ageable.isAdult();
     }
 }

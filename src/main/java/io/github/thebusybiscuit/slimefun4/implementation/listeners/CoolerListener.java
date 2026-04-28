@@ -48,14 +48,14 @@ public class CoolerListener implements Listener {
 
     @EventHandler
     public void onHungerLoss(FoodLevelChangeEvent e) {
-        if (e.getEntity() instanceof Player player && e.getFoodLevel() < player.getFoodLevel()) {
+        if (e.getEntity() instanceof Player && e.getFoodLevel() < player.getFoodLevel()) {
             checkAndConsume(player);
         }
     }
 
     @EventHandler
     public void onHungerDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player player && e.getCause() == DamageCause.STARVATION) {
+        if (e.getEntity() instanceof Player && e.getCause() == DamageCause.STARVATION) {
             checkAndConsume(player);
         }
     }

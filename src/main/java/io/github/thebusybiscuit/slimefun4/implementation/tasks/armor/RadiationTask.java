@@ -53,7 +53,7 @@ public class RadiationTask extends AbstractArmorTask {
                     continue;
                 }
                 SlimefunItem sfItem = SlimefunItem.getByItem(item);
-                if (sfItem instanceof Radioactive radioactiveItem) {
+                if (sfItem instanceof Radioactive) {
                     exposureTotal += item.getAmount()
                             * radioactiveItem.getRadioactivity().getExposureModifier();
                 }

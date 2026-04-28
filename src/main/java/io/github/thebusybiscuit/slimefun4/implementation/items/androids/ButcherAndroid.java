@@ -46,7 +46,7 @@ public class ButcherAndroid extends ProgrammableAndroid {
                         radius,
                         radius,
                         radius,
-                        n -> n instanceof LivingEntity livingEntity
+                        n -> n instanceof LivingEntity
                                 && !(n instanceof ArmorStand)
                                 && !(n instanceof Player)
                                 && n.isValid()

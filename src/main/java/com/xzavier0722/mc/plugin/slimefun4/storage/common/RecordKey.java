@@ -83,7 +83,7 @@ public class RecordKey extends ScopeKey {
             return true;
         }
 
-        if (!(obj instanceof RecordKey other)) {
+        if (!(obj instanceof RecordKey)) {
             return false;
         }
 

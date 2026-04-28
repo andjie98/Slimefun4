@@ -388,7 +388,7 @@ public class SlimefunItem implements Placeable {
      * This method returns the {@link SlimefunAddon} that registered this
      * {@link SlimefunItem}. If this Item is from Slimefun itself, the current
      * instance of {@link Slimefun} will be returned.
-     * Use an instanceof check to account for that.
+     * Use an instanceof check for that.
      *
      * @return The {@link SlimefunAddon} that registered this {@link SlimefunItem}
      */
@@ -486,8 +486,8 @@ public class SlimefunItem implements Placeable {
             }
 
             // Lock the SlimefunItemStack from any accidental manipulations
-            if (itemStackTemplate instanceof SlimefunItemStack stack && isItemStackImmutable()) {
-                stack.lock();
+            if (itemStackTemplate instanceof SlimefunItemStack && isItemStackImmutable()) {
+                ((SlimefunItemStack) itemStackTemplate).lock();
             }
 
             postRegister();
@@ -799,7 +799,8 @@ public class SlimefunItem implements Placeable {
         }
 
         // If the given item is a SlimefunitemStack, simply compare the id
-        if (item instanceof SlimefunItemStack stack) {
+        if (item instanceof SlimefunItemStack) {
+            SlimefunItemStack stack = (SlimefunItemStack) item;
             return getId().equals(stack.getItemId());
         }
 
@@ -846,10 +847,10 @@ public class SlimefunItem implements Placeable {
             itemHandlers.put(handler.getIdentifier(), handler);
 
             // Tickers are a special case (at the moment at least)
-            if (handler instanceof BlockTicker ticker) {
+            if (handler instanceof BlockTicker) {
                 ticking = true;
                 Slimefun.getRegistry().getTickerBlocks().add(getId());
-                blockTicker = ticker;
+                blockTicker = (BlockTicker) handler;
             }
         }
     }
@@ -1112,8 +1113,8 @@ public class SlimefunItem implements Placeable {
         addon.getLogger().log(Level.SEVERE, message, throwable);
 
         // We definitely want to re-throw them during Unit Tests
-        if (throwable instanceof RuntimeException e && Slimefun.getMinecraftVersion() == MinecraftVersion.UNIT_TEST) {
-            throw e;
+        if (throwable instanceof RuntimeException && Slimefun.getMinecraftVersion() == MinecraftVersion.UNIT_TEST) {
+            throw (RuntimeException) throwable;
         }
     }
 
@@ -1225,7 +1226,8 @@ public class SlimefunItem implements Placeable {
 
     @Override
     public final boolean equals(Object obj) {
-        if (obj instanceof SlimefunItem item) {
+        if (obj instanceof SlimefunItem) {
+            SlimefunItem item = (SlimefunItem) obj;
             return item.getId().equals(this.getId());
         } else {
             return false;
@@ -1271,7 +1273,8 @@ public class SlimefunItem implements Placeable {
             return null;
         }
 
-        if (item instanceof SlimefunItemStack stack) {
+        if (item instanceof SlimefunItemStack) {
+            SlimefunItemStack stack = (SlimefunItemStack) item;
             return getById(stack.getItemId());
         }
 

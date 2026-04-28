@@ -14,7 +14,7 @@ public class DatabasePatchV2 extends DatabasePatch {
 
     @Override
     public void patch(Statement stmt, ISqlCommonConfig config) throws SQLException {
-        Object tablePrefix = config instanceof SqlCommonConfig scc ? scc.tablePrefix() : "";
+        Object tablePrefix = config instanceof SqlCommonConfig ? scc.tablePrefix() : "";
         stmt.execute("DROP TABLE IF EXISTS " + tablePrefix + SqlConstants.TABLE_NAME_TABLE_INFORMATION);
     }
 }

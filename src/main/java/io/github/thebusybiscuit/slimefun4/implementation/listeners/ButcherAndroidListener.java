@@ -48,7 +48,7 @@ public class ButcherAndroidListener implements Listener {
 
                         // Collect any nearby dropped items
                         for (Entity n : e.getEntity().getNearbyEntities(0.5D, 0.5D, 0.5D)) {
-                            if (n instanceof Item item && n.isValid() && !SlimefunUtils.hasNoPickupFlag(item)) {
+                            if (n instanceof Item && n.isValid() && !SlimefunUtils.hasNoPickupFlag(item)) {
                                 items.add(item.getItemStack());
                                 n.remove();
                             }

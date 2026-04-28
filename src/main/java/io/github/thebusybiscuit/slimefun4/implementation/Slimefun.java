@@ -929,7 +929,7 @@ public final class Slimefun extends JavaPlugin implements SlimefunAddon, ICompat
      * This returns out instance of the {@link ProtectionManager}.
      * This bridge is used to hook into any third-party protection {@link Plugin}.
      *
-     * @return Our instanceof of the {@link ProtectionManager}
+     * @return Our instanceof of {@link ProtectionManager}
      */
     public static @Nonnull ProtectionManager getProtectionManager() {
         return getIntegrations().getProtectionManager();

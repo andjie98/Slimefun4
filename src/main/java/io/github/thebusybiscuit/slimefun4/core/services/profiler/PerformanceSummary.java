@@ -112,7 +112,7 @@ class PerformanceSummary {
         List<Entry<String, Long>> results = inspector.getOrderType().sort(profiler, entrySet);
         String prefix = count + " " + name + (count != 1 ? 's' : "");
 
-        if (inspector instanceof PlayerPerformanceInspector playerPerformanceInspector) {
+        if (inspector instanceof PlayerPerformanceInspector) {
             TextComponent component = summarizeAsTextComponent(count, prefix, results, formatter);
             playerPerformanceInspector.sendMessage(component);
         } else {

@@ -194,7 +194,7 @@ public class Talisman extends SlimefunItem {
 
     @ParametersAreNonnullByDefault
     public static boolean trigger(Event e, SlimefunItem item, boolean sendMessage) {
-        if (!(item instanceof Talisman talisman)) {
+        if (!(item instanceof Talisman)) {
             return false;
         }
 
@@ -282,7 +282,7 @@ public class Talisman extends SlimefunItem {
 
     @ParametersAreNonnullByDefault
     private static void cancelEvent(Event e, Talisman talisman) {
-        if (e instanceof Cancellable cancellable && talisman.isEventCancelled()) {
+        if (e instanceof Cancellable && talisman.isEventCancelled()) {
             cancellable.setCancelled(true);
         }
     }
@@ -342,17 +342,17 @@ public class Talisman extends SlimefunItem {
     }
 
     @Nullable private static Player getPlayerByEventType(@Nonnull Event e) {
-        if (e instanceof EntityDeathEvent entityDeathEvent) {
+        if (e instanceof EntityDeathEvent) {
             return entityDeathEvent.getEntity().getKiller();
-        } else if (e instanceof BlockBreakEvent blockBreakEvent) {
+        } else if (e instanceof BlockBreakEvent) {
             return blockBreakEvent.getPlayer();
-        } else if (e instanceof BlockDropItemEvent blockDropItemEvent) {
+        } else if (e instanceof BlockDropItemEvent) {
             return blockDropItemEvent.getPlayer();
-        } else if (e instanceof PlayerEvent playerEvent) {
+        } else if (e instanceof PlayerEvent) {
             return playerEvent.getPlayer();
-        } else if (e instanceof EntityEvent entityEvent) {
+        } else if (e instanceof EntityEvent) {
             return (Player) entityEvent.getEntity();
-        } else if (e instanceof EnchantItemEvent enchantItemEvent) {
+        } else if (e instanceof EnchantItemEvent) {
             return enchantItemEvent.getEnchanter();
         }
 

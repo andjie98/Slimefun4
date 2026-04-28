@@ -52,7 +52,7 @@ public class SlimefunBowListener implements Listener {
         if (e.getEntity() instanceof Player && e.getProjectile() instanceof Arrow) {
             SlimefunItem bow = SlimefunItem.getByItem(e.getBow());
 
-            if (bow instanceof SlimefunBow slimefunBow) {
+            if (bow instanceof SlimefunBow) {
                 projectiles.put(e.getProjectile().getUniqueId(), slimefunBow);
             }
         }

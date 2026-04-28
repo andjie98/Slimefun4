@@ -131,7 +131,7 @@ public class MinecraftRecipeService {
     public @Nonnull RecipeChoice[] getRecipeShape(@Nonnull Recipe recipe) {
         Validate.notNull(recipe, "Recipe must not be null!");
 
-        if (recipe instanceof ShapedRecipe shapedRecipe) {
+        if (recipe instanceof ShapedRecipe) {
             List<RecipeChoice> choices = new LinkedList<>();
 
             for (String row : shapedRecipe.getShape()) {

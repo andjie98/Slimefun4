@@ -43,7 +43,7 @@ public abstract class NetherStarReactor extends Reactor {
         Slimefun.runSync(() -> {
             for (Entity entity :
                     l.getWorld().getNearbyEntities(l, 5, 5, 5, n -> n instanceof LivingEntity && n.isValid())) {
-                if (entity instanceof LivingEntity livingEntity) {
+                if (entity instanceof LivingEntity) {
                     livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 60, 1));
                 }
             }

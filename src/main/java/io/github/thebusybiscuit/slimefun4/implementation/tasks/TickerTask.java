@@ -228,13 +228,13 @@ public class TickerTask implements Runnable {
     private void tickBlock(Location l, SlimefunItem item, ASlimefunDataContainer data, long timestamp) {
         try {
             if (item.getBlockTicker().isUniversal()) {
-                if (data instanceof SlimefunUniversalData universalData) {
+                if (data instanceof SlimefunUniversalData) {
                     item.getBlockTicker().tick(l.getBlock(), item, universalData);
                 } else {
                     throw new IllegalStateException("BlockTicker is universal but item is non-universal!");
                 }
             } else {
-                if (data instanceof SlimefunBlockData blockData) {
+                if (data instanceof SlimefunBlockData) {
                     item.getBlockTicker().tick(l.getBlock(), item, blockData);
                 } else {
                     throw new IllegalStateException("BlockTicker is non-universal but item is universal!");

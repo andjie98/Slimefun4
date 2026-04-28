@@ -187,7 +187,7 @@ public class HologramsService {
      * @return Whether this could be a hologram
      */
     private boolean isHologram(@Nonnull Entity n) {
-        if (n instanceof ArmorStand armorStand) {
+        if (n instanceof ArmorStand) {
             // The absolute minimum requirements to count as a hologram
             return !armorStand.isVisible() && armorStand.isSilent() && !armorStand.hasGravity();
         } else {
@@ -210,7 +210,7 @@ public class HologramsService {
      */
     @Nullable private Hologram getAsHologram(
             @Nonnull BlockPosition position, @Nonnull Entity entity, @Nonnull PersistentDataContainer container) {
-        if (entity instanceof ArmorStand armorStand) {
+        if (entity instanceof ArmorStand) {
             armorStand.setVisible(false);
             armorStand.setInvulnerable(true);
             armorStand.setSilent(true);

@@ -178,7 +178,7 @@ public final class PostSetup {
             }
 
             for (SlimefunItem item : Slimefun.getRegistry().getEnabledSlimefunItems()) {
-                if (item instanceof AContainer machine) {
+                if (item instanceof AContainer) {
                     if (machine.getMachineIdentifier().equals("ELECTRIC_SMELTERY")) {
                         List<MachineRecipe> recipes = machine.getMachineRecipes();
                         Collections.sort(
@@ -221,7 +221,7 @@ public final class PostSetup {
 
     private static void registerMachineRecipe(String machine, int seconds, ItemStack[] input, ItemStack[] output) {
         for (SlimefunItem item : Slimefun.getRegistry().getEnabledSlimefunItems()) {
-            if (item instanceof AContainer container
+            if (item instanceof AContainer
                     && container.getMachineIdentifier().equals(machine)) {
                 container.registerRecipe(seconds, input, output);
             }

@@ -28,7 +28,7 @@ public class CartographyTableListener implements SlimefunCraftingListener {
     public void onCartographyTable(InventoryClickEvent e) {
         if (e.getRawSlot() == 2
                 && e.getInventory().getType() == InventoryType.CARTOGRAPHY
-                && e.getWhoClicked() instanceof Player player) {
+                && e.getWhoClicked() instanceof Player) {
             ItemStack item1 = e.getInventory().getContents()[0];
             ItemStack item2 = e.getInventory().getContents()[1];
 

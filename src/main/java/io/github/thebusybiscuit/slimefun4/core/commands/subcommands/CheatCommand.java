@@ -17,7 +17,7 @@ class CheatCommand extends SubCommand {
 
     @Override
     public void onExecute(CommandSender sender, String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
             if (sender.hasPermission("slimefun.cheat.items")) {
                 SlimefunGuide.openCheatMenu(player);
             } else {

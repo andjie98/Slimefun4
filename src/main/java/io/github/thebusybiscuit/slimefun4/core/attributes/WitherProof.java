@@ -39,7 +39,7 @@ public interface WitherProof extends ItemAttribute {
      *            The {@link EntityChangeBlockEvent} which was involved.
      */
     default void onAttackEvent(EntityChangeBlockEvent event) {
-        if (event.getEntity() instanceof Wither wither) {
+        if (event.getEntity() instanceof Wither) {
             event.setCancelled(true);
             onAttack(event.getBlock(), wither);
         }

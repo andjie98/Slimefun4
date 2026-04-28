@@ -33,7 +33,7 @@ public class RainbowArmorTask extends AbstractArmorTask {
                 HashedArmorpiece armorPiece = profile.getArmor()[i];
 
                 armorPiece.getItem().ifPresent(sfArmorPiece -> {
-                    if (sfArmorPiece instanceof RainbowArmorPiece rainbowArmorPiece
+                    if (sfArmorPiece instanceof RainbowArmorPiece
                             && rainbowArmorPiece.canUse(p, true)) {
                         updateRainbowArmor(item, rainbowArmorPiece);
                     }
@@ -47,7 +47,7 @@ public class RainbowArmorTask extends AbstractArmorTask {
         Color[] colors = armorPiece.getColors();
         Color newColor = colors[(int) (currentColorIndex % colors.length)];
 
-        if (itemStack.getItemMeta() instanceof LeatherArmorMeta leatherArmorMeta) {
+        if (itemStack.getItemMeta() instanceof LeatherArmorMeta) {
             leatherArmorMeta.setColor(newColor);
             itemStack.setItemMeta(leatherArmorMeta);
         }

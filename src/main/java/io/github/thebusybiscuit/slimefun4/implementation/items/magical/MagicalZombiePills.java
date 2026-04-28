@@ -62,10 +62,10 @@ public class MagicalZombiePills extends SimpleSlimefunItem<EntityInteractHandler
 
             Player p = e.getPlayer();
 
-            if (entity instanceof ZombieVillager zombieVillager) {
+            if (entity instanceof ZombieVillager) {
                 useItem(p, item);
                 healZombieVillager(zombieVillager, p);
-            } else if (entity instanceof PigZombie pigZombie) {
+            } else if (entity instanceof PigZombie) {
                 useItem(p, item);
                 healZombifiedPiglin(pigZombie);
             }

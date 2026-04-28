@@ -58,7 +58,7 @@ public class OutputChest extends SlimefunItem {
                     // Found the output chest! Now, let's check if we can fit the product in it.
                     BlockState state = potentialOutput.getState(false);
 
-                    if (state instanceof Chest chest) {
+                    if (state instanceof Chest) {
                         Inventory inv = chest.getInventory();
 
                         // Check if the Item fits into that inventory.

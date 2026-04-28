@@ -55,7 +55,7 @@ public class PressureChamber extends MultiBlockMachine {
         Block possibleDispenser = b.getRelative(BlockFace.UP).getRelative(BlockFace.UP);
         BlockState state = possibleDispenser.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
             Inventory inv = dispenser.getInventory();
 
             for (ItemStack current : inv.getContents()) {

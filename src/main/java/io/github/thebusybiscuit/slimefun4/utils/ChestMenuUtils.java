@@ -157,7 +157,7 @@ public final class ChestMenuUtils {
         ItemMeta im = item.getItemMeta();
         im.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
 
-        if (im instanceof Damageable damageable) {
+        if (im instanceof Damageable) {
             damageable.setDamage(getDurability(item, timeLeft, time));
         }
 

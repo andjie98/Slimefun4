@@ -36,7 +36,7 @@ public class JoinListener implements Listener {
                 final ItemStack armorPiece = armorContents[i];
                 if (armorPiece != null
                         && armorPiece.getType() != Material.AIR
-                        && SlimefunItem.getByItem(armorPiece) instanceof SlimefunArmorPiece sfArmorPiece) {
+                        && SlimefunItem.getByItem(armorPiece) instanceof SlimefunArmorPiece) {
                     hashedArmorpieces[i].update(armorPiece, sfArmorPiece);
                 }
             }

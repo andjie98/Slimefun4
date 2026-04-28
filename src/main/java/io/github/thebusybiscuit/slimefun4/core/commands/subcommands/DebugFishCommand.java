@@ -17,7 +17,7 @@ class DebugFishCommand extends SubCommand {
 
     @Override
     public void onExecute(CommandSender sender, String[] args) {
-        if (sender instanceof Player player && sender.hasPermission("slimefun.debugging")) {
+        if (sender instanceof Player && sender.hasPermission("slimefun.debugging")) {
             player.getInventory().addItem(SlimefunItems.DEBUG_FISH.clone());
         } else {
             Slimefun.getLocalization().sendMessage(sender, "messages.no-permission", true);

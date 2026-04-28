@@ -71,7 +71,7 @@ public class ProduceCollector extends AContainer implements RecipeDisplayItem {
 
         // Mushroom Stew from Mooshrooms
         addProduce(new AnimalProduce(new ItemStack(Material.BOWL), new ItemStack(Material.MUSHROOM_STEW), n -> {
-            if (n instanceof MushroomCow mushroomCow) {
+            if (n instanceof MushroomCow) {
                 return mushroomCow.isAdult();
             } else {
                 return false;
@@ -162,7 +162,7 @@ public class ProduceCollector extends AContainer implements RecipeDisplayItem {
 
     @ParametersAreNonnullByDefault
     private boolean isValidAnimal(Entity n, Predicate<LivingEntity> predicate) {
-        if (n instanceof LivingEntity livingEntity) {
+        if (n instanceof LivingEntity) {
             return predicate.test(livingEntity);
         } else {
             return false;

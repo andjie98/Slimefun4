@@ -51,7 +51,7 @@ public class Juice extends SimpleSlimefunItem<ItemConsumptionHandler> {
 
         ItemMeta meta = item.getItemMeta();
 
-        if (meta instanceof PotionMeta potionMeta) {
+        if (meta instanceof PotionMeta) {
             effects = potionMeta.getCustomEffects();
         } else {
             effects = new ArrayList<>();

@@ -430,7 +430,7 @@ public class BlockDataController extends ADataController {
 
         toRemove.setPendingRemove(true);
 
-        if (toRemove instanceof SlimefunUniversalBlockData ubd) {
+        if (toRemove instanceof SlimefunUniversalBlockData) {
             ubd.setPendingRemove(true);
 
             UniversalMenu menu = ubd.getMenu();
@@ -585,7 +585,7 @@ public class BlockDataController extends ADataController {
     @Nullable public SlimefunUniversalBlockData getUniversalBlockData(@Nonnull UUID uuid) {
         SlimefunUniversalData universalData = getUniversalData(uuid);
 
-        if (universalData instanceof SlimefunUniversalBlockData ubd) {
+        if (universalData instanceof SlimefunUniversalBlockData) {
             return ubd;
         } else {
             return null;
@@ -622,7 +622,7 @@ public class BlockDataController extends ADataController {
     @Nullable public SlimefunUniversalBlockData getUniversalBlockDataFromCache(@Nonnull UUID uuid) {
         Object cache = getUniversalDataFromCache(uuid);
 
-        if (cache instanceof SlimefunUniversalBlockData ubd) {
+        if (cache instanceof SlimefunUniversalBlockData) {
             return ubd;
         } else {
             return null;
@@ -638,7 +638,7 @@ public class BlockDataController extends ADataController {
         checkDestroy();
 
         for (SlimefunUniversalData uniData : loadedUniversalData.values()) {
-            if (uniData instanceof SlimefunUniversalBlockData ubd) {
+            if (uniData instanceof SlimefunUniversalBlockData) {
                 if (!ubd.isDataLoaded() || ubd.getLastPresent() == null) {
                     continue;
                 }
@@ -669,9 +669,9 @@ public class BlockDataController extends ADataController {
      * @param target move target {@link Location}
      */
     public void move(ASlimefunDataContainer data, Location target) {
-        if (data instanceof SlimefunBlockData blockData) {
+        if (data instanceof SlimefunBlockData) {
             move(blockData, target);
-        } else if (data instanceof SlimefunUniversalBlockData universalBlockData) {
+        } else if (data instanceof SlimefunUniversalBlockData) {
             move(universalBlockData, target);
         }
     }
@@ -1025,9 +1025,9 @@ public class BlockDataController extends ADataController {
 
     public void loadDataAsync(ASlimefunDataContainer container, IAsyncReadCallback<ASlimefunDataContainer> callback) {
         scheduleReadTask(() -> {
-            if (container instanceof SlimefunBlockData blockData) {
+            if (container instanceof SlimefunBlockData) {
                 loadBlockData(blockData);
-            } else if (container instanceof SlimefunUniversalData uniData) {
+            } else if (container instanceof SlimefunUniversalData) {
                 loadUniversalData(uniData);
             }
 
@@ -1077,7 +1077,7 @@ public class BlockDataController extends ADataController {
 
             loadedUniversalData.putIfAbsent(uniData.getUUID(), uniData);
 
-            if (uniData instanceof SlimefunUniversalBlockData ubd) {
+            if (uniData instanceof SlimefunUniversalBlockData) {
                 if (ubd.hasTrait(UniversalDataTrait.BLOCK)) {
                     // 初始化 上次出现位置
                     Object lStr = ubd.getData(UniversalDataTrait.BLOCK.getReservedKey());
@@ -1119,7 +1119,7 @@ public class BlockDataController extends ADataController {
 
                     Location location = null;
 
-                    if (uniData instanceof SlimefunUniversalBlockData ubd && ubd.hasTrait(UniversalDataTrait.BLOCK)) {
+                    if (uniData instanceof SlimefunUniversalBlockData && ubd.hasTrait(UniversalDataTrait.BLOCK)) {
                         if (ubd.getLastPresent() != null) {
                             location = ubd.getLastPresent().toLocation();
                         }

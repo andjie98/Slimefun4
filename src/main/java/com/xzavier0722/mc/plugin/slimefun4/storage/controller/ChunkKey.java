@@ -21,7 +21,7 @@ public class ChunkKey extends ScopeKey {
     @Override
     public boolean equals(Object obj) {
         return obj == this
-                || (obj instanceof ChunkKey other
+                || (obj instanceof ChunkKey
                         && scope == other.scope
                         && chunk.getWorld()
                                 .getName()

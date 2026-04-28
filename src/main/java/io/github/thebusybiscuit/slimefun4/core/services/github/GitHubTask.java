@@ -83,7 +83,7 @@ class GitHubTask implements Runnable {
         }
 
         for (GitHubConnector connector : gitHubService.getConnectors()) {
-            if (connector instanceof ContributionsConnector contributionsConnector
+            if (connector instanceof ContributionsConnector
                     && !contributionsConnector.hasFinished()) {
                 return;
             }

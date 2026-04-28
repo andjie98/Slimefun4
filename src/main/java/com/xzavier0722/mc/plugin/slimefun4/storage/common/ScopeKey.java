@@ -25,7 +25,7 @@ public class ScopeKey {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof ScopeKey other && scope == other.scope;
+        return obj instanceof ScopeKey && scope == other.scope;
     }
 
     @Override

@@ -98,9 +98,9 @@ public class RainbowTickHandler extends BlockTicker {
         if (glassPanes) {
             BlockData blockData = b.getBlockData();
 
-            if (blockData instanceof GlassPane previousData) {
+            if (blockData instanceof GlassPane) {
                 BlockData block = material.createBlockData(bd -> {
-                    if (bd instanceof GlassPane nextData) {
+                    if (bd instanceof GlassPane) {
                         nextData.setWaterlogged(previousData.isWaterlogged());
 
                         for (BlockFace face : previousData.getAllowedFaces()) {

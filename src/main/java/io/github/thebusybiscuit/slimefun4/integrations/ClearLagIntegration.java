@@ -37,7 +37,7 @@ class ClearLagIntegration implements Listener {
         while (iterator.hasNext()) {
             Entity n = iterator.next();
 
-            if (n instanceof Item item && SlimefunUtils.hasNoPickupFlag(item)) {
+            if (n instanceof Item && SlimefunUtils.hasNoPickupFlag(item)) {
                 iterator.remove();
             }
         }

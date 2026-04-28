@@ -69,7 +69,7 @@ public class BlockPhysicsListener implements Listener {
                 SlimefunItem item = SlimefunItem.getById(blockData.getSfId());
                 BlockDataController controller = Slimefun.getDatabaseManager().getBlockDataController();
                 if (item != null) {
-                    if (item instanceof WitherProof witherProof) {
+                    if (item instanceof WitherProof) {
                         witherProof.onAttackEvent(e);
                         if (!e.isCancelled()) {
                             return;

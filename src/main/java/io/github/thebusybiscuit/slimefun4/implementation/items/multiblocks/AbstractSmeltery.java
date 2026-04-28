@@ -39,7 +39,7 @@ abstract class AbstractSmeltery extends MultiBlockMachine {
         Block possibleDispenser = b.getRelative(BlockFace.DOWN);
         BlockState state = possibleDispenser.getState(false);
 
-        if (state instanceof Dispenser dispenser) {
+        if (state instanceof Dispenser) {
             Inventory inv = dispenser.getInventory();
             List<ItemStack[]> inputs = RecipeType.getRecipeInputList(this);
 

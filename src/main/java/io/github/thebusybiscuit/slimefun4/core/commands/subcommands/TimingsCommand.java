@@ -98,7 +98,7 @@ class TimingsCommand extends SubCommand {
     @Nonnull
     @ParametersAreNonnullByDefault
     private PerformanceInspector inspectorOf(CommandSender sender, boolean verbose, SummaryOrderType orderType) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
             return new PlayerPerformanceInspector(player, orderType);
         } else {
             return new ConsolePerformanceInspector(sender, verbose, orderType);

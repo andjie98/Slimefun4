@@ -21,7 +21,7 @@ public class LocationKey extends ScopeKey {
     @Override
     public boolean equals(Object obj) {
         return obj == this
-                || (obj instanceof LocationKey other
+                || (obj instanceof LocationKey
                         && scope == other.scope
                         && location.getWorld()
                                 .getName()

@@ -70,7 +70,7 @@ public class SolarHelmet extends SlimefunItem {
     private void recharge(@Nullable ItemStack item) {
         SlimefunItem sfItem = SlimefunItem.getByItem(item);
 
-        if (sfItem instanceof Rechargeable rechargeable) {
+        if (sfItem instanceof Rechargeable) {
             rechargeable.addItemCharge(item, charge.getValue().floatValue());
         }
     }

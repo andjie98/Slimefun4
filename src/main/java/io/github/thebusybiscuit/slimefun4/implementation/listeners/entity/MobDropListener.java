@@ -65,7 +65,7 @@ public class MobDropListener implements Listener {
         if (sfItem == null) {
             return true;
         } else if (sfItem.canUse(p, true)) {
-            if (sfItem instanceof RandomMobDrop randomMobDrop) {
+            if (sfItem instanceof RandomMobDrop) {
                 int random = ThreadLocalRandom.current().nextInt(100);
 
                 if (randomMobDrop.getMobDropChance() <= random) {
@@ -73,7 +73,7 @@ public class MobDropListener implements Listener {
                 }
             }
 
-            if (sfItem instanceof BasicCircuitBoard basicCircuitBoard) {
+            if (sfItem instanceof BasicCircuitBoard) {
                 return basicCircuitBoard.isDroppedFromGolems();
             }
 

@@ -44,7 +44,7 @@ class BackpackCommand extends SubCommand {
 
     @Override
     public void onExecute(@Nonnull CommandSender sender, @Nonnull String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
             if (sender.hasPermission("slimefun.command.backpack")) {
                 if (args.length < 1) {
                     Slimefun.getLocalization()

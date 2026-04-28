@@ -19,7 +19,7 @@ class TeleporterCommand extends SubCommand {
 
     @Override
     public void onExecute(CommandSender sender, String[] args) {
-        if (sender instanceof Player player) {
+        if (sender instanceof Player) {
             if (sender.hasPermission("slimefun.command.teleporter")) {
                 if (args.length == 1) {
                     Slimefun.getGPSNetwork()

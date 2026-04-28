@@ -81,7 +81,7 @@ public class EnhancedFurnace extends SimpleSlimefunItem<BlockTicker> {
                     BlockState state = b.getState(false);
 
                     // Check if the BlockState is a Furnace and cooking something
-                    if (state instanceof Furnace furnace && furnace.getCookTime() > 0) {
+                    if (state instanceof Furnace && furnace.getCookTime() > 0) {
                         setProgress(furnace);
 
                         state.update(true, false);
