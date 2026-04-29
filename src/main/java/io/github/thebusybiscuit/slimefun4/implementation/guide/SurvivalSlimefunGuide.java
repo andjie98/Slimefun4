@@ -546,7 +546,8 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
     private <T extends Recipe> void showRecipeChoices(T recipe, ItemStack[] recipeItems, AsyncRecipeChoiceTask task) {
         RecipeChoice[] choices = Slimefun.getMinecraftRecipeService().getRecipeShape(recipe);
 
-        if (choices.length == 1 && choices[0] instanceof MaterialChoice materialChoice) {
+        if (choices.length == 1 && choices[0] instanceof MaterialChoice) {
+            MaterialChoice materialChoice = (MaterialChoice) choices[0];
             recipeItems[4] = new ItemStack(materialChoice.getChoices().get(0));
 
             if (materialChoice.getChoices().size() > 1) {
@@ -554,7 +555,8 @@ public class SurvivalSlimefunGuide implements SlimefunGuideImplementation {
             }
         } else {
             for (int i = 0; i < choices.length; i++) {
-                if (choices[i] instanceof MaterialChoice materialChoice) {
+                if (choices[i] instanceof MaterialChoice) {
+                    MaterialChoice materialChoice = (MaterialChoice) choices[i];
                     recipeItems[i] = new ItemStack(materialChoice.getChoices().get(0));
 
                     if (materialChoice.getChoices().size() > 1) {
