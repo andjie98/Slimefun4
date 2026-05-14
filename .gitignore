@@ -1,0 +1,22 @@
+# 备份目录
+备份源代码/
+
+# 更新说明
+粘液科技精简文档.md
+
+# Maven build output
+target/
+build_out.txt
+build_err.txt
+build_output.txt
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# OS
+Thumbs.db
+Desktop.ini
