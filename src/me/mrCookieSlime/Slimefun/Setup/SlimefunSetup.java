@@ -27,6 +27,7 @@ import me.mrCookieSlime.CSCoreLibPlugin.events.ItemUseEvent;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.InvUtils;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Misc.PostSlimefunLoadingHandler;
+import me.mrCookieSlime.Slimefun.Setup.SlimefunManager;
 import me.mrCookieSlime.Slimefun.Objects.MultiBlock;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunBlockHandler;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.EnhancedFurnace;
@@ -183,7 +184,23 @@ public class SlimefunSetup {
 			}
 		});
 
-		// ── 1. 末影背包 (ENDER_BACKPACK) ──
+		// ── 1. 便携式合成台 (PORTABLE_CRAFTER) ──
+		new SlimefunItem(Categories.PORTABLE, SlimefunItems.PORTABLE_CRAFTER, "PORTABLE_CRAFTER", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {new ItemStack(Material.BOOK), new ItemStack(Material.WORKBENCH), null, null, null, null, null, null, null})
+		.register(true, new ItemInteractionHandler() {
+
+			@Override
+			public boolean onRightClick(ItemUseEvent e, Player p, ItemStack item) {
+				if (SlimefunManager.isItemSimiliar(item, SlimefunItems.PORTABLE_CRAFTER, true)) {
+					p.openWorkbench(p.getLocation(), true);
+					p.getWorld().playSound(p.getLocation(), Sound.BLOCK_WOOD_BUTTON_CLICK_ON, 1, 1);
+					return true;
+				}
+				else return false;
+			}
+		});
+
+		// ── 2. 末影背包 (ENDER_BACKPACK) ──
 		new SlimefunItem(Categories.PORTABLE, SlimefunItems.ENDER_BACKPACK, "ENDER_BACKPACK", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.LEATHER), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.LEATHER), new ItemStack(Material.ENDER_CHEST), new ItemStack(Material.LEATHER), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.LEATHER), new ItemStack(Material.ENDER_PEARL)})
 		.register(false, new ItemInteractionHandler() {
