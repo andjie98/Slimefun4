@@ -388,8 +388,13 @@ public class SlimefunSetup {
 			}
 		});
 
+		// ── 9. 地震鞋 (BOOTS_OF_THE_STOMPER) ──
+		new SlimefunItem(Categories.ARMOR, SlimefunItems.BOOTS_OF_THE_STOMPER, "BOOTS_OF_THE_STOMPER", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.SLIME_BALL), new ItemStack(Material.LEATHER_BOOTS), new ItemStack(Material.SLIME_BALL), null, new ItemStack(Material.PISTON_BASE), null})
+		.register(false);
+
 	}
-	
+
 	public static void registerPostHandler(PostSlimefunLoadingHandler handler) {
 		MiscSetup.post_handlers.add(handler);
 	}
