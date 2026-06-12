@@ -20,3 +20,12 @@ build_output.txt
 # OS
 Thumbs.db
 Desktop.ini
+nul
+reasonix.toml
+startup_err.log
+startup.log
+.codegraph/.gitignore
+.qwen/skills/git-push-bypass-local-proxy/SKILL.md
+.qwen/skills/slimefun4-register-existing-item/SKILL.md
+.reasonix/desktop-topic-title-sources.json
+.reasonix/desktop-topic-titles.json

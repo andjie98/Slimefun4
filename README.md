@@ -4,7 +4,7 @@
 
 ## 精简原则
 
-- **只保留 9 个核心物品/机器**，移除其余数百个物品
+- **只保留 11 个核心物品/机器**，移除其余数百个物品
 - **禁用研究系统** — 所有物品无需解锁即可使用
 - **禁用扩展插件** — 不加载 EmeraldEnchants、ExoticGarden 等附加组件
 - **保留核心框架** — BlockStorage、指南书、配方系统等基础设施完整保留
@@ -23,6 +23,7 @@
 | 7 | 方块放置器 | 基础机器 | 发射器自动放置方块 |
 | 8 | 全息显示器 | 科技工具 | 显示悬浮全息文字 |
 | 9 | 电梯板 | GPS科技 | 同一X/Z坐标上下楼层传送 |
+| 10 | 重踏靴 | 护甲 | 从高处坠落时踩碎脚下方块，保护玩家不受摔落伤害 |
 
 ## 合成配方
 
@@ -133,6 +134,40 @@ mvn package -DskipTests
 - 但已注册移除的机器**无法交互**（右键无反应）
 - **破坏旧机器方块不会掉落物品**，方块直接消失
 - 建议更新前让玩家手动拆除所有粘液科技机器
+
+## 修改说明 (vs 原版 v4.1.15)
+
+### 代码修改
+
+| 文件 | 修改内容 |
+|------|----------|
+| `SlimefunSetup.java` | **大幅精简**：从原版 100+ 物品注册精简到仅 11 个核心物品，移除 Grind Stone、Armor Forge、Ore Crusher、Compressor、Jetpacks、Solar Helmet、MultiTool、Talisman、Soulbound 等所有非核心物品及其配方、交互逻辑和事件处理 |
+| `config.yml` | **新增** `enable-researching: false` — 默认禁用研究系统，所有物品无需解锁即可直接使用 |
+
+### 移除的主要物品分类
+
+| 分类 | 移除的物品举例 |
+|------|---------------|
+| 基础机器 | Grind Stone, Ore Crusher, Compressor, Armor Forge, Smeltery, Pressure Chamber, Crucible, Automated Panning Machine |
+| 武器/防具 | Grandmas/Grandpas Walking Stick, Soulbound 系列, Blazing Container, Explosive Pickaxe, Pickaxe of Vein Mining, Smelters Pickaxe, Seismic Axe |
+| 魔法道具 | Magic/Ender Lump, Infernal Bonemeal, Magic Eye, Infused Magnet, Knowledge Tome, Vine Claw |
+| 科技工具 | MultiTool, Jetpack, Jet Boots, Parachute, Solar Helmet, GPS Transceiver, Teleposition Rune |
+| 背包 | Soulbound Backpack, Radiant Backpack, Woven Backpack |
+| 机器人 | Programmable Android (农夫/矿工/渔夫/伐木工/战斗等所有类型) |
+| 食物/杂项 | Fortune Cookie, Beef Jerky, Auto-Brewer, Juice 系列, Cooler |
+| 电力/能源 | Solar Generator, Electric Furnace, Electric Press, Electric Ore Grinder 等所有电力网络 |
+| 护身符 | 所有 Talisman (角斗士/法师/旅行者/矿工/巫师/猎人/骑士等) |
+
+### 保留的核心框架
+
+- ✅ BlockStorage — 方块数据持久化存储
+- ✅ 粘液科技指南书 — `/sf guide` 查看物品
+- ✅ 配方系统 — RecipeType 和增强型合成台合成
+- ✅ 多方块结构检测
+- ✅ GPS 系统 — 电梯板定位
+- ✅ 全息文字显示
+- ✅ 自动机处理器 (AutonomousMachineHandler) — 方块放置器使用
+- ✅ BlockTicker — 方块定时 tick 机制
 
 ## 许可证
 
