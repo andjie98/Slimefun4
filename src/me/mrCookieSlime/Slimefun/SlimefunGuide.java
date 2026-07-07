@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.SkullItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -286,7 +285,9 @@ public class SlimefunGuide {
 		}
 		
 		for (final Contributor contributor: contributors) {
-			ItemStack skull = new SkullItem("&a" + contributor.getName(), contributor.getName());
+			if (index >= 36) break;
+
+			ItemStack skull = new CustomItem(new MaterialData(Material.PAPER), "&a" + contributor.getName());
 			
 			ItemMeta meta = skull.getItemMeta();
 

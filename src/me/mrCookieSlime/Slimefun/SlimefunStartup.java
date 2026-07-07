@@ -86,6 +86,8 @@ public class SlimefunStartup extends JavaPlugin {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onEnable() {
+		ensureJavaCompatibility();
+
 		if (Bukkit.getServer().getPluginManager().isPluginEnabled("PlotSquared")) {
 			this.plotSquared = true;
 		}
@@ -533,4 +535,12 @@ public class SlimefunStartup extends JavaPlugin {
 	public boolean isPlotSquaredInstalled() { return plotSquared; }
 
 	public boolean isResidenceInstalled() { return residence; }
+
+	private void ensureJavaCompatibility() {
+		try {
+			Class.forName("javax.xml.bind.DatatypeConverter");
+		} catch (ClassNotFoundException e) {
+			throw new IllegalStateException("Missing Java compatibility class: javax.xml.bind.DatatypeConverter", e);
+		}
+	}
 }
