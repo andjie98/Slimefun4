@@ -105,7 +105,6 @@ public class ResearchSetup {
 	    Slimefun.registerResearch(new Research(100, "Farmer Shoes", 4), SlimefunItems.FARMER_SHOES);
 	    Slimefun.registerResearch(new Research(101, "Explosive Pickaxe", 28), SlimefunItems.EXPLOSIVE_PICKAXE);
 	    Slimefun.registerResearch(new Research(102, "Automated Gold Pan", 17), SlimefunItems.AUTOMATED_PANNING_MACHINE);
-	    Slimefun.registerResearch(new Research(103, "Boots of the Stomper", 19), SlimefunItems.BOOTS_OF_THE_STOMPER);
 	    Slimefun.registerResearch(new Research(104, "Pickaxe of the Seeker", 19), SlimefunItems.PICKAXE_OF_THE_SEEKER);
 	    Slimefun.registerResearch(new Research(105, "Backpacks", 15), SlimefunItems.BACKPACK_LARGE, SlimefunItems.BACKPACK_MEDIUM, SlimefunItems.BACKPACK_SMALL);
 	    Slimefun.registerResearch(new Research(106, "Woven Backpack", 19), SlimefunItems.WOVEN_BACKPACK);

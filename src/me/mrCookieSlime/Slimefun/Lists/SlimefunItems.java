@@ -182,7 +182,6 @@ public class SlimefunItems {
 	public static ItemStack SLIME_CHESTPLATE_STEEL = new CustomItem(Material.IRON_CHESTPLATE, "&a&l史莱姆胸甲", 0, new String[] {"&7已强化", "", "&a感觉..弹弹的.."}, new String[] {"DURABILITY-4", "PROTECTION_ENVIRONMENTAL-2"});
 	public static ItemStack SLIME_LEGGINGS_STEEL = new CustomItem(Material.IRON_LEGGINGS, "&a&l史莱姆护腿", 0, new String[] {"&7已强化", "", "&a感觉..弹弹的..", "", "&9+ 速度"}, new String[] {"DURABILITY-4", "PROTECTION_ENVIRONMENTAL-2"});
 	public static ItemStack SLIME_BOOTS_STEEL = new CustomItem(Material.IRON_BOOTS, "&a&l史莱姆靴子", 0, new String[] {"&7已强化", "", "&a感觉..弹弹的..", "", "&9+ 跳跃", "&9- 掉落伤害"}, new String[] {"DURABILITY-4", "PROTECTION_ENVIRONMENTAL-2"});
-	public static ItemStack BOOTS_OF_THE_STOMPER = new CustomArmor(new CustomItem(Material.LEATHER_BOOTS, "&b震地靴", 0, new String[] {"", "&9你所受到的掉落伤害", "&9会同时给予你附近的怪物/玩家", "", "&9- 掉落伤害"}), Color.AQUA);
 	public static ItemStack HEAVY_METAL_HELMET = new CustomItem(Material.IRON_HELMET, "&c重型头盔", 0, new String[] {"", "&9+ 力量", "&9- 速度"}, new String[] {"DURABILITY-10", "PROTECTION_ENVIRONMENTAL-10"});
 	public static ItemStack HEAVY_METAL_CHESTPLATE = new CustomItem(Material.IRON_CHESTPLATE, "&c重型胸甲", 0, new String[] {"", "&9+ 力量", "&9- 速度"}, new String[] {"DURABILITY-10", "PROTECTION_ENVIRONMENTAL-10"});
 	public static ItemStack HEAVY_METAL_LEGGINGS = new CustomItem(Material.IRON_LEGGINGS, "&c重型护腿", 0, new String[] {"", "&9+ 力量", "&9- 速度"}, new String[] {"DURABILITY-10", "PROTECTION_ENVIRONMENTAL-10"});

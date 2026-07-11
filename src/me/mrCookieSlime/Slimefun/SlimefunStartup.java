@@ -180,6 +180,8 @@ public class SlimefunStartup extends JavaPlugin {
 				//NarItemSetup.setupItems();
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				getServer().getPluginManager().disablePlugin(this);
+				return;
 			}
 			MiscSetup.loadDescriptions();
 
@@ -357,9 +359,8 @@ public class SlimefunStartup extends JavaPlugin {
 
 			ticker = new TickerTask();
 
-			// Starting all ASYNC Tasks
-			getServer().getScheduler().scheduleAsyncRepeatingTask(this, new AutoSavingTask(), 1200L, config.getInt("options.auto-save-delay-in-minutes") * 60L * 20L);
-			getServer().getScheduler().scheduleAsyncRepeatingTask(this, ticker, 100L, config.getInt("URID.custom-ticker-delay"));
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new AutoSavingTask(), 1200L, config.getInt("options.auto-save-delay-in-minutes") * 60L * 20L);
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, ticker, 100L, config.getInt("URID.custom-ticker-delay"));
 			
 			getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Runnable() {
 				

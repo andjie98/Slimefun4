@@ -278,12 +278,16 @@ public class SlimefunSetup {
 								return false;
 							}
 						}
+						byte blockData = e.getItem().getData().getData();
+						if (e.getItem().getType() == Material.ANVIL) {
+							blockData = (byte) (blockData << 2);
+						}
 						
 						SlimefunItem sfItem = SlimefunItem.getByItem(e.getItem());
 						if (sfItem != null) {
 							if (!SlimefunItem.blockhandler.containsKey(sfItem.getName())) {
 								block.setType(e.getItem().getType());
-								block.setData(e.getItem().getData().getData());
+								block.setData(blockData);
 								BlockStorage.store(block, sfItem.getName());
 								block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, e.getItem().getType());
 								if (d.getInventory().containsAtLeast(e.getItem(), 2)) d.getInventory().removeItem(new CustomItem(e.getItem(), 1));
@@ -299,7 +303,7 @@ public class SlimefunSetup {
 						}
 						else {
 							block.setType(e.getItem().getType());
-							block.setData(e.getItem().getData().getData());
+							block.setData(blockData);
 							block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, e.getItem().getType());
 							if (d.getInventory().containsAtLeast(e.getItem(), 2)) d.getInventory().removeItem(new CustomItem(e.getItem(), 1));
 							else {
@@ -387,11 +391,6 @@ public class SlimefunSetup {
 				return true;
 			}
 		});
-
-		// ── 9. 地震鞋 (BOOTS_OF_THE_STOMPER) ──
-		new SlimefunItem(Categories.ARMOR, SlimefunItems.BOOTS_OF_THE_STOMPER, "BOOTS_OF_THE_STOMPER", RecipeType.ENHANCED_CRAFTING_TABLE,
-		new ItemStack[] {new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.SLIME_BALL), new ItemStack(Material.LEATHER_BOOTS), new ItemStack(Material.SLIME_BALL), null, new ItemStack(Material.PISTON_BASE), null})
-		.register(false);
 
 	}
 

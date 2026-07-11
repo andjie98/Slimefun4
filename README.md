@@ -4,7 +4,7 @@
 
 ## 精简原则
 
-- **只保留 11 个核心物品/机器**，移除其余数百个物品
+- **只保留 10 个核心物品/机器**，移除其余数百个物品
 - **禁用研究系统** — 所有物品无需解锁即可使用
 - **禁用扩展插件** — 不加载 EmeraldEnchants、ExoticGarden 等附加组件
 - **保留核心框架** — BlockStorage、指南书、配方系统等基础设施完整保留
@@ -23,7 +23,6 @@
 | 7 | 方块放置器 | 基础机器 | 发射器自动放置方块 |
 | 8 | 全息显示器 | 科技工具 | 显示悬浮全息文字 |
 | 9 | 电梯板 | GPS科技 | 同一X/Z坐标上下楼层传送 |
-| 10 | 重踏靴 | 护甲 | 从高处坠落时踩碎脚下方块，保护玩家不受摔落伤害 |
 
 ## 合成配方
 
@@ -141,7 +140,7 @@ mvn package -DskipTests
 
 | 文件 | 修改内容 |
 |------|----------|
-| `SlimefunSetup.java` | **大幅精简**：从原版 100+ 物品注册精简到仅 11 个核心物品，移除 Grind Stone、Armor Forge、Ore Crusher、Compressor、Jetpacks、Solar Helmet、MultiTool、Talisman、Soulbound 等所有非核心物品及其配方、交互逻辑和事件处理 |
+| `SlimefunSetup.java` | **大幅精简**：从原版 100+ 物品注册精简到仅 10 个核心物品，移除 Grind Stone、Armor Forge、Ore Crusher、Compressor、Jetpacks、Solar Helmet、MultiTool、Talisman、Soulbound 等所有非核心物品及其配方、交互逻辑和事件处理 |
 | `config.yml` | **新增** `enable-researching: false` — 默认禁用研究系统，所有物品无需解锁即可直接使用 |
 
 ### 移除的主要物品分类

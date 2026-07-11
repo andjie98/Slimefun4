@@ -42,7 +42,11 @@ public class BlockListener implements Listener {
 				event.setCancelled(true);
 				FallingBlock fb = (FallingBlock) event.getEntity();
 				if (fb.getDropItem()) {
-					fb.getWorld().dropItemNaturally(fb.getLocation(), new ItemStack(fb.getMaterial(), 1, fb.getBlockData()));
+					short durability = fb.getBlockData();
+					if (fb.getMaterial() == Material.ANVIL) {
+						durability = (short) (durability >> 2);
+					}
+					fb.getWorld().dropItemNaturally(fb.getLocation(), new ItemStack(fb.getMaterial(), 1, durability));
 				}
 			}
 		}
@@ -55,7 +59,7 @@ public class BlockListener implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-			else if(b.getRelative(e.getDirection()) == null && BlockStorage.hasBlockInfo(b.getRelative(e.getDirection()))) {
+			else if (BlockStorage.hasBlockInfo(b.getRelative(e.getDirection()))) {
 				e.setCancelled(true);
 				return;
 			}
@@ -70,7 +74,7 @@ public class BlockListener implements Listener {
 					e.setCancelled(true);
 					return;
 				}
-				else if(b.getRelative(e.getDirection()) == null && BlockStorage.hasBlockInfo(b.getRelative(e.getDirection()))) {
+				else if (BlockStorage.hasBlockInfo(b.getRelative(e.getDirection()))) {
 					e.setCancelled(true);
 					return;
 				}
