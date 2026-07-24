@@ -4,7 +4,7 @@
 
 ## 精简原则
 
-- **只保留 10 个核心物品/机器**，移除其余数百个物品
+- **只保留 11 个核心物品/机器**，移除其余数百个物品
 - **禁用研究系统** — 所有物品无需解锁即可使用
 - **禁用扩展插件** — 不加载 EmeraldEnchants、ExoticGarden 等附加组件
 - **保留核心框架** — BlockStorage、指南书、配方系统等基础设施完整保留
@@ -23,6 +23,7 @@
 | 7 | 方块放置器 | 基础机器 | 发射器自动放置方块 |
 | 8 | 全息显示器 | 科技工具 | 显示悬浮全息文字 |
 | 9 | 电梯板 | GPS科技 | 同一X/Z坐标上下楼层传送 |
+| 10 | 猎手护身符 | 护身符 | 放在背包中，击杀怪物时有20%几率使掉落物翻倍 |
 
 ## 合成配方
 
@@ -104,6 +105,13 @@
 铁锭    铁锭        铁锭
 ```
 
+**猎手护身符**
+```
+骨头      线        骨头
+腐肉      绿宝石    腐肉
+蜘蛛眼    烈焰粉    蜘蛛眼
+```
+
 ## 编译构建
 
 ```bash
@@ -140,7 +148,7 @@ mvn package -DskipTests
 
 | 文件 | 修改内容 |
 |------|----------|
-| `SlimefunSetup.java` | **大幅精简**：从原版 100+ 物品注册精简到仅 10 个核心物品，移除 Grind Stone、Armor Forge、Ore Crusher、Compressor、Jetpacks、Solar Helmet、MultiTool、Talisman、Soulbound 等所有非核心物品及其配方、交互逻辑和事件处理 |
+| `SlimefunSetup.java` | **大幅精简**：从原版 100+ 物品注册精简到仅 11 个核心物品，移除 Grind Stone、Armor Forge、Ore Crusher、Compressor、Jetpacks、Solar Helmet、MultiTool、绝大部分 Talisman、Soulbound 等非核心物品及其配方、交互逻辑和事件处理 |
 | `config.yml` | **新增** `enable-researching: false` — 默认禁用研究系统，所有物品无需解锁即可直接使用 |
 
 ### 移除的主要物品分类
@@ -155,7 +163,7 @@ mvn package -DskipTests
 | 机器人 | Programmable Android (农夫/矿工/渔夫/伐木工/战斗等所有类型) |
 | 食物/杂项 | Fortune Cookie, Beef Jerky, Auto-Brewer, Juice 系列, Cooler |
 | 电力/能源 | Solar Generator, Electric Furnace, Electric Press, Electric Ore Grinder 等所有电力网络 |
-| 护身符 | 所有 Talisman (角斗士/法师/旅行者/矿工/巫师/猎人/骑士等) |
+| 护身符 | 除猎手护身符外的 Talisman（铁砧/法师/旅行者/矿工/巫师/骑士等） |
 
 ### 保留的核心框架
 

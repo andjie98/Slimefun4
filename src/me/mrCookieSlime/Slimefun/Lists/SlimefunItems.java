@@ -338,7 +338,7 @@ public class SlimefunItems {
 	public static ItemStack TALISMAN = new CustomItem(Material.EMERALD, "&6普通的护身符", 0);
 	public static ItemStack TALISMAN_ANVIL = new CustomItem(Material.EMERALD, "&a铁砧护身符", 0, new String[] {"", "&r铁匠打造的护身符", "&r1能保护工具不会损毁, 但生效之后", "&r护身符会被消耗", "", "&4&l警告:", "&4这个护身符对于", "&4强大的工具无效", "&4因为他们过于复杂了"});
 	public static ItemStack TALISMAN_MINER = new CustomItem(Material.EMERALD, "&a矿工护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你将有几率获得", "&r20%额外的", "&r你所挖取到的矿物"});
-	public static ItemStack TALISMAN_HUNTER = new CustomItem(Material.EMERALD, "&a猎手护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你将有几率获得", "&r20%额外的", "&r你所杀死怪物的掉落物"});
+	public static ItemStack TALISMAN_HUNTER = new CustomItem(Material.EMERALD, "&a猎手护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你击杀怪物将有20%几率", "&r使怪物掉落物翻倍"});
 	public static ItemStack TALISMAN_LAVA = new CustomItem(Material.EMERALD, "&a岩浆行走者护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你将获得抗火能力", "&r当你落入岩浆时", "&r你会立即获得抗火效果", "&r但护身符会被立即消耗"});
 	public static ItemStack TALISMAN_WATER = new CustomItem(Material.EMERALD, "&a潜水护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你将有几率获得", "&r在水下呼吸的能力", "&r当你在水中即将溺水时", "&r你会获得水下呼吸", "&r但护身符会被消耗"});
 	public static ItemStack TALISMAN_ANGEL = new CustomItem(Material.EMERALD, "&a天使护身符", 0, new String[] {"", "&r当你背包中拥有这个护身符时", "&r你将有几率获得", "&r75%几率保护你", "&r免受掉落伤害"});

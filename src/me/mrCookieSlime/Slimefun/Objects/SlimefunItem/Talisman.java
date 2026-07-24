@@ -76,6 +76,8 @@ public class Talisman extends SlimefunItem {
 					else if (e instanceof PlayerEvent) p = ((PlayerEvent) e).getPlayer();
 					else if (e instanceof EntityEvent) p = (Player) ((EntityEvent) e).getEntity();
 					else if (e instanceof EnchantItemEvent) p = ((EnchantItemEvent) e).getEnchanter();
+
+					if (p == null) return false;
 					
 					boolean pass = true;
 					
@@ -137,8 +139,10 @@ public class Talisman extends SlimefunItem {
 	
 	@Override
 	public void create() {
-		EnderTalisman talisman = new EnderTalisman(this);
-		talisman.register(true);
+		if (SlimefunItem.getByID("MAGIC_WORKBENCH") != null && SlimefunItem.getByID("ENDER_LUMP_3") != null) {
+			EnderTalisman talisman = new EnderTalisman(this);
+			talisman.register(true);
+		}
 	}
 	
 	@Override

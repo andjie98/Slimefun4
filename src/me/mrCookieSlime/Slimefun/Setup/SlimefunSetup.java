@@ -34,6 +34,7 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.EnhancedFurnace;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunBackpack;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunMachine;
+import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.Talisman;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.UnregisterReason;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.handlers.AutonomousMachineHandler;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.handlers.ItemInteractionHandler;
@@ -222,7 +223,14 @@ public class SlimefunSetup {
 		new ItemStack[] {null, new ItemStack(Material.DIAMOND), null, new ItemStack(Material.GHAST_TEAR), new ItemStack(Material.DIAMOND), new ItemStack(Material.GHAST_TEAR), null, new ItemStack(Material.BLAZE_ROD), null}, new String[] {"chance.PLAYER", "chance.SKELETON", "chance.WITHER_SKELETON", "chance.ZOMBIE", "chance.CREEPER"}, new Integer[] {70, 40, 25, 40, 40})
 		.register(false);
 
-		// ── 3. 风杖 (STAFF_ELEMENTAL_WIND) ──
+		// ── 4. 猎手护身符 (HUNTER_TALISMAN) ──
+		Talisman hunterTalisman = new Talisman(SlimefunItems.TALISMAN_HUNTER, "HUNTER_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.BONE), new ItemStack(Material.STRING), new ItemStack(Material.BONE), new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.EMERALD), new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.SPIDER_EYE), new ItemStack(Material.BLAZE_POWDER), new ItemStack(Material.SPIDER_EYE)},
+		false, false, "hunter", 20);
+		hunterTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		hunterTalisman.register(false);
+
+		// ── 5. 风杖 (STAFF_ELEMENTAL_WIND) ──
 		new SlimefunItem(Categories.MAGIC, SlimefunItems.STAFF_WIND, "STAFF_ELEMENTAL_WIND", RecipeType.ENHANCED_CRAFTING_TABLE,
 		new ItemStack[] {null, new ItemStack(Material.GHAST_TEAR), null, new ItemStack(Material.FEATHER), new ItemStack(Material.STICK), new ItemStack(Material.FEATHER), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.STICK), new ItemStack(Material.ENDER_PEARL)})
 		.register(false, new ItemInteractionHandler() {
