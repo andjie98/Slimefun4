@@ -139,7 +139,7 @@ public class Talisman extends SlimefunItem {
 	
 	@Override
 	public void create() {
-		if (SlimefunItem.getByID("MAGIC_WORKBENCH") != null && SlimefunItem.getByID("ENDER_LUMP_3") != null) {
+		if (SlimefunItem.getByID("ENDER_LUMP_3") != null) {
 			EnderTalisman talisman = new EnderTalisman(this);
 			talisman.register(true);
 		}

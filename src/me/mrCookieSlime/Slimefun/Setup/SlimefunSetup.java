@@ -13,12 +13,15 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Dispenser;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.mrCookieSlime.CSCoreLibPlugin.CSCoreLib;
@@ -223,12 +226,120 @@ public class SlimefunSetup {
 		new ItemStack[] {null, new ItemStack(Material.DIAMOND), null, new ItemStack(Material.GHAST_TEAR), new ItemStack(Material.DIAMOND), new ItemStack(Material.GHAST_TEAR), null, new ItemStack(Material.BLAZE_ROD), null}, new String[] {"chance.PLAYER", "chance.SKELETON", "chance.WITHER_SKELETON", "chance.ZOMBIE", "chance.CREEPER"}, new Integer[] {70, 40, 25, 40, 40})
 		.register(false);
 
+		// ── 3a. 末影结晶 I/II/III (ENDER_LUMP_1/2/3) — 末影护身符的合成材料 ──
+		new SlimefunItem(Categories.LUMPS_AND_MAGIC, SlimefunItems.ENDER_LUMP_1, "ENDER_LUMP_1", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {null, null, null, null, new ItemStack(Material.EYE_OF_ENDER), null, null, null, null}, new CustomItem(SlimefunItems.ENDER_LUMP_1, 2))
+		.register(false);
+
+		new SlimefunItem(Categories.LUMPS_AND_MAGIC, SlimefunItems.ENDER_LUMP_2, "ENDER_LUMP_2", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {SlimefunItems.ENDER_LUMP_1, SlimefunItems.ENDER_LUMP_1, null, SlimefunItems.ENDER_LUMP_1, SlimefunItems.ENDER_LUMP_1, null, null, null, null})
+		.register(false);
+
+		new SlimefunItem(Categories.LUMPS_AND_MAGIC, SlimefunItems.ENDER_LUMP_3, "ENDER_LUMP_3", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {SlimefunItems.ENDER_LUMP_2, SlimefunItems.ENDER_LUMP_2, null, SlimefunItems.ENDER_LUMP_2, SlimefunItems.ENDER_LUMP_2, null, null, null, null})
+		.register(false);
+
+		// ── 3b. 普通护身符 (COMMON_TALISMAN) — 各护身符的合成基底 ──
+		new SlimefunItem(Categories.LUMPS_AND_MAGIC, SlimefunItems.TALISMAN, "COMMON_TALISMAN", RecipeType.ENHANCED_CRAFTING_TABLE,
+		new ItemStack[] {null, new ItemStack(Material.GOLD_INGOT), null, new ItemStack(Material.GOLD_INGOT), new ItemStack(Material.EMERALD), new ItemStack(Material.GOLD_INGOT), null, new ItemStack(Material.GOLD_INGOT), null})
+		.register(false);
+
 		// ── 4. 猎手护身符 (HUNTER_TALISMAN) ──
 		Talisman hunterTalisman = new Talisman(SlimefunItems.TALISMAN_HUNTER, "HUNTER_TALISMAN",
 		new ItemStack[] {new ItemStack(Material.BONE), new ItemStack(Material.STRING), new ItemStack(Material.BONE), new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.EMERALD), new ItemStack(Material.ROTTEN_FLESH), new ItemStack(Material.SPIDER_EYE), new ItemStack(Material.BLAZE_POWDER), new ItemStack(Material.SPIDER_EYE)},
 		false, false, "hunter", 20);
 		hunterTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
 		hunterTalisman.register(false);
+
+		// ── 4a. 铁砧护身符 (ANVIL_TALISMAN) ──
+		Talisman anvilTalisman = new Talisman(SlimefunItems.TALISMAN_ANVIL, "ANVIL_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), SlimefunItems.TALISMAN, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.ANVIL), new ItemStack(Material.IRON_INGOT)},
+		true, false, "anvil");
+		anvilTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		anvilTalisman.register(false);
+
+		// ── 4b. 矿工护身符 (MINER_TALISMAN) ──
+		Talisman minerTalisman = new Talisman(SlimefunItems.TALISMAN_MINER, "MINER_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.COAL), null, new ItemStack(Material.COAL), new CustomItem(Material.INK_SACK, 1, 4), SlimefunItems.TALISMAN, new ItemStack(Material.REDSTONE), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.DIAMOND), new ItemStack(Material.IRON_INGOT)},
+		false, false, "miner", 20);
+		minerTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		minerTalisman.register(false);
+
+		// ── 4c. 岩浆行走者护身符 (LAVA_TALISMAN) ──
+		Talisman lavaTalisman = new Talisman(SlimefunItems.TALISMAN_LAVA, "LAVA_TALISMAN",
+		new ItemStack[] {null, new ItemStack(Material.BLAZE_ROD), null, new ItemStack(Material.MAGMA_CREAM), SlimefunItems.TALISMAN, new ItemStack(Material.MAGMA_CREAM), null, new ItemStack(Material.LAVA_BUCKET), null},
+		true, true, "lava", new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 3600, 4));
+		lavaTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		lavaTalisman.register(false);
+
+		// ── 4d. 潜水护身符 (WATER_TALISMAN) ──
+		Talisman waterTalisman = new Talisman(SlimefunItems.TALISMAN_WATER, "WATER_TALISMAN",
+		new ItemStack[] {null, new ItemStack(Material.FISHING_ROD), null, new ItemStack(Material.WATER_BUCKET), SlimefunItems.TALISMAN, new ItemStack(Material.WATER_BUCKET), null, new ItemStack(Material.WATER_LILY), null},
+		true, true, "water", new PotionEffect(PotionEffectType.WATER_BREATHING, 3600, 4));
+		waterTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		waterTalisman.register(false);
+
+		// ── 4e. 天使护身符 (ANGEL_TALISMAN) ──
+		Talisman angelTalisman = new Talisman(SlimefunItems.TALISMAN_ANGEL, "ANGEL_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.FEATHER), null, new ItemStack(Material.FEATHER), new ItemStack(Material.FEATHER), SlimefunItems.TALISMAN, new ItemStack(Material.FEATHER), new ItemStack(Material.FEATHER), null, new ItemStack(Material.FEATHER)},
+		false, true, "angel", 75);
+		angelTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		angelTalisman.register(false);
+
+		// ── 4f. 火神护身符 (FIRE_TALISMAN) ──
+		Talisman fireTalisman = new Talisman(SlimefunItems.TALISMAN_FIRE, "FIRE_TALISMAN",
+		new ItemStack[] {null, new ItemStack(Material.MAGMA_CREAM), null, new ItemStack(Material.BLAZE_POWDER), SlimefunItems.TALISMAN, new ItemStack(Material.BLAZE_POWDER), null, new ItemStack(Material.MAGMA_CREAM), null},
+		true, true, "fire", new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 3600, 4));
+		fireTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		fireTalisman.register(false);
+
+		// ── 4g. 魔术师护身符 (MAGICIAN_TALISMAN) ──
+		Talisman magicianTalisman = new Talisman(SlimefunItems.TALISMAN_MAGICIAN, "MAGICIAN_TALISMAN",
+		new ItemStack[] {null, new ItemStack(Material.BOOK), null, new CustomItem(Material.INK_SACK, 1, 4), SlimefunItems.TALISMAN, new CustomItem(Material.INK_SACK, 1, 4), null, new ItemStack(Material.ENCHANTMENT_TABLE), null},
+		false, false, "magician", 80);
+		magicianTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		magicianTalisman.register(false);
+
+		for (Enchantment enchantment: Enchantment.values()) {
+			for (int level = 1; level <= enchantment.getMaxLevel(); level++) {
+				Slimefun.setItemVariable("MAGICIAN_TALISMAN", "allow-enchantments." + enchantment.getName() + ".level." + level, true);
+			}
+		}
+
+		// ── 4h. 旅行者护身符 (TRAVELLER_TALISMAN) ──
+		Talisman travellerTalisman = new Talisman(SlimefunItems.TALISMAN_TRAVELLER, "TRAVELLER_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.FEATHER), null, new ItemStack(Material.FEATHER), SlimefunItems.STAFF_WIND, SlimefunItems.TALISMAN_ANGEL, SlimefunItems.STAFF_WIND, new ItemStack(Material.FEATHER), null, new ItemStack(Material.FEATHER)},
+		false, false, "traveller", 60, new PotionEffect(PotionEffectType.SPEED, 3600, 2));
+		travellerTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		travellerTalisman.register(false);
+
+		// ── 4i. 战士护身符 (WARRIOR_TALISMAN) ──
+		Talisman warriorTalisman = new Talisman(SlimefunItems.TALISMAN_WARRIOR, "WARRIOR_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.IRON_BLOCK), null, new ItemStack(Material.IRON_BLOCK), new ItemStack(Material.DIAMOND_SWORD), SlimefunItems.TALISMAN, new ItemStack(Material.DIAMOND_SWORD), new ItemStack(Material.IRON_BLOCK), null, new ItemStack(Material.IRON_BLOCK)},
+		true, true, "warrior", new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 3600, 2));
+		warriorTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		warriorTalisman.register(false);
+
+		// ── 4j. 骑士护身符 (KNIGHT_TALISMAN) ──
+		Talisman knightTalisman = new Talisman(SlimefunItems.TALISMAN_KNIGHT, "KNIGHT_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.GOLD_INGOT), null, new ItemStack(Material.GOLD_INGOT), new ItemStack(Material.GOLD_INGOT), SlimefunItems.TALISMAN_WARRIOR, new ItemStack(Material.GOLD_INGOT), new ItemStack(Material.GOLD_INGOT), new ItemStack(Material.IRON_CHESTPLATE), new ItemStack(Material.GOLD_INGOT)},
+		"knight", 30, new PotionEffect(PotionEffectType.REGENERATION, 100, 3));
+		knightTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		knightTalisman.register(false);
+
+		// ── 4k. 风之护身符 (WHIRLWIND_TALISMAN) ──
+		Talisman whirlwindTalisman = new Talisman(SlimefunItems.TALISMAN_WHIRLWIND, "WHIRLWIND_TALISMAN",
+		new ItemStack[] {null, new ItemStack(Material.BOW), null, SlimefunItems.STAFF_WIND, SlimefunItems.TALISMAN_TRAVELLER, SlimefunItems.STAFF_WIND, null, new ItemStack(Material.FEATHER), null},
+		false, true, "whirlwind", 60);
+		whirlwindTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		whirlwindTalisman.register(false);
+
+		// ── 4l. 魔法师护身符 (WIZARD_TALISMAN) ──
+		Talisman wizardTalisman = new Talisman(SlimefunItems.TALISMAN_WIZARD, "WIZARD_TALISMAN",
+		new ItemStack[] {new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.BOOK), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.BOOK), SlimefunItems.TALISMAN_MAGICIAN, new ItemStack(Material.BOOK), new ItemStack(Material.ENDER_PEARL), new ItemStack(Material.BOOK), new ItemStack(Material.ENDER_PEARL)},
+		false, false, "wizard", 60);
+		wizardTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
+		wizardTalisman.register(false);
 
 		// ── 5. 风杖 (STAFF_ELEMENTAL_WIND) ──
 		new SlimefunItem(Categories.MAGIC, SlimefunItems.STAFF_WIND, "STAFF_ELEMENTAL_WIND", RecipeType.ENHANCED_CRAFTING_TABLE,
