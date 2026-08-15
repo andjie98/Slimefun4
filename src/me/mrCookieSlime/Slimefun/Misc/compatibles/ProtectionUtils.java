@@ -31,7 +31,7 @@ public class ProtectionUtils {
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(b.getLocation());
             if (res != null) {
                 if (!p.hasPermission("residence.bypass.use")) {
-                    if ((!res.getPermissions().playerHas(p.getName(), p.getWorld().getName(), "sf-machines", true) && !res.getPermissions().has("sf-machines", true))) {
+                    if ((!res.getPermissions().playerHas(p.getName(), "sf-machines", true) && !res.getPermissions().has("sf-machines", true))) {
                         p.sendMessage("§8[§b粘液科技§8] §c你需要这个领地的§esf-machines§c标识§8(flag)§c才能这么做");
                         return false;
                     }
@@ -68,7 +68,7 @@ public class ProtectionUtils {
             ClaimedResidence res = Residence.getInstance().getResidenceManager().getByLoc(block.getLocation());
             if (res != null) {
                 if (!player.hasPermission("residence.bypass.use")) {
-                    if ((!res.getPermissions().playerHas(player.getName(), player.getWorld().getName(), "destroy", true))) {
+                    if ((!res.getPermissions().playerHas(player.getName(), "destroy", true))) {
                         if (notify) {
                             player.sendMessage("§8[§b粘液科技§8] §c你不可以在这里建造或破坏");
                         }

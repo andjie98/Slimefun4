@@ -103,7 +103,7 @@
             <groupId>com.bekvon.bukkit.residence</groupId>
             <artifactId>Residence</artifactId>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Residence.jar</systemPath>
+            <systemPath>${project.basedir}/lib/[领地]Residence5.1.6.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.plotsquared</groupId>
@@ -153,7 +153,7 @@
             <dependency>
                 <groupId>com.bekvon.bukkit.residence</groupId>
                 <artifactId>Residence</artifactId>
-                <version>4.8.0.2</version>
+                <version>5.1.6.2</version>
             </dependency>
     		<dependency>
     			<groupId>com.plotsquared</groupId>
