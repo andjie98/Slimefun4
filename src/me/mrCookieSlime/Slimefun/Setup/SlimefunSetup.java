@@ -260,7 +260,7 @@ public class SlimefunSetup {
 
 		// ── 4b. 矿工护身符 (MINER_TALISMAN) ──
 		Talisman minerTalisman = new Talisman(SlimefunItems.TALISMAN_MINER, "MINER_TALISMAN",
-		new ItemStack[] {new ItemStack(Material.COAL), null, new ItemStack(Material.COAL), new CustomItem(Material.INK_SACK, 1, 4), SlimefunItems.TALISMAN, new ItemStack(Material.REDSTONE), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.DIAMOND), new ItemStack(Material.IRON_INGOT)},
+		new ItemStack[] {new ItemStack(Material.COAL), null, new ItemStack(Material.COAL), new ItemStack(Material.INK_SACK, 1, (short) 4), SlimefunItems.TALISMAN, new ItemStack(Material.REDSTONE), new ItemStack(Material.IRON_INGOT), new ItemStack(Material.DIAMOND), new ItemStack(Material.IRON_INGOT)},
 		false, false, "miner", 20);
 		minerTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
 		minerTalisman.register(false);
@@ -295,7 +295,7 @@ public class SlimefunSetup {
 
 		// ── 4g. 魔术师护身符 (MAGICIAN_TALISMAN) ──
 		Talisman magicianTalisman = new Talisman(SlimefunItems.TALISMAN_MAGICIAN, "MAGICIAN_TALISMAN",
-		new ItemStack[] {null, new ItemStack(Material.BOOK), null, new CustomItem(Material.INK_SACK, 1, 4), SlimefunItems.TALISMAN, new CustomItem(Material.INK_SACK, 1, 4), null, new ItemStack(Material.ENCHANTMENT_TABLE), null},
+		new ItemStack[] {null, new ItemStack(Material.BOOK), null, new ItemStack(Material.INK_SACK, 1, (short) 4), SlimefunItems.TALISMAN, new ItemStack(Material.INK_SACK, 1, (short) 4), null, new ItemStack(Material.ENCHANTMENT_TABLE), null},
 		false, false, "magician", 80);
 		magicianTalisman.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE);
 		magicianTalisman.register(false);
