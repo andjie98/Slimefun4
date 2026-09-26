@@ -32,7 +32,12 @@ public class MiscSetup {
 	public static List<PostSlimefunLoadingHandler> post_handlers = new ArrayList<PostSlimefunLoadingHandler>();
 	
 	public static void setupMisc() {
-		if (SlimefunItem.getByID("COMMON_TALISMAN") != null && (Boolean) Slimefun.getItemValue("COMMON_TALISMAN", "recipe-requires-nether-stars")) {
+		// 注意：recipe-requires-nether-stars 在精简分支里没有任何地方注册过，
+		// Slimefun.getItemValue(...) 因此返回 null，直接强转 Boolean 会在拆箱时抛 NPE，
+		// 进而让 Slimefun 在 onEnable 阶段整个启用失败（附属插件也会跟着加载不了）。
+		// 用 Boolean.TRUE.equals(...) 既容忍 null，也保留"该项显式为 true 时替换配方"的原意。
+		if (SlimefunItem.getByID("COMMON_TALISMAN") != null
+				&& Boolean.TRUE.equals(Slimefun.getItemValue("COMMON_TALISMAN", "recipe-requires-nether-stars"))) {
 			SlimefunItem.getByID("COMMON_TALISMAN").setRecipe(new ItemStack[] {SlimefunItems.MAGIC_LUMP_2, SlimefunItems.GOLD_8K, SlimefunItems.MAGIC_LUMP_2, null, new ItemStack(Material.NETHER_STAR), null, SlimefunItems.MAGIC_LUMP_2, SlimefunItems.GOLD_8K, SlimefunItems.MAGIC_LUMP_2});
 		}
 		SlimefunItem.setRadioactive(SlimefunItems.URANIUM);
