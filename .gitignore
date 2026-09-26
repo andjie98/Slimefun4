@@ -29,3 +29,8 @@ startup.log
 .qwen/skills/slimefun4-register-existing-item/SKILL.md
 .reasonix/desktop-topic-title-sources.json
 .reasonix/desktop-topic-titles.json
+
+# 第三方插件 jar（编译期依赖，不要入库）
+# Residence 是付费插件，禁止公开。
+# 方括号要用反斜杠转义，否则会被当成字符集。
+lib/\[领地\]Residence5.1.6.2.jar
