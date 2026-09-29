@@ -1,8 +1,10 @@
 package me.mrCookieSlime.Slimefun.Setup;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -99,9 +101,18 @@ public class SlimefunSetup {
 								if (craft) {
 									final ItemStack adding = RecipeType.getRecipeOutputList(machine, inputs.get(i)).clone();
 									if (Slimefun.hasUnlocked(p, adding, true)) {
+										List<Integer> bucketSlots = new ArrayList<Integer>();
 										Inventory inv2 = Bukkit.createInventory(null, 9, "test");
 										for (int j = 0; j < inv.getContents().length; j++) {
-											inv2.setItem(j, inv.getContents()[j] != null ? (inv.getContents()[j].getAmount() > 1 ? new CustomItem(inv.getContents()[j], inv.getContents()[j].getAmount() - 1): null): null);
+											ItemStack ingredient = inv.getContents()[j];
+											if (ingredient != null && ingredient.getType() != Material.AIR) {
+												// 桶类材料只消耗 1 个并返还 1 个空桶，预测状态必须与真实消耗逻辑一致，否则可能误判“放得下”
+												if (ingredient.getType().toString().endsWith("_BUCKET")) {
+													bucketSlots.add(j);
+													inv2.setItem(j, ingredient.getAmount() > 1 ? new CustomItem(ingredient, ingredient.getAmount() - 1): new ItemStack(Material.BUCKET));
+												}
+												else if (ingredient.getAmount() > 1) inv2.setItem(j, new CustomItem(ingredient, ingredient.getAmount() - 1));
+											}
 										}
 										if (InvUtils.fits(inv2, adding)) {
 											SlimefunItem sfItem = SlimefunItem.getByItem(adding);
@@ -162,17 +173,33 @@ public class SlimefunSetup {
 											
 
 											for (int j = 0; j < 9; j++) {
-												if (inv.getContents()[j] != null) {
-													if (inv.getContents()[j].getType() != Material.AIR) {
-														if (inv.getContents()[j].getType().toString().endsWith("_BUCKET")) inv.setItem(j, new ItemStack(Material.BUCKET));
-														else if (inv.getContents()[j].getAmount() > 1) inv.setItem(j, new CustomItem(inv.getContents()[j], inv.getContents()[j].getAmount() - 1));
+												ItemStack ingredient = inv.getContents()[j];
+												if (ingredient != null && ingredient.getType() != Material.AIR) {
+													if (ingredient.getType().toString().endsWith("_BUCKET")) {
+														// 桶类材料只消耗 1 个，并返还 1 个空桶（原本会把整组直接覆盖成 1 个空桶，导致整组丢失）
+														bucketSlots.add(j);
+														if (ingredient.getAmount() > 1) inv.setItem(j, new CustomItem(ingredient, ingredient.getAmount() - 1));
 														else inv.setItem(j, null);
 													}
+													else if (ingredient.getAmount() > 1) inv.setItem(j, new CustomItem(ingredient, ingredient.getAmount() - 1));
+													else inv.setItem(j, null);
 												}
 											}
 											p.getWorld().playSound(b.getLocation(), Sound.BLOCK_WOOD_BUTTON_CLICK_ON, 1, 1);
 											
-											inv.addItem(adding);
+											// addItem 会返回放不下的部分；此前直接忽略返回值，合成台塞满时产物就会凭空消失。这里把放不下的部分兜底还给玩家
+											List<ItemStack> leftovers = new ArrayList<ItemStack>();
+											leftovers.addAll(inv.addItem(adding).values());
+											// 空桶在产物之后返还：槽内已有空桶会自动堆叠，否则占用刚空出来的槽位
+											for (int slot: bucketSlots) {
+												leftovers.addAll(inv.addItem(new ItemStack(Material.BUCKET)).values());
+											}
+											if (!leftovers.isEmpty()) {
+												Map<Integer, ItemStack> ungiven = p.getInventory().addItem(leftovers.toArray(new ItemStack[0]));
+												for (ItemStack item: ungiven.values()) {
+													p.getWorld().dropItemNaturally(p.getLocation(), item);
+												}
+											}
 										}
 										else Messages.local.sendTranslation(p, "machines.full-inventory", true);
 									}
