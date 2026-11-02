@@ -87,11 +87,20 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/ExoticGarden v1.2.0.jar</systemPath>
         </dependency>
+        <!--
+            Residence 没有公开 Maven 仓库，只能用 lib/ 里的本地 jar 编译。
+            这里刻意用已入库的 4.8.0.2 而不是付费的 5.1.6.2：
+            源码只用到 Residence.getInstance() / getResidenceManager().getByLoc(Location) /
+            ResidencePermissions.has(String,boolean) / playerHas(String,String,boolean) /
+            FlagPermissions.addFlag(String)，这些签名在 4.8.0.2 与 5.1.6.2 上完全一致，
+            编译出来的字节码在两个版本运行时都能直接解析，因此编译期选哪个 jar 不影响运行期。
+            5.1.6.2 的 jar 未入库（付费插件），CI 上不存在，不要把路径改回去。
+        -->
         <dependency>
             <groupId>com.bekvon.bukkit.residence</groupId>
             <artifactId>Residence</artifactId>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/[领地]Residence5.1.6.2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/Residence.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.plotsquared</groupId>
@@ -141,7 +150,7 @@
             <dependency>
                 <groupId>com.bekvon.bukkit.residence</groupId>
                 <artifactId>Residence</artifactId>
-                <version>5.1.6.2</version>
+                <version>4.8.0.2</version>
             </dependency>
     		<dependency>
     			<groupId>com.plotsquared</groupId>
