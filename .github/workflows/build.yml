@@ -1,0 +1,75 @@
+name: Build
+
+# 目标平台：Paper/Spigot 1.12.2，Java 8 字节码（major 52），JDK 11 编译。
+# 与 master 上的 Gradle 工作流无关：slim-version 是 Maven 项目，布局沿用上游 4.1.x。
+
+on:
+  push:
+    branches: [ slim-version, master ]
+  pull_request:
+    branches: [ slim-version, master ]
+  workflow_dispatch:
+
+env:
+  TZ: 'Asia/Shanghai'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - name: Show toolchain versions
+        run: |
+          java -version
+          mvn -version
+
+      - name: Build
+        run: mvn -B clean package -DskipTests
+
+      - name: Verify bytecode is Java 8 (major 52)
+        run: |
+          python3 - <<'PY'
+          import glob, struct, sys, zipfile
+
+          jars = glob.glob("target/*.jar")
+          if len(jars) != 1:
+              sys.exit("expected exactly one jar in target/, got: %s" % jars)
+
+          jar = jars[0]
+          bad = []
+          total = 0
+          with zipfile.ZipFile(jar) as zf:
+              for name in zf.namelist():
+                  if not name.endswith(".class"):
+                      continue
+                  total += 1
+                  data = zf.read(name)[:8]
+                  major = struct.unpack(">H", data[6:8])[0]
+                  if major != 52:
+                      bad.append((name, major))
+
+          print("jar: %s" % jar)
+          print("classes checked: %d" % total)
+          if bad:
+              for name, major in bad[:20]:
+                  print("  %s -> major %d" % (name, major))
+              sys.exit("found %d class(es) not compiled for Java 8" % len(bad))
+          print("all classes are major 52")
+          PY
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Slimefun-slim-build
+          path: target/*.jar
+          if-no-files-found: error
