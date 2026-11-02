@@ -5,8 +5,10 @@
     <artifactId>Slimefun</artifactId>
     <version>4.1.15</version>
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- 用 release 而不是 source/target：javac 的 release 参数会同时用 JDK 8 的 API 签名做校验，
+             误用 Java 9+ API（如 List.of）会直接编译失败；source/target 1.8 只改字节码版本，拦不住。
+             CI 用 JDK 11 编译，本机 JDK 25 同样支持 release 8。 -->
+        <maven.compiler.release>8</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <repositories>
@@ -42,6 +44,16 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>8</release>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <dependencies>
         <dependency>
