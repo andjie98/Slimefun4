@@ -28,6 +28,30 @@ jobs:
           java-version: '11'
           cache: maven
 
+      - name: Check lib/ prerequisite jars
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+
+          pom = open("pom.xml", encoding="utf-8").read()
+          paths = re.findall(r"<systemPath>\$\{project\.basedir\}/([^<]+)</systemPath>", pom)
+
+          print("system-scope dependencies: %d" % len(paths))
+          missing = []
+          for p in paths:
+              exists = os.path.isfile(p)
+              print("  %-45s %s" % (p, "ok" if exists else "MISSING"))
+              if not exists:
+                  missing.append(p)
+
+          if missing:
+              for p in missing:
+                  print("::error file=pom.xml::缺少编译期依赖 %s（该 jar 未纳入版本库，通常是付费插件）" % p)
+              sys.exit("missing %d prerequisite jar(s); CI 无法复现构建" % len(missing))
+
+          print("all prerequisite jars present")
+          PY
+
       - name: Show toolchain versions
         run: |
           java -version
